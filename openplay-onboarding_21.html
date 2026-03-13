@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenPlay — Client Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#2152E8;
+  --surface:#1A44D4;
+  --surface2:#1538C0;
+  --border:rgba(255,255,255,0.14);
+  --border-active:rgba(255,255,255,0.32);
+  --text:#FFFFFF;
+  --text-2:rgba(255,255,255,0.75);
+  --text-3:rgba(255,255,255,0.42);
+  --input-bg:rgba(255,255,255,0.08);
+  --accent:#FFFFFF;
+  --accent-2:#E8EEFF;
+  --accent-dark:#0D1E8A;
+  --accent-bg:rgba(255,255,255,0.12);
+  --accent-glow:rgba(255,255,255,0.15);
+  --green:#34D399;
+  --green-bg:rgba(52,211,153,0.12);
+  --amber:#FCD34D;
+  --red:#FCA5A5;
+  --locked:#1A44D4;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5;overflow-x:hidden}
+
+.app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+
+.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:28px 20px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;gap:0}
+
+.logo{display:flex;flex-direction:column;gap:0;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.logo-wordmark{display:flex;align-items:center;gap:8px;line-height:1}
+.logo-icon{width:28px;height:28px;flex-shrink:0}
+.logo-word-open{font-size:20px;font-weight:800;letter-spacing:-0.03em;color:var(--text)}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.45);font-weight:500;margin-top:4px;letter-spacing:0.06em;text-transform:uppercase;padding-left:36px}
+
+.mode-toggle{display:flex;gap:4px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:8px;padding:3px;margin-bottom:24px}
+.mode-btn{flex:1;padding:6px 10px;border-radius:6px;border:none;background:transparent;color:rgba(255,255,255,0.45);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.15s}
+.mode-btn.active{background:rgba(255,255,255,0.18);color:var(--text)}
+.mode-btn.demo-active{background:rgba(252,211,77,0.25);color:var(--amber)}
+
+#save-toast.show{opacity:1!important;transform:translateY(0)!important}
+
+.demo-banner{background:rgba(252,211,77,0.12);border:1px solid rgba(252,211,77,0.3);border-radius:10px;padding:10px 14px;margin-bottom:24px;font-size:12px;color:var(--amber);font-weight:600;display:flex;align-items:center;gap:8px}
+.demo-banner strong{font-weight:800}
+
+.nav-section{display:flex;flex-direction:column;gap:2px;flex:1}
+
+.nav-progress{margin-bottom:16px}
+.nav-progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.nav-progress-label{font-size:11px;font-weight:700;color:var(--text-2)}
+.nav-progress-frac{font-size:11px;font-weight:700;color:var(--text)}
+.nav-progress-track{height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden}
+.nav-progress-fill{height:100%;background:#FFFFFF;border-radius:2px;transition:width 0.5s cubic-bezier(0.34,1.56,0.64,1)}
+
+.nav-item{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:9px;cursor:pointer;transition:background 0.15s;border:1px solid transparent;position:relative}
+.nav-item.locked{cursor:not-allowed}
+.nav-item.active{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2)}
+.nav-item.unlocked:not(.active):hover{background:rgba(255,255,255,0.06)}
+
+.nav-circle{width:22px;height:22px;border-radius:50%;border:2px solid;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;transition:all 0.2s}
+.nav-item.locked .nav-circle{border-color:rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.3)}
+.nav-item.active .nav-circle{border-color:#fff;background:#fff;color:var(--bg)}
+.nav-item.complete .nav-circle{border-color:#fff;background:#fff;color:var(--bg)}
+.nav-item.unlocked:not(.active):not(.complete) .nav-circle{border-color:rgba(255,255,255,0.4);background:transparent;color:rgba(255,255,255,0.4)}
+
+.nav-body{flex:1;min-width:0}
+.nav-name{font-size:13px;font-weight:600;line-height:1.2;transition:color 0.15s}
+.nav-item.locked .nav-name{color:rgba(255,255,255,0.35)}
+.nav-item.active .nav-name{color:var(--text)}
+.nav-item.complete .nav-name{color:var(--text-2)}
+.nav-item.unlocked:not(.active):not(.complete) .nav-name{color:var(--text-2)}
+
+.nav-teaser{font-size:11px;color:rgba(255,255,255,0.38);margin-top:2px;line-height:1.4}
+.nav-item.active .nav-teaser{color:rgba(255,255,255,0.5)}
+.nav-item.complete .nav-teaser{color:rgba(255,255,255,0.38)}
+
+.nav-item.next-up .nav-circle{border-color:rgba(255,255,255,0.5);color:rgba(255,255,255,0.5)}
+.nav-item.next-up .nav-name{color:var(--text-2)}
+.nav-item.next-up .nav-teaser{color:rgba(255,255,255,0.28)}
+.nav-item.next-up::after{content:'Up next';position:absolute;right:10px;top:11px;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+
+.nav-step-num{font-size:9px;font-weight:800;color:inherit}
+.connector{display:none}
+
+.progress-wrap{margin-top:auto;padding-top:16px;border-top:1px solid var(--border)}
+.progress-complete-label{font-size:11px;color:rgba(255,255,255,0.38);line-height:1.5}
+.progress-complete-label strong{color:var(--text-2)}
+
+.main{padding:52px 56px 80px;max-width:800px;min-height:100vh;background:var(--bg)}
+
+.step-header{margin-bottom:40px}
+.step-meta{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.step-num{font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+.step-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.3)}
+.step-title{font-size:30px;font-weight:800;letter-spacing:-0.025em;margin-bottom:8px;line-height:1.1;color:#fff}
+.step-desc{font-size:15px;color:rgba(255,255,255,0.65);max-width:520px;line-height:1.65}
+
+.complete-banner{background:rgba(52,211,153,0.12);border:1px solid rgba(52,211,153,0.3);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:32px;animation:slideIn 0.3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.complete-check{width:26px;height:26px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;color:#022c22;font-weight:900;flex-shrink:0}
+.complete-text{font-size:13px;color:var(--green);font-weight:700}
+.complete-sub{font-size:11px;color:rgba(52,211,153,0.6);margin-top:1px}
+
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+.field-group{display:flex;flex-direction:column;gap:6px}
+.field-group.full{grid-column:1/-1}
+.field-label{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55)}
+.req{color:#fff;margin-left:2px;opacity:0.7}
+.field-input,.field-select,.field-textarea{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;width:100%;transition:border-color 0.2s,box-shadow 0.2s;outline:none}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:rgba(255,255,255,0.6);box-shadow:0 0 0 3px rgba(255,255,255,0.12)}
+.field-input::placeholder,.field-textarea::placeholder{color:rgba(255,255,255,0.3)}
+.field-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.field-select option{background:#1A44D4;color:#fff}
+.field-textarea{resize:vertical;min-height:88px;line-height:1.6}
+.field-hint{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5}
+.mono{font-family:'DM Mono',monospace;letter-spacing:0.05em}
+
+.tag-wrap{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;cursor:text;transition:all 0.2s}
+.tag-wrap:focus-within{border-color:rgba(255,255,255,0.6);box-shadow:0 0 0 3px rgba(255,255,255,0.12)}
+.tag{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:6px;padding:3px 8px 3px 10px;font-size:12px;font-weight:600;color:#fff}
+.tag-x{cursor:pointer;font-size:14px;color:rgba(255,255,255,0.5);padding:0 2px;line-height:1}
+.tag-x:hover{color:var(--red)}
+.tag-inner{border:none;background:transparent;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;min-width:140px;padding:3px 4px}
+.tag-inner::placeholder{color:rgba(255,255,255,0.3)}
+
+.email-list{display:flex;flex-direction:column;gap:7px}
+.email-row{display:flex;gap:7px;align-items:center}
+.email-row .field-input{flex:1}
+.btn-icon{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.15s;flex-shrink:0}
+.btn-icon:hover{background:rgba(255,255,255,0.15);color:var(--red)}
+.btn-dashed{background:transparent;border:1px dashed rgba(255,255,255,0.22);border-radius:8px;padding:8px 14px;color:rgba(255,255,255,0.45);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.15s;text-align:left;margin-top:4px;font-weight:600}
+.btn-dashed:hover{border-color:rgba(255,255,255,0.55);color:#fff}
+
+.dpid-main{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.dpid-main-label{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:8px}
+.dpid-label-row{display:flex;gap:10px;margin-bottom:8px}
+.dpid-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:800;color:#fff;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px}
+.dpid-list{display:flex;flex-direction:column;gap:7px;margin-top:8px}
+.dpid-row{display:flex;gap:7px;align-items:center}
+.dpid-row .field-input{flex:1}
+.dpid-row .dpid-imprint{width:160px;flex-shrink:0}
+
+.dsp-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.dsp-counts{display:flex;gap:8px;flex-wrap:wrap}
+.dsp-count-pill{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:800;border:1px solid}
+.dsp-count-pill.direct{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);color:#fff}
+.dsp-count-pill.open{background:rgba(52,211,153,0.14);border-color:rgba(52,211,153,0.35);color:var(--green)}
+.dsp-count-pill.na{background:rgba(252,165,165,0.1);border-color:rgba(252,165,165,0.3);color:var(--red)}
+.dsp-count-pill.unset{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14);color:rgba(255,255,255,0.4)}
+.dsp-bulk{display:flex;gap:6px}
+.btn-bulk{background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:7px;padding:6px 12px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;white-space:nowrap}
+.btn-bulk:hover{border-color:rgba(255,255,255,0.45);color:#fff}
+
+.dsp-group{margin-bottom:24px}
+.dsp-group-header{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.dsp-group-header::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.12)}
+.dsp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+
+.dsp-card{border-radius:10px;padding:12px 13px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);transition:all 0.18s;position:relative}
+.dsp-card:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1)}
+.dsp-card.sel-direct{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.4)}
+.dsp-card.sel-open{background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.4)}
+.dsp-card.sel-na{background:rgba(252,165,165,0.08);border-color:rgba(252,165,165,0.3)}
+.dsp-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.dsp-emoji{margin-right:5px}
+.dsp-badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;margin-bottom:6px;letter-spacing:0.04em;text-transform:uppercase;border:1px solid}
+.dsp-badge.direct{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);color:#fff}
+.dsp-badge.open{background:rgba(52,211,153,0.14);border-color:rgba(52,211,153,0.3);color:var(--green)}
+.dsp-badge.na{background:rgba(252,165,165,0.1);border-color:rgba(252,165,165,0.25);color:var(--red)}
+.dsp-badge.unset{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14);color:rgba(255,255,255,0.4)}
+.dsp-btns{display:flex;gap:3px;flex-wrap:wrap}
+.dsp-btn{font-size:9px;font-weight:800;padding:3px 7px;border-radius:5px;cursor:pointer;border:1px solid;transition:all 0.12s;font-family:'DM Sans',sans-serif;background:transparent;letter-spacing:0.04em}
+.dsp-btn.t-d{border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)}
+.dsp-btn.t-d:hover,.dsp-btn.t-d.on{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.5);color:#fff}
+.dsp-btn.t-o{border-color:rgba(52,211,153,0.4);color:var(--green)}
+.dsp-btn.t-o:hover,.dsp-btn.t-o.on{background:rgba(52,211,153,0.14)}
+.dsp-btn.t-n{border-color:rgba(252,165,165,0.35);color:var(--red)}
+.dsp-btn.t-n:hover,.dsp-btn.t-n.on{background:rgba(252,165,165,0.1)}
+.dsp-direct-sub{margin-top:7px}
+.dsp-direct-lbl{font-size:9px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:4px}
+.dsp-direct-btns{display:flex;gap:3px}
+.dsp-direct-btn{font-size:9px;padding:2px 8px;border-radius:4px;cursor:pointer;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.6);background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.12s;font-weight:700}
+.dsp-direct-btn.on{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.4);color:#fff}
+
+.info-box{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:13px 16px;font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:20px;line-height:1.6}
+.info-box strong{color:#fff}
+
+.yt-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px;margin-bottom:10px}
+.yt-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.yt-card-title{font-size:12px;font-weight:800;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:7px}
+.yt-toggles{display:flex;gap:20px;margin-top:10px;flex-wrap:wrap}
+.toggle-group{display:flex;align-items:center;gap:8px}
+.toggle-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.65)}
+.toggle{width:34px;height:18px;border-radius:9px;background:rgba(255,255,255,0.15);border:none;cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0}
+.toggle.on{background:var(--green)}
+.toggle::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.2s}
+.toggle.on::after{transform:translateX(16px)}
+
+.action-bar{display:flex;align-items:center;justify-content:space-between;padding:24px 0 0;border-top:1px solid rgba(255,255,255,0.14);margin-top:12px}
+.btn-back{background:transparent;border:1px solid rgba(255,255,255,0.25);border-radius:9px;padding:10px 20px;color:rgba(255,255,255,0.7);font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.btn-back:hover{background:rgba(255,255,255,0.08);color:#fff}
+.btn-primary{background:#fff;border:none;border-radius:9px;padding:11px 26px;color:var(--bg);font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.18s;letter-spacing:0.01em}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,0,0,0.3)}
+.btn-green{background:var(--green);color:#022c22}
+.btn-green:hover{background:#2ec48a;box-shadow:0 8px 24px rgba(52,211,153,0.3)}
+
+.locked-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px;gap:14px}
+.locked-icon{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-size:24px}
+.locked-title{font-size:18px;font-weight:800;color:rgba(255,255,255,0.7)}
+.locked-desc{font-size:14px;color:rgba(255,255,255,0.4);max-width:300px;line-height:1.6}
+.locked-cta{font-size:12px;color:#fff;font-weight:700;cursor:pointer;opacity:0.7}
+
+.celebrate-overlay{position:fixed;inset:0;background:rgba(10,24,120,0.75);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.celebrate-card{background:var(--surface);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center;position:relative;animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+.celebrate-emoji{font-size:52px;margin-bottom:16px;display:block;animation:bounce 0.6s ease 0.3s both}
+@keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.celebrate-title{font-size:22px;font-weight:800;margin-bottom:8px;color:#fff}
+.celebrate-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:8px}
+.celebrate-xp{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:100px;padding:5px 14px;font-size:13px;font-weight:800;color:#fff;margin-bottom:20px}
+.celebrate-next{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:14px 16px;text-align:left;margin-bottom:20px}
+.celebrate-next-label{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.celebrate-next-name{font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+.celebrate-next-desc{font-size:12px;color:rgba(255,255,255,0.45);margin-top:3px}
+.celebrate-btn{background:#fff;border:none;border-radius:9px;padding:12px 28px;color:var(--bg);font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:all 0.15s}
+.celebrate-btn:hover{background:var(--accent-2)}
+
+.output-screen{padding:52px 56px;background:var(--bg)}
+.output-header{margin-bottom:32px}
+.output-actions{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.btn-copy{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:9px 18px;color:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;letter-spacing:0.02em}
+.btn-copy:hover{background:rgba(255,255,255,0.18)}
+.btn-copy.copied{background:rgba(52,211,153,0.14);border-color:rgba(52,211,153,0.3);color:var(--green)}
+.btn-restart{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 18px;color:rgba(255,255,255,0.65);font-size:12px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.btn-restart:hover{background:rgba(255,255,255,0.12);color:#fff}
+.json-block{background:var(--surface);border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:28px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.75;color:rgba(255,255,255,0.72);overflow-x:auto;white-space:pre}
+.jk{color:#93C5FD}.js{color:#6EE7C7}.jn{color:#FCD34D}.jb{color:#FCA5A5}
+
+.support-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(252,211,77,0.12);border:1px solid rgba(252,211,77,0.3);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:800;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:20px}
+.support-section{background:rgba(252,211,77,0.06);border:1px solid rgba(252,211,77,0.18);border-radius:12px;padding:20px;margin-bottom:20px}
+.support-section-title{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+
+/* Distributor chips */
+.dist-chip{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.65);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;white-space:nowrap}
+.dist-chip:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+.dist-chip.on{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.5);color:#fff}
+
+.divider{height:1px;background:rgba(255,255,255,0.12);margin:24px 0}
+
+
+/* ══ ARROWS-STYLE ENHANCEMENTS ══ */
+/* Phase header in main content — mirrors Arrows phase card */
+.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.phase-emoji-badge{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.phase-title-block{flex:1}
+.phase-title{font-size:24px;font-weight:800;letter-spacing:-0.02em;color:#fff;line-height:1.1}
+.phase-step-meta{font-size:11px;color:rgba(255,255,255,0.45);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;display:flex;align-items:center;gap:6px}
+.phase-step-dots{display:flex;gap:4px;align-items:center}
+.phase-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all 0.2s}
+.phase-dot.done{background:#fff}
+.phase-dot.active{width:18px;border-radius:3px;background:#fff}
+
+/* Arrows section-description */
+.phase-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:28px;max-width:560px}
+
+/* Section-title legacy compat */
+.section-title{font-size:24px;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;line-height:1.1;color:#fff;display:none}
+.section-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:28px;max-width:560px;display:none}
+
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:fixed;bottom:0;left:0;right:0;height:auto;flex-direction:row;overflow-x:auto;padding:10px 14px;z-index:100;border-right:none;border-top:1px solid var(--border)}
+  .connector,.progress-wrap,.logo,.mode-toggle{display:none}
+  .nav-section{flex-direction:row}
+  .nav-item{min-width:110px;padding:9px 11px}
+  .main,.output-screen{padding:24px 18px 100px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-wordmark">
+      <svg class="logo-icon" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cloud shape -->
+        <path d="M31 14.5C31 14.5 31 14.4 31 14.3C31 10.1 27.6 6.7 23.4 6.7C21.5 6.7 19.8 7.4 18.5 8.5C17.4 6.1 14.9 4.5 12.1 4.5C8.2 4.5 5 7.7 5 11.6C5 12 5 12.4 5.1 12.8C3.3 13.7 2 15.6 2 17.8C2 21 4.6 23.6 7.8 23.6H30.2C33.4 23.6 36 21 36 17.8C36 16.1 35.2 14.6 31 14.5Z" fill="white"/>
+        <!-- Play triangle inside cloud -->
+        <path d="M16 12L24.5 17.5L16 23V12Z" fill="#2152E8"/>
+      </svg>
+      <span class="logo-word-open">OpenPlay</span>
+    </div>
+    <div class="logo-sub">Client Onboarding</div>
+  </div>
+
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btn-client" onclick="setMode('client')">Client</button>
+    <button class="mode-btn" id="btn-support" onclick="setMode('support')">Support</button>
+    <button class="mode-btn" id="btn-demo" onclick="setMode('demo')" style="color:var(--amber)">Demo</button>
+  </div>
+
+  <div class="nav-section" id="nav"></div>
+
+  <div class="progress-wrap">
+    <div id="prog-summary"><span class="progress-complete-label">Complete each section above to generate your onboarding output.</span></div>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main id="main"></main>
+</div>
+
+<!-- Celebrate modal -->
+<div class="celebrate-overlay" id="celebrate" style="display:none">
+  <div class="celebrate-card">
+    <span class="celebrate-emoji" id="cel-emoji">🎉</span>
+    <div class="celebrate-title" id="cel-title">Section Complete!</div>
+    <div class="celebrate-desc" id="cel-desc"></div>
+    <div class="celebrate-xp" id="cel-xp">+200 XP</div>
+    <div class="celebrate-next" id="cel-next"></div>
+    <button class="celebrate-btn" id="cel-btn" onclick="dismissCelebrate()">Continue →</button>
+  </div>
+</div>
+
+<!-- Resume banner -->
+<div id="resume-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(18,56,196,0.97);border-bottom:1px solid rgba(255,255,255,0.25);padding:14px 24px;align-items:center;gap:14px;backdrop-filter:blur(8px)">
+  <span style="font-size:16px">💾</span>
+  <span id="resume-msg" style="flex:1;font-size:13px;color:var(--text-2);font-weight:500"></span>
+  <button id="resume-btn" style="padding:8px 18px;background:#ffffff;color:var(--bg);border:none;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif">Resume →</button>
+  <button id="resume-dismiss" style="padding:8px 14px;background:transparent;color:var(--text-3);border:1px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">Start fresh</button>
+</div>
+
+<!-- Save toast -->
+<div id="save-toast" style="position:fixed;bottom:24px;right:24px;z-index:300;background:rgba(18,56,196,0.92);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:10px 16px;font-size:12px;color:#ffffff;font-weight:700;display:flex;align-items:center;gap:8px;backdrop-filter:blur(6px);opacity:0;transform:translateY(8px);transition:all 0.25s;pointer-events:none">
+  <span>✓</span> Progress saved
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  GOOGLE SHEETS INTEGRATION
+//  Endpoint is stored under a fixed key so it
+//  persists automatically across every new
+//  version of this file — set it once, done.
+// ══════════════════════════════════════════════
+const SHEETS_ENDPOINT_KEY = 'openplay_sheets_endpoint_v1';
+let SHEETS_ENDPOINT = (()=>{
+  try {
+    // Try the stable key first, then fall back to the old key name for migration
+    return localStorage.getItem(SHEETS_ENDPOINT_KEY)
+        || localStorage.getItem('openplay_sheets_endpoint')
+        || 'https://script.google.com/a/macros/openplay.co/s/AKfycbyT57hm4D8-RVQK7ztSZsLRc52lEadFcBMXipQlEeOJuqAeeQIQmbRKGapBzsexUbOn/exec';
+  } catch(e){ return ''; }
+})();
+
+// HubSpot is handled server-side via Apps Script — no client token needed
+
+// ══════════════════════════════════════════════
+//  DSP DATA — full list with groupings
+// ══════════════════════════════════════════════
+// DSP data from onboarding sheet — {name, dep, emoji, note?}
+// Grouped by delivery format
+const DSP_GROUPS = {
+  "Streaming — Stereo Audio": [
+    {name:"Spotify",                          dep:2958, emoji:"🎧"},
+    {name:"Apple Music / iTunes",             dep:2892, emoji:"🍎"},
+    {name:"Amazon Music",                     dep:2886, emoji:"📦"},
+    {name:"Deezer",                           dep:2910, emoji:"🎵"},
+    {name:"TIDAL",                            dep:2964, emoji:"🌊"},
+    {name:"Pandora",                          dep:2948, emoji:"📻"},
+    {name:"iHeartRadio",                      dep:2930, emoji:"❤"},
+    {name:"SoundCloud",                       dep:2954, emoji:"☁"},
+    {name:"TikTok",                           dep:2966, emoji:"🎶"},
+    {name:"YouTube Art Tracks",               dep:2976, emoji:"▶"},
+    {name:"YouTube Content ID",               dep:2978, emoji:"📹"},
+    {name:"Anghami",                          dep:2890, emoji:"🌙"},
+    {name:"Boomplay",                         dep:2906, emoji:"🌍"},
+    {name:"Audiomack",                        dep:2900, emoji:"🔊"},
+    {name:"AWA",                              dep:2902, emoji:"🇯🇵"},
+    {name:"Melon",                            dep:2940, emoji:"🍈"},
+    {name:"KKBOX",                            dep:2936, emoji:"🇹🇼"},
+    {name:"Netease",                          dep:2944, emoji:"☁"},
+    {name:"Tencent / QQ Music",              dep:2962, emoji:"🐧"},
+    {name:"Taobao",                           dep:2960, emoji:"🛒"},
+    {name:"Kuaishou",                         dep:2938, emoji:"📱"},
+    {name:"FLO",                              dep:2920, emoji:"🇰🇷"},
+    {name:"Vibe",                             dep:2974, emoji:"🎸"},
+    {name:"JOOX",                             dep:2934, emoji:"🎤"},
+    {name:"JioSaavn",                         dep:2932, emoji:"🇮🇳"},
+    {name:"Mixcloud",                         dep:2942, emoji:"🌀"},
+    {name:"Qobuz",                            dep:2946, emoji:"🎻"},
+    {name:"Peloton",                          dep:2950, emoji:"🚴"},
+    {name:"TouchTunes",                       dep:2968, emoji:"🎮"},
+    {name:"Trebel Music",                     dep:2970, emoji:"🎵"},
+    {name:"Tuned Global",                     dep:2972, emoji:"🌐"},
+    {name:"AMI Entertainment",               dep:2888, emoji:"🎰"},
+    {name:"PretzelAux",                       dep:2952, emoji:"🥨"},
+    {name:"IMusica",                          dep:2924, emoji:"🇧🇷"},
+    {name:"Kuack",                            dep:2926, emoji:"🎵"},
+    {name:"7digital (Snap, Pinterest, ROXI)", dep:2884, emoji:"7️⃣"},
+    {name:"Napster",                          dep:null,  emoji:"🐱", note:"Not currently delivered — outstanding royalty issues"},
+  ],
+  "Streaming — Dolby Atmos / HiRes": [
+    {name:"Apple Music / iTunes (Atmos)",     dep:null,  emoji:"🍎"},
+    {name:"Amazon Music (Atmos)",             dep:null,  emoji:"📦"},
+    {name:"TIDAL (Atmos)",                    dep:null,  emoji:"🌊"},
+    {name:"Anghami (Atmos)",                  dep:null,  emoji:"🌙"},
+    {name:"Vibe (Atmos)",                     dep:null,  emoji:"🎸"},
+  ],
+  "Video Distribution": [
+    {name:"Youtube (Music Video)",            dep:null,  emoji:"🎬"},
+    {name:"Spotify (Video)",                  dep:null,  emoji:"🎧"},
+    {name:"Apple Music (Video)",              dep:null,  emoji:"🍎"},
+    {name:"TIDAL (Video)",                    dep:null,  emoji:"🌊"},
+    {name:"Boomplay (Video)",                 dep:null,  emoji:"🌍"},
+    {name:"JOOX (Video)",                     dep:null,  emoji:"🎤"},
+    {name:"AMI Entertainment (Video)",        dep:null,  emoji:"🎰"},
+    {name:"Vevo",                             dep:null,  emoji:"📺"},
+    {name:"Facebook SRP",                     dep:2916, emoji:"📘"},
+    {name:"Facebook AAP",                     dep:2914, emoji:"📘"},
+  ],
+  "Rights & Fingerprinting": [
+    {name:"Audible Magic Rights360",          dep:2896, emoji:"🔬"},
+    {name:"Audible Magic Fulfillment360",     dep:2898, emoji:"🔬"},
+    {name:"ACR Cloud",                        dep:2894, emoji:"🔍"},
+    {name:"BMAT",                             dep:2904, emoji:"📊"},
+    {name:"Gracenote",                        dep:2922, emoji:"🎼"},
+    {name:"Click n Clear",                    dep:2908, emoji:"✅"},
+    {name:"Eleven Labs",                      dep:null,  emoji:"🤖"},
+  ],
+};
+
+const ALL_DSPS = Object.values(DSP_GROUPS).flat();
+
+// ══════════════════════════════════════════════
+//  TIER CONFIG
+// ══════════════════════════════════════════════
+const CLIENT_TIERS = [
+  {id:"account",     icon:"◈",  name:"Account Setup",             desc:"Business info & contacts",     teaser:"Business name, admin email & currency",                   emoji:"🎯"},
+  {id:"start",       icon:"💜", name:"Getting Started",           desc:"Contract, setup & timeline",   teaser:"Contract signing, payment & your go-live timeline",       emoji:"💜"},
+  {id:"environment", icon:"🖥",  name:"Your OpenPlay Environment", desc:"First login, users & setup",   teaser:"Log in, watch the getting started video & add your team",  emoji:"🖥"},
+  {id:"address",     icon:"📍", name:"Business Address",          desc:"Registered location",          teaser:"Street, city, state, ZIP & country",                      emoji:"📍"},
+  {id:"catalog",     icon:"🎵", name:"Imprints & Catalog",        desc:"Labels, DPIDs & migration",    teaser:"Imprints, DPIDs & catalog migration method",              emoji:"🎵"},
+  {id:"dsps",        icon:"🚀", name:"Delivering your content",   desc:"DSPs, partners & deals",       teaser:"Audio, video & rights platforms + YouTube channels",       emoji:"🚀"},
+  {id:"youtube",     icon:"▶",  name:"Notes & Additional Info",   desc:"Additional context & notes",   teaser:"Special requirements or notes for your account team",      emoji:"📝"},
+];
+
+const SUPPORT_TIERS = [
+  {id:"internal", icon:"⚙", name:"Internal Config",    desc:"Tenant ID, display name & ops", teaser:"System IDs, account manager & internal notes",  emoji:"⚙"},
+];
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let S = {
+  mode: "client",
+  active: "account",
+  completed: new Set(),
+  xp: 0,
+  data: {
+    start:       {contractSigned:false,paymentConfirmed:false,pointPersonName:"",pointPersonEmail:""},
+    environment: {firstLoginDone:false,videoWatched:false,usersAdded:false,additionalUsersNote:""},
+    account: {accountType:"business",businessName:"",tenantName:"",adminEmail:"",additionalEmails:[],currency:"USD",dpid:"",additionalDpids:[]},
+    address: {street:"",city:"",state:"",zipCode:"",country:""},
+    catalog: {imprints:[],hasExistingCatalog:false,catalogLocations:[],catalogLocationOther:"",catalogFiles:[],priorDeliveryPartner:"",distributorContactName:"",distributorContactEmail:"",catalogIngestionMethod:"",apiNeedsDocs:null,apiNeedsKey:null,apiWillPostSelf:null,isrcCount:"",upcCount:"",videoCount:"",hraAtmosCount:""},
+    dsps:    {otherDistributors:[],otherDistributorsNote:""},
+    youtube: {channels:[],mcn:"",additionalInfo:""},
+    internal:{tenantDisplayName:"",opTenantId:"",accountManager:"",notes:""},
+  }
+};
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function render(){renderNav();renderMain();renderProgress();updatePageTitle();}
+
+function currentTiers(){
+  return S.mode==="support" ? [...CLIENT_TIERS,...SUPPORT_TIERS] : CLIENT_TIERS;
+}
+
+function isUnlocked(id){
+  const tiers=currentTiers();
+  const idx=tiers.findIndex(t=>t.id===id);
+  if(idx===0)return true;
+  for(let i=0;i<idx;i++) if(!S.completed.has(tiers[i].id)) return false;
+  return true;
+}
+
+function renderNav(){
+  const tiers=currentTiers();
+  const c=document.getElementById("nav");
+  c.innerHTML="";
+
+  // Progress bar at top
+  const done=S.completed.size;
+  const total=tiers.length;
+  const pct=Math.round(done/total*100);
+  const progDiv=document.createElement("div");
+  progDiv.className="nav-progress";
+  progDiv.innerHTML=`
+    <div class="nav-progress-header">
+      <span class="nav-progress-label">Setup progress</span>
+      <span class="nav-progress-frac">${done} of ${total} complete</span>
+    </div>
+    <div class="nav-progress-track">
+      <div class="nav-progress-fill" style="width:${pct}%"></div>
+    </div>`;
+  c.appendChild(progDiv);
+
+  // Find index of first incomplete section (for "next up" labelling)
+  const firstIncompleteIdx=tiers.findIndex(t=>!S.completed.has(t.id));
+
+  tiers.forEach((t,i)=>{
+    const isDone=S.completed.has(t.id);
+    const isActive=S.active===t.id;
+    const isLocked=!isUnlocked(t.id);
+    const isNextUp=!isLocked&&!isDone&&!isActive&&i===firstIncompleteIdx;
+
+    const item=document.createElement("div");
+    let cls="nav-item";
+    if(isLocked) cls+=" locked";
+    else if(isActive) cls+=" active";
+    else if(isDone) cls+=" complete unlocked";
+    else if(isNextUp) cls+=" next-up unlocked";
+    else cls+=" unlocked";
+
+    const circleContent=isDone?'✓':`<span class="nav-step-num">${i+1}</span>`;
+
+    item.className=cls;
+    item.innerHTML=`
+      <div class="nav-circle">${circleContent}</div>
+      <div class="nav-body">
+        <div class="nav-name">${t.name}</div>
+        <div class="nav-teaser">${t.teaser}</div>
+      </div>`;
+
+    if(!isLocked) item.addEventListener("click",()=>{S.active=t.id;render();});
+    c.appendChild(item);
+  });
+}
+
+function renderProgress(){
+  // handled inside renderNav — no-op kept for compatibility
+}
+
+function renderMain(){
+  const main=document.getElementById("main");
+  if(S.active==="__done__"){renderOutput(main);return;}
+
+  const tiers=currentTiers();
+  const tier=tiers.find(t=>t.id===S.active);
+  if(!tier)return;
+
+  if(!isUnlocked(tier.id)){
+    const idx=tiers.findIndex(t=>t.id===tier.id);
+    const prev=tiers[idx-1];
+    main.innerHTML=`<div class="locked-state">
+      <div class="locked-icon">🔒</div>
+      <div class="locked-title">${tier.name} is locked</div>
+      <div class="locked-desc">Complete <strong>${prev.name}</strong> to unlock this section.</div>
+      <div class="locked-cta" onclick="S.active='${prev.id}';render()">← Go to ${prev.name}</div>
+    </div>`;
+    return;
+  }
+
+  const done=S.completed.has(tier.id);
+  const idx=tiers.findIndex(t=>t.id===tier.id);
+  const isLast=idx===tiers.length-1;
+  let html=`<div class="main">`;
+
+  if(S.mode==="demo") html+=`<div class="demo-banner">🎬 <strong>Demo mode</strong> — pre-filled with sample data. Click "Save & Continue" to step through each section freely.</div>`;
+  if(S.mode==="support") html+=`<div class="support-badge">⚙ Support Mode</div>`;
+
+  if(done) html+=`<div class="complete-banner">
+    <div class="complete-check">✓</div>
+    <div><div class="complete-text">${tier.name} complete</div>
+    <div class="complete-sub">Edits save automatically.</div></div>
+  </div>`;
+
+  // Build Arrows-style dot progress
+  const dotProgress=tiers.map((t,di)=>{
+    const isDotDone=S.completed.has(t.id);
+    const isDotActive=t.id===tier.id;
+    return `<div class="phase-dot ${isDotDone?"done":isDotActive?"active":""}"></div>`;
+  }).join("");
+
+  html+=`<div class="step-header">
+    <div class="phase-header">
+      <div class="phase-emoji-badge">${tier.emoji||tier.icon}</div>
+      <div class="phase-title-block">
+        <div class="phase-title">${tier.name}</div>
+        <div class="phase-step-meta">
+          <span>Step ${idx+1} of ${tiers.length}</span>
+          <span style="opacity:0.4">·</span>
+          <div class="phase-step-dots">${dotProgress}</div>
+        </div>
+      </div>
+    </div>`;
+
+  switch(tier.id){
+    case"start":       html+=renderGettingStarted();break;
+    case"environment": html+=renderEnvironment();break;
+    case"account":     html+=renderAccount();break;
+    case"address": html+=renderAddress();break;
+    case"catalog": html+=renderCatalog();break;
+    case"dsps":    html+=renderDSPs();break;
+    case"youtube": html+=renderYouTube();break;
+    case"internal":html+=renderInternal();break;
+  }
+
+  const allDone=tiers.every(t=>S.completed.has(t.id));
+  html+=`<div class="action-bar">
+    <button class="btn-back" onclick="goBack()" ${idx===0?"style='visibility:hidden'":""}>← Back</button>
+    <button class="btn-primary ${isLast&&done?"btn-green":""}" onclick="completeSection('${tier.id}')">
+      ${allDone&&isLast?"✓ View Output" : done?"Next Section →" : isLast?"Complete & Generate Output →":"Save & Continue →"}
+    </button>
+  </div></div>`;
+  main.innerHTML=html;
+}
+
+function renderGettingStarted(){
+  const d = S.data.start;
+
+  const contractDone = d.contractSigned;
+  const paymentDone  = d.paymentConfirmed;
+  const bothDone     = contractDone && paymentDone;
+
+  const tasks = [
+    {
+      key:"contractSigned",
+      icon:"📝",
+      locked: false,
+      title:"Sign your contract",
+      desc:"To make things official, we need your signed agreement before onboarding can begin. Your account manager will send this directly. <strong>Note: onboarding cannot start until both your contract is signed and payment has been received.</strong>",
+      timing:"Sent within 1 business day of kick-off"
+    },
+    {
+      key:"paymentConfirmed",
+      icon:"💳",
+      locked: !d.contractSigned,
+      title:"Confirm payment",
+      desc:"Please ensure your initial invoice has been settled. Onboarding is scheduled only after payment is confirmed. If you have any questions about your invoice, contact your account manager.",
+      timing:"Due within 3 days of contract signing"
+    },
+    {
+      key:"production",
+      icon:"⚙️",
+      locked: !bothDone,
+      title:"Setting you up with your production environment",
+      desc:"Once the steps above are complete, we'll provision your OpenPlay tenant — you'll receive login credentials and a walkthrough of your environment.",
+      timing:"3 weekdays after payment confirmed",
+      internal: true
+    },
+    {
+      key:"kickoff",
+      icon:"📞",
+      locked: !bothDone,
+      title:"Schedule your kickoff call",
+      desc:"An optional (but recommended) call with your OpenPlay account manager to walk through your setup, ask questions, and align on timelines.",
+      timing:"2 days after environment setup"
+    },
+  ];
+
+  const taskRows = tasks.map(t => {
+    const isCheckable = t.key==="contractSigned" || t.key==="paymentConfirmed";
+    const isChecked   = isCheckable && d[t.key];
+    const isLocked    = t.locked || (t.key==="paymentConfirmed" && !d.contractSigned);
+    const lockedStyle = isLocked && !isChecked ? "opacity:0.5;pointer-events:none" : "";
+
+    const checkbox = isCheckable ? `
+      <button onclick="S.data.start['${t.key}']=!S.data.start['${t.key}'];scheduleSave();renderMain()"
+        style="width:22px;height:22px;border-radius:50%;border:2px solid ${isChecked?"#fff":"rgba(255,255,255,0.3)"};
+               background:${isChecked?"#fff":"transparent"};color:${isChecked?"var(--bg)":"transparent"};
+               cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;
+               font-weight:900;flex-shrink:0;margin-top:2px;transition:all 0.18s">
+        ${isChecked?"✓":""}
+      </button>` :
+      `<div style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);
+             display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px">
+        🔒
+      </div>`;
+
+    return `<div style="${lockedStyle};display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.1)">
+      ${checkbox}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:15px;font-weight:700;color:${isLocked&&!isChecked?"rgba(255,255,255,0.45)":"#fff"};margin-bottom:5px;display:flex;align-items:center;gap:8px">
+          <span>${t.icon}</span> ${t.title}
+          ${t.internal?`<span style="font-size:9px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;background:rgba(252,211,77,0.2);border:1px solid rgba(252,211,77,0.35);border-radius:4px;padding:2px 6px;color:var(--amber)">OpenPlay</span>`:""}
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.58);line-height:1.6;margin-bottom:8px">${t.desc}</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.38)">
+          <span>🕐</span> ${t.timing}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // Timeline estimate banner
+  const timelineBanner = `
+    <div style="margin-top:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);border-radius:14px;overflow:hidden">
+      <div style="padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.1)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:18px">📅</span>
+          <div style="font-size:14px;font-weight:800;color:#fff">Go-Live Timeline Estimate</div>
+        </div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:0">
+          Once we have all the details from your completed onboarding form, we'll confirm your exact go-live schedule.
+          As a general guide, <strong style="color:#fff">expect approximately 4 weeks from when the final step of this form is submitted</strong> — this gives our team time to configure your environment, validate your catalog, and activate your DSP deliveries.
+        </p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0">
+        ${[
+          {week:"Week 1", label:"Contract & Payment", color:"rgba(255,255,255,0.12)"},
+          {week:"Week 1–2", label:"Environment Setup & Onboarding Form", color:"rgba(255,255,255,0.08)"},
+          {week:"Week 2–3", label:"Catalog Ingestion & QA", color:"rgba(255,255,255,0.06)"},
+          {week:"Week 3–4", label:"DSP Activation & Go-Live", color:"rgba(255,255,255,0.04)"},
+        ].map((w,i)=>`
+          <div style="padding:14px 16px;background:${w.color};${i<3?"border-right:1px solid rgba(255,255,255,0.08)":""}">
+            <div style="font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:4px">${w.week}</div>
+            <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.75);line-height:1.4">${w.label}</div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+
+  // Point person
+  const pointPerson = `
+    <div style="margin-top:24px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:12px">Your Point Person</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.55">Who on your team will be the primary contact during onboarding? They'll receive task notifications and be responsible for completing each step.</p>
+      <div class="field-grid" style="margin-bottom:0">
+        <div class="field-group">
+          <label class="field-label">Full Name<span class="req">*</span></label>
+          <input class="field-input" type="text" placeholder="Jane Smith"
+            value="${d.pointPersonName||""}" onchange="S.data.start.pointPersonName=this.value;scheduleSave()"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Email<span class="req">*</span></label>
+          <input class="field-input" type="email" placeholder="jane@yourlabel.com"
+            value="${d.pointPersonEmail||""}" onchange="S.data.start.pointPersonEmail=this.value;scheduleSave()"/>
+        </div>
+      </div>
+    </div>`;
+
+  return `
+    <p class="phase-desc">Before we dive in — here's what happens first. Please confirm the steps below and introduce your point person for onboarding.</p>
+
+    <div style="background:rgba(252,211,77,0.08);border:1px solid rgba(252,211,77,0.28);border-radius:12px;padding:14px 18px;margin-bottom:24px;display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:16px;flex-shrink:0">⚠️</span>
+      <div style="font-size:13px;color:rgba(252,211,77,0.9);line-height:1.6">
+        <strong style="color:var(--amber)">Onboarding cannot begin until both your contract is signed and payment is received.</strong>
+        Please check both off below once complete, then continue filling in the rest of this form — we'll be ready to go as soon as everything is in order.
+      </div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.13);border-radius:14px;padding:0 20px 4px 20px;margin-bottom:4px">
+      ${taskRows}
+    </div>
+
+    ${pointPerson}
+    ${timelineBanner}
+  `;
+}
+
+
+function renderEnvironment(){
+  const d = S.data.environment;
+
+  const tasks = [
+    {
+      key: "firstLoginDone",
+      icon: "🔑",
+      checkable: true,
+      title: "Log in to your account for the first time",
+      desc: "As an administrator, you'll receive an invite to your production OpenPlay environment via email. Use that link to set up your credentials and log in for the first time. If you haven't received your invite yet, check your spam folder or contact your account manager.",
+      timing: "3 days after environment provisioned",
+      badge: null,
+    },
+    {
+      key: "videoWatched",
+      icon: "▶️",
+      checkable: true,
+      locked: !d.firstLoginDone,
+      title: "Watch the Getting Started video",
+      desc: "Watch the short walkthrough video inside your environment to get familiar with OpenPlay's interface — navigating releases, managing users, DSP delivery settings, and your dashboard.",
+      timing: "3 days after first login",
+      badge: null,
+    },
+    {
+      key: "usersAdded",
+      icon: "👥",
+      checkable: true,
+      locked: !d.firstLoginDone,
+      title: "Add other users",
+      desc: "Now that you're in your OpenPlay environment, you can begin adding your team members. Go to Settings → User Management to invite colleagues with the appropriate roles (Admin, Editor, Viewer).",
+      timing: "3 weekdays after first login",
+      badge: null,
+    },
+  ];
+
+  const taskRows = tasks.map(t => {
+    const isChecked = d[t.key];
+    const isLocked  = t.locked && !isChecked;
+    const dimStyle  = isLocked ? "opacity:0.45;pointer-events:none" : "";
+
+    const checkbox = t.checkable
+      ? `<button onclick="S.data.environment['${t.key}']=!S.data.environment['${t.key}'];scheduleSave();renderMain()"
+          style="width:22px;height:22px;border-radius:50%;border:2px solid ${isChecked?"#fff":"rgba(255,255,255,0.3)"};
+                 background:${isChecked?"#fff":"transparent"};color:${isChecked?"var(--bg)":"transparent"};
+                 cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;
+                 font-weight:900;flex-shrink:0;margin-top:2px;transition:all 0.18s">
+          ${isChecked?"✓":""}
+        </button>`
+      : `<div style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);
+               display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px">🔒</div>`;
+
+    return `<div style="${dimStyle};display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.1)">
+      ${checkbox}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:15px;font-weight:700;color:${isLocked?"rgba(255,255,255,0.45)":"#fff"};margin-bottom:5px;display:flex;align-items:center;gap:8px">
+          <span>${t.icon}</span> ${t.title}
+        </div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.58);line-height:1.6;margin-bottom:8px">${t.desc}</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.38)">
+          <span>🕐</span> ${t.timing}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // Additional users textarea — only shown when usersAdded is toggled
+  const additionalUsersHtml = d.firstLoginDone ? `
+    <div style="margin-top:20px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px">Team Members to Add <span style="font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(255,255,255,0.35)">(optional)</span></div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px;line-height:1.55">List the names and emails of team members you'll be adding, and their roles. We can pre-provision these if you let us know ahead of time.</p>
+      <textarea class="field-textarea" rows="4" placeholder="e.g.&#10;Sarah Chen — sarah@yourlabel.com — Editor&#10;Marcus Webb — marcus@yourlabel.com — Viewer"
+        oninput="S.data.environment.additionalUsersNote=this.value;scheduleSave()">${d.additionalUsersNote||""}</textarea>
+    </div>` : "";
+
+  return `
+    <p class="phase-desc">Your production environment will be provisioned by the OpenPlay team once contract and payment are confirmed. Here's what to do once you have access.</p>
+
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.13);border-radius:14px;padding:0 20px 4px 20px;margin-bottom:4px">
+      ${taskRows}
+    </div>
+
+    ${additionalUsersHtml}
+
+    <div style="margin-top:24px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start">
+      <span style="font-size:18px;flex-shrink:0">💡</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">Need help getting started?</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6">Your account manager is available to walk you through your environment on a call. Use the scheduling link they sent, or reach out directly — we're here to make this as smooth as possible.</div>
+      </div>
+    </div>
+  `;
+}
+
+
+// ══════════════════════════════════════════════
+//  SECTION RENDERERS
+// ══════════════════════════════════════════════
+function renderAccount(){
+  const d=S.data.account;
+  const emails=[d.adminEmail,...d.additionalEmails];
+
+  return `
+    <p class="phase-desc">Core information that anchors your distribution account with OpenPlay. Required fields are marked *.</p>
+
+    <div class="field-grid">
+      <div class="field-group">
+        <label class="field-label">Account Type<span class="req">*</span></label>
+        <select class="field-select" onchange="upd('account','accountType',this.value)">
+          <option value="business" ${d.accountType==="business"?"selected":""}>Business / Label</option>
+          <option value="individual" ${d.accountType==="individual"?"selected":""}>Individual Artist</option>
+          <option value="publisher" ${d.accountType==="publisher"?"selected":""}>Publisher</option>
+          <option value="distributor" ${d.accountType==="distributor"?"selected":""}>Sub-distributor</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Royalty Currency<span class="req">*</span></label>
+        <select class="field-select" onchange="upd('account','currency',this.value)">
+          ${["USD","EUR","GBP","CAD","AUD","JPY","BRL","MXN","SGD","ZAR"].map(c=>`<option value="${c}" ${d.currency===c?"selected":""}>${c}</option>`).join("")}
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Business / Label Name<span class="req">*</span></label>
+        <input class="field-input" type="text" placeholder="Acme Music Distribution LLC"
+          value="${d.businessName}" onchange="upd('account','businessName',this.value)"/>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Account Name (short)<span class="req">*</span></label>
+        <input class="field-input" type="text" placeholder="Acme Music"
+          value="${d.tenantName}" onchange="upd('account','tenantName',this.value)"/>
+        <span class="field-hint">Used on statements and client-facing pages</span>
+      </div>
+    </div>
+
+    <div class="field-group full" style="margin-bottom:20px">
+      <label class="field-label">Admin Email<span class="req">*</span></label>
+      <div class="email-list">
+        ${emails.map((e,i)=>`<div class="email-row">
+          <input class="field-input" type="email" placeholder="${i===0?"admin@yourlabel.com":"additional@yourlabel.com"}"
+            value="${e}" onchange="updateEmail(${i},this.value)"/>
+          ${i>0?`<button class="btn-icon" onclick="removeEmail(${i})">×</button>`:""}
+        </div>`).join("")}
+      </div>
+      <button class="btn-dashed" onclick="addEmail()">+ Add additional email</button>
+      <span class="field-hint">Primary admin email first. Additional emails receive notification copies.</span>
+    </div>`;
+}
+
+function renderAddress(){
+  const d=S.data.address;
+  return `
+    <p class="phase-desc">Registered address used for contracts, invoicing, and compliance documentation.</p>
+    <div class="field-grid">
+      <div class="field-group full">
+        <label class="field-label">Street Address<span class="req">*</span></label>
+        <input class="field-input" type="text" placeholder="123 Music Row"
+          value="${d.street}" onchange="upd('address','street',this.value)"/>
+      </div>
+      <div class="field-group">
+        <label class="field-label">City<span class="req">*</span></label>
+        <input class="field-input" type="text" placeholder="Nashville"
+          value="${d.city}" onchange="upd('address','city',this.value)"/>
+      </div>
+      <div class="field-group">
+        <label class="field-label">State / Province<span class="req">*</span></label>
+        <input class="field-input" type="text" placeholder="Tennessee"
+          value="${d.state}" onchange="upd('address','state',this.value)"/>
+      </div>
+      <div class="field-group">
+        <label class="field-label">ZIP / Postal Code<span class="req">*</span></label>
+        <input class="field-input" type="text" placeholder="37203"
+          value="${d.zipCode}" onchange="upd('address','zipCode',this.value)"/>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Country<span class="req">*</span></label>
+        <select class="field-select" onchange="upd('address','country',this.value)">
+          <option value="">Select country...</option>
+          ${["United States","United Kingdom","Canada","Australia","Germany","France","Japan","Brazil","Netherlands","Sweden","South Korea","South Africa","India","Mexico","Singapore","UAE","Other"].map(c=>`<option value="${c}" ${d.country===c?"selected":""}>${c}</option>`).join("")}
+        </select>
+      </div>
+    </div>`;
+}
+
+function renderCatalog(){
+  const d=S.data.catalog;
+  const acct=S.data.account;
+  const tags=d.imprints.map((imp,i)=>`<div class="tag">${imp}<span class="tag-x" onclick="removeImprint(${i})">×</span></div>`).join("");
+
+  // DPID rows (reads from account data, same helpers as before)
+  const addDpidHtml=(acct.additionalDpids||[]).map((row,i)=>`
+    <div class="dpid-row">
+      <input class="field-input mono" type="text" placeholder="PADPIDA..." value="${row.dpid||''}"
+        onchange="updateDpid(${i},'dpid',this.value)" style="flex:1"/>
+      <input class="field-input dpid-imprint" type="text" placeholder="Imprint name" value="${row.imprint||''}"
+        onchange="updateDpid(${i},'imprint',this.value)"/>
+      <button class="btn-icon" onclick="removeDpid(${i})">×</button>
+    </div>`).join("");
+
+  const volFields=[
+    {key:"isrcCount",   label:"Estimated # of ISRCs",         hint:"Individual recordings / tracks",          placeholder:"e.g. 5,000"},
+    {key:"upcCount",    label:"Estimated # of Products (UPCs)",hint:"Albums, EPs, singles",                   placeholder:"e.g. 800"},
+    {key:"videoCount",  label:"Estimated # of Video Assets",   hint:"Music videos, lyric videos, live content",placeholder:"e.g. 120"},
+    {key:"hraAtmosCount",label:"Estimated # of HRA / Atmos Assets",hint:"Hi-res audio or Dolby Atmos mixes", placeholder:"e.g. 40"},
+  ];
+
+  return `
+    <p class="phase-desc">Define your label imprints, estimate your catalog volume, and configure migration if applicable.</p>
+
+    <div class="field-group full" style="margin-bottom:24px">
+      <label class="field-label">Label Imprints<span class="req">*</span></label>
+      <div class="tag-wrap" onclick="document.getElementById('imp-in').focus()">
+        ${tags}
+        <input class="tag-inner" id="imp-in" placeholder="${d.imprints.length?"Add another...":"e.g. Acme Records, Digital Beats"}"
+          onkeydown="handleImprintKey(event)" onblur="flushImprintInput()"/>
+      </div>
+      <span class="field-hint">Press Enter or comma after each imprint name to add it.</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-group full" style="margin-bottom:24px">
+      <div class="dpid-badge">DPID Configuration</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px;line-height:1.55">Your DDEX Party Identifier ties your label entities to DSP delivery. Add one per imprint if they each have their own registered DPID.</div>
+      <div class="dpid-main">
+        <div class="dpid-main-label">Main DPID<span class="req">*</span></div>
+        <input class="field-input mono" type="text" placeholder="PADPIDA2014071501Y"
+          value="${acct.dpid||''}" onchange="upd('account','dpid',this.value)" style="margin-bottom:6px"/>
+        <span class="field-hint">The main DPID we should use or register with DSPs. Typically your primary label entity. (DDEX standard format)</span>
+      </div>
+      ${addDpidHtml.length?`<div class="dpid-list">${addDpidHtml}</div>`:""}
+      <button class="btn-dashed" onclick="addDpid()" style="margin-top:8px">+ Add DPID for additional imprint</button>
+      <span class="field-hint" style="margin-top:4px">Add separate DPIDs if individual imprints have their own registered identifiers.</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="margin-bottom:24px">
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px">Catalog Volume Estimate</div>
+      <div style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5">Approximate figures are fine — this helps us plan ingestion capacity and DSP delivery timelines.</div>
+      <div class="field-grid">
+        ${volFields.map(f=>`
+          <div class="field-group">
+            <label class="field-label">${f.label}</label>
+            <input class="field-input" type="text" inputmode="numeric" placeholder="${f.placeholder}"
+              value="${d[f.key]||''}" onchange="upd('catalog','${f.key}',this.value)"/>
+            <span class="field-hint">${f.hint}</span>
+          </div>`).join("")}
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-grid">
+      <div class="field-group full">
+        <label class="field-label">Existing catalog to migrate?<span class="req">*</span></label>
+        <div style="display:flex;gap:10px;margin-top:4px">
+          ${[["true","Yes — migrating an existing catalog"],["false","No — starting fresh"]].map(([v,l])=>`
+            <div onclick="upd('catalog','hasExistingCatalog',${v})" style="flex:1;padding:12px 16px;border-radius:10px;border:1px solid ${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.45)":"var(--border)"};background:${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.12)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
+              <div style="font-size:13px;font-weight:700;color:${String(d.hasExistingCatalog)===v?"#ffffff":"var(--text-2)"}">${l}</div>
+            </div>`).join("")}
+        </div>
+      </div>
+
+      ${d.hasExistingCatalog?`
+      <div class="field-group full">
+        <label class="field-label">Where is your catalog currently? <span style="color:var(--text-3);font-weight:500;text-transform:none;letter-spacing:0;font-size:10px">(select all that apply)</span></label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+          ${[
+            ["distributor",  "With my current distributor",     "Fully managed by your delivery partner"],
+            ["spreadsheet",  "Spreadsheets / CSVs",             "Excel, Google Sheets, or CSV files"],
+            ["cms",          "Another CMS / DAM",               "Third-party catalog management system"],
+            ["physical",     "Physical media / hard drives",    "Drives, DATs, or physical storage"],
+            ["partial",      "Partially online, partially not", "Mixed — some delivered, some not"],
+            ["other",        "Other",                           "Something else — describe below"],
+          ].map(([val,label,hint])=>{
+            const sel=(d.catalogLocations||[]).includes(val);
+            return `<div onclick="toggleCatalogLocation('${val}')" style="padding:12px 14px;border-radius:10px;border:1px solid ${sel?"rgba(255,255,255,0.45)":"var(--border)"};background:${sel?"rgba(255,255,255,0.12)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+                <div style="width:14px;height:14px;border-radius:3px;border:2px solid ${sel?"#ffffff":"rgba(255,255,255,0.25)"};background:${sel?"#ffffff":"transparent"};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--bg);font-weight:900">${sel?"✓":""}</div>
+                <span style="font-size:13px;font-weight:700;color:${sel?"#ffffff":"var(--text-2)"}">${label}</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-3);padding-left:22px">${hint}</div>
+            </div>`;
+          }).join("")}
+        </div>
+        ${(d.catalogLocations||[]).includes("other")?`
+          <textarea class="field-textarea" style="margin-top:10px;min-height:60px" placeholder="Describe where your catalog currently lives..."
+            onchange="upd('catalog','catalogLocationOther',this.value)">${d.catalogLocationOther||""}</textarea>`:""}
+        <div style="margin-top:12px">
+          <label class="field-label" style="display:block;margin-bottom:6px">Attach supporting files <span style="color:var(--text-3);font-weight:400;text-transform:none;letter-spacing:0">(optional — CSVs, spreadsheets, asset lists)</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--input-bg);border:1px dashed rgba(255,255,255,0.15);border-radius:10px;cursor:pointer;transition:all 0.15s;font-size:13px;color:var(--text-2)" onmouseover="this.style.borderColor='rgba(189,224,48,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'">
+            <span style="font-size:18px">📎</span>
+            <span>Click to attach files, or drag and drop</span>
+            <input type="file" multiple accept=".csv,.xlsx,.xls,.tsv,.txt,.pdf,.zip" style="display:none" onchange="handleCatalogFiles(event)"/>
+          </label>
+          ${(d.catalogFiles||[]).length?`<div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">${(d.catalogFiles||[]).map((f,i)=>`
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;font-size:12px">
+              <span>📄</span>
+              <span style="flex:1;color:var(--text-2)">${f.name}</span>
+              <span style="color:var(--text-3)">${(f.size/1024).toFixed(0)} KB</span>
+              <button class="btn-icon" style="width:22px;height:22px" onclick="removeCatalogFile(${i})">×</button>
+            </div>`).join("")}</div>`:""}
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Prior Delivery Partner<span class="req">*</span></label>
+        <select class="field-select" onchange="upd('catalog','priorDeliveryPartner',this.value)">
+          <option value="">Select...</option>
+          ${["CD Baby","DistroKid","TuneCore","Amuse","UnitedMasters","AWAL","Stem","Symphonic","OneRPM","Repost Network","Other"].map(p=>`<option value="${p}" ${d.priorDeliveryPartner===p?"selected":""}>${p}</option>`).join("")}
+        </select>
+      </div>
+
+      ${d.priorDeliveryPartner?`
+      <div class="field-group">
+        <label class="field-label">Distributor Contact Name</label>
+        <input class="field-input" type="text" placeholder="First Last"
+          value="${d.distributorContactName||""}" onchange="upd('catalog','distributorContactName',this.value)"/>
+        <span class="field-hint">Person at ${d.priorDeliveryPartner} who can assist with the migration</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Distributor Contact Email</label>
+        <input class="field-input" type="email" placeholder="contact@distributor.com"
+          value="${d.distributorContactEmail||""}" onchange="upd('catalog','distributorContactEmail',this.value)"/>
+      </div>`:""}
+
+      <div class="field-group ${d.priorDeliveryPartner?"":""}">
+        <label class="field-label">Catalog Ingestion Method<span class="req">*</span></label>
+        <select class="field-select" onchange="upd('catalog','catalogIngestionMethod',this.value)">
+          <option value="">Select...</option>
+          <option value="ddex" ${d.catalogIngestionMethod==="ddex"?"selected":""}>DDEX (ERN / MWN)</option>
+          <option value="csv" ${d.catalogIngestionMethod==="csv"?"selected":""}>CSV / Spreadsheet</option>
+          <option value="manual" ${d.catalogIngestionMethod==="manual"?"selected":""}>Manual Entry</option>
+          <option value="api" ${d.catalogIngestionMethod==="api"?"selected":""}>API Integration</option>
+        </select>
+      </div>
+
+      ${d.catalogIngestionMethod==="api"?`
+      <div class="field-group full">
+        <div style="background:var(--surface2);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:18px 20px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ffffff;margin-bottom:14px;display:flex;align-items:center;gap:7px">⚡ API Integration Details</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+
+            ${[
+              ["apiNeedsDocs",   "Will you need API documentation for your tenant?",        "We can provide endpoint references and auth guides"],
+              ["apiNeedsKey",    "Will you need an API key / credentials issued?",           "We'll generate a tenant-scoped key and share it"],
+              ["apiWillPostSelf","Are you planning to POST content to OpenPlay yourselves?", "i.e. your engineering team will call our ingest endpoints directly"],
+            ].map(([field,question,hint])=>{
+              const val=d[field];
+              return `<div>
+                <div style="font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:6px">${question}</div>
+                <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;line-height:1.4">${hint}</div>
+                <div style="display:flex;gap:8px">
+                  ${[["true","Yes"],["false","Not sure yet"],["na","No"]].map(([v,l])=>`
+                    <button onclick="upd('catalog','${field}','${v}')" style="padding:6px 16px;border-radius:8px;border:1px solid ${val===v?"rgba(255,255,255,0.45)":"var(--border)"};background:${val===v?"rgba(255,255,255,0.12)":"var(--input-bg)"};color:${val===v?"#ffffff":"var(--text-3)"};font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s">${l}</button>
+                  `).join("")}
+                </div>
+              </div>`;
+            }).join("")}
+
+          </div>
+        </div>
+      </div>`:""}
+      `:""}
+    </div>`;
+}
+
+function renderDSPs(){
+  const d=S.data.dsps;
+  const direct=Object.values(d).filter(v=>v.mode==="direct").length;
+  const open=Object.values(d).filter(v=>v.mode==="open").length;
+  const na=Object.values(d).filter(v=>v.mode==="na").length;
+  const total=ALL_DSPS.length;
+
+  const od = S.data.dsps.otherDistributors || [];
+  const odNote = S.data.dsps.otherDistributorsNote || "";
+  const knownDistributors = ["AudioSalad","The Orchard","FUGA","Believe","DistroKid","TuneCore","CD Baby","Amuse","Stem","AWAL","Symphonic","OneRPM","Repost","Soundrop"];
+  const odChips = knownDistributors.map(name => {
+    const on = od.includes(name);
+    return `<button class="dist-chip ${on?"on":""}" onclick="toggleDistributor('${name}')">${name}</button>`;
+  }).join("");
+
+  let html=`
+    <p class="phase-desc">Two things to cover here: who you're delivering through (distributors), and how each platform is configured (DSP deal types).</p>
+
+    <!-- ══ SECTION: DISTRIBUTORS ══ -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="font-size:16px">🤝</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em">Distributors</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:2px">Let us know which partners you intend to deliver to, if applicable.</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:36px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);border-radius:14px;overflow:hidden">
+      <div style="padding:16px 20px 0 20px">
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px">
+          ${odChips}
+        </div>
+        <div style="padding-bottom:16px">
+          <label class="field-label" style="display:block;margin-bottom:6px">Other / additional notes <span style="font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(255,255,255,0.35)">(optional)</span></label>
+          <input class="field-input" type="text" placeholder="e.g. Stem, AWAL, or any other distribution partners…"
+            value="${odNote}" oninput="S.data.dsps.otherDistributorsNote=this.value;autoSave()"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION: DSPs ══ -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="font-size:16px">🎧</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em">DSP Deal Types</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:2px">Assign a deal type for each platform below.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Direct Deal</strong> — negotiated contract directly with the DSP &nbsp;·&nbsp;
+      <strong>OpenPlay</strong> — standard OpenPlay distribution terms &nbsp;·&nbsp;
+      <strong>N/A</strong> — not distributing to this platform
+    </div>
+
+    <div class="dsp-toolbar">
+      <div class="dsp-counts">
+        <div class="dsp-count-pill direct">${direct} Direct</div>
+        <div class="dsp-count-pill open">${open} OpenPlay</div>
+        <div class="dsp-count-pill na">${na} N/A</div>
+        <div class="dsp-count-pill unset">${total-direct-open-na} Unassigned</div>
+      </div>
+      <div class="dsp-bulk">
+        <button class="btn-bulk" onclick="bulkSetAll('open')">✓ All OpenPlay</button>
+        <button class="btn-bulk" onclick="bulkSetAll('na')">✕ All N/A</button>
+        <button class="btn-bulk" onclick="bulkClear()">Clear All</button>
+      </div>
+    </div>`;
+
+  Object.entries(DSP_GROUPS).forEach(([group,dsps])=>{
+    html+=`<div class="dsp-group"><div class="dsp-group-header">${group}
+      <button class="btn-bulk" style="margin-left:auto;font-size:9px;padding:3px 8px" onclick="bulkSetGroup('${group}','open')">All OpenPlay</button>
+      <button class="btn-bulk" style="font-size:9px;padding:3px 8px" onclick="bulkSetGroup('${group}','na')">All N/A</button>
+    </div>`;
+
+    html+=`<div class="dsp-grid">`;
+    dsps.forEach(dsp=>{
+      const sel=d[dsp.name]||{};
+      const mode=sel.mode||"";
+      const isUnavailable=!!dsp.note;
+      const cls=isUnavailable?"sel-na":(mode==="direct"?"sel-direct":mode==="open"?"sel-open":mode==="na"?"sel-na":"");
+      const badge=isUnavailable?`<span class="dsp-badge na">Unavailable</span>`:
+                  mode==="direct"?`<span class="dsp-badge direct">Direct</span>`:
+                  mode==="open"?`<span class="dsp-badge open">OpenPlay</span>`:
+                  mode==="na"?`<span class="dsp-badge na">N/A</span>`:
+                  `<span class="dsp-badge unset">Unassigned</span>`;
+      const noteHtml=dsp.note?`<div style="font-size:9px;color:var(--red);margin-top:5px;line-height:1.4">${dsp.note}</div>`:"";
+      const depHtml=dsp.dep&&S.mode==="support"?`<div style="font-size:9px;color:var(--text-3);margin-top:3px;font-family:'DM Mono',monospace">DEP: ${dsp.dep}</div>`:"";
+      const directSub=mode==="direct"?`<div class="dsp-direct-sub">
+        <div class="dsp-direct-lbl">Deal Status</div>
+        <div class="dsp-direct-btns">
+          <button class="dsp-direct-btn ${sel.directType==="existing"?"on":""}" onclick="setDT('${dsp.name}','existing');event.stopPropagation()">Existing</button>
+          <button class="dsp-direct-btn ${sel.directType==="new"?"on":""}" onclick="setDT('${dsp.name}','new');event.stopPropagation()">New</button>
+        </div></div>`:"";
+      const btns=isUnavailable
+        ?`<div style="font-size:9px;color:var(--text-3);margin-top:6px">Not available for selection</div>`
+        :`<div class="dsp-btns">
+          <button class="dsp-btn t-d ${mode==="direct"?"on":""}" onclick="setDSP('${dsp.name}','direct');event.stopPropagation()">Direct</button>
+          <button class="dsp-btn t-o ${mode==="open"?"on":""}" onclick="setDSP('${dsp.name}','open');event.stopPropagation()">OpenPlay</button>
+          <button class="dsp-btn t-n ${mode==="na"?"on":""}" onclick="setDSP('${dsp.name}','na');event.stopPropagation()">N/A</button>
+        </div>`;
+      html+=`<div class="dsp-card ${cls}" ${isUnavailable?"style='opacity:0.6;cursor:default'":""}>
+        <div class="dsp-name"><span class="dsp-emoji">${dsp.emoji}</span>${dsp.name}</div>
+        ${badge}
+        ${noteHtml}
+        ${btns}
+        ${directSub}
+        ${depHtml}
+      </div>`;
+    });
+    html+=`</div>`; // close dsp-grid
+
+    // YouTube channel registration — BELOW the Video Distribution cards, only when YouTube selected
+    if(group==="Video Distribution"){
+      const ytDspNames=["Youtube (Music Video)","YouTube Art Tracks","YouTube Content ID"];
+      const anyYtSelected=ytDspNames.some(n=>d[n]&&d[n].mode&&d[n].mode!=="na");
+      const yt=S.data.youtube;
+
+      if(anyYtSelected){
+        const chCards=yt.channels.map((ch,i)=>`
+          <div class="yt-card">
+            <div class="yt-card-head">
+              <div class="yt-card-title">▶ Channel ${i+1}</div>
+              <button class="btn-icon" onclick="removeChannel(${i});event.stopPropagation()">×</button>
+            </div>
+            <div class="field-grid" style="margin-bottom:0">
+              <div class="field-group full">
+                <label class="field-label">Channel URL<span class="req">*</span></label>
+                <input class="field-input" type="url" placeholder="https://youtube.com/@YourChannel"
+                  value="${ch.channelUrl||""}" onchange="updateChannel(${i},'channelUrl',this.value)"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Channel ID</label>
+                <input class="field-input mono" type="text" placeholder="UC..."
+                  value="${ch.channelId||""}" onchange="updateChannel(${i},'channelId',this.value)"/>
+                <span class="field-hint">YouTube Studio → Settings → Channel → Advanced Settings</span>
+              </div>
+              <div class="field-group">
+                <label class="field-label">YouTube MCN</label>
+                <input class="field-input" type="text" placeholder="e.g. INDMusic, BBTV, Believe..."
+                  value="${ch.mcn||""}" onchange="updateChannel(${i},'mcn',this.value)"/>
+                <span class="field-hint">Multi-Channel Network this channel belongs to, if any</span>
+              </div>
+            </div>
+            <div class="yt-toggles">
+              <div class="toggle-group">
+                <button class="toggle ${ch.isMonetized?"on":""}" onclick="updateChannel(${i},'isMonetized',${!ch.isMonetized});renderMain()"></button>
+                <span class="toggle-label">Already monetized?</span>
+              </div>
+              <div class="toggle-group">
+                <button class="toggle ${ch.isOAC?"on":""}" onclick="updateChannel(${i},'isOAC',${!ch.isOAC});renderMain()"></button>
+                <span class="toggle-label">Official Artist Channel (OAC)?</span>
+              </div>
+            </div>
+          </div>`).join("");
+
+        html+=`<div style="margin-top:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:12px;padding:18px 20px;animation:slideIn 0.25s ease">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="font-size:13px">▶</span>
+            <div style="font-size:12px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#fff">YouTube Channel Registration</div>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;line-height:1.5">Register the channels that will receive YouTube Art Tracks, Content ID, and/or Music Video deliveries.</div>
+          ${chCards}
+          <button class="btn-dashed" onclick="addChannel();event.stopPropagation()" style="width:100%;text-align:center;padding:10px;margin-top:6px">+ Add YouTube Channel</button>
+        </div>`;
+      } else {
+        html+=`<div style="margin-top:14px;padding:13px 16px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.15);border-radius:10px;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;display:flex;align-items:center;gap:8px">
+          <span>▶</span> Select a YouTube platform above (Art Tracks, Content ID, or Music Video) to register your channels here.
+        </div>`;
+      }
+    }
+
+    html+=`</div>`; // close dsp-group
+  });
+  return html;
+}
+
+function renderYouTube(){
+  const d=S.data.youtube;
+  return `
+    <p class="phase-desc">Share any special requirements, existing partnerships, or context that will help your OpenPlay account team set things up correctly.</p>
+    <div class="field-group full">
+      <label class="field-label">Additional Information</label>
+      <textarea class="field-textarea" style="min-height:160px" placeholder="e.g. existing DSP partnerships, priority markets, special catalog requirements, migration notes..."
+        onchange="upd('youtube','additionalInfo',this.value)">${d.additionalInfo||""}</textarea>
+    </div>`;
+}
+
+function renderInternal(){
+  const d=S.data.internal;
+  return `
+    <p class="phase-desc">OpenPlay support fields — not visible to the client.</p>
+    <div class="support-section">
+      <div class="support-section-title">⚙ Tenant Settings</div>
+      <div class="field-grid">
+        <div class="field-group">
+          <label class="field-label">Tenant ID (opTenantId)</label>
+          <input class="field-input mono" type="text" placeholder="ACME001"
+            value="${d.opTenantId||""}" onchange="upd('internal','opTenantId',this.value.toUpperCase())"/>
+          <span class="field-hint">Unique system identifier — letters & numbers only</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">System Display Name</label>
+          <input class="field-input" type="text" placeholder="Acme Music Distribution"
+            value="${d.tenantDisplayName||""}" onchange="upd('internal','tenantDisplayName',this.value)"/>
+          <span class="field-hint">How this account appears in internal dashboards</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Assigned Account Manager</label>
+          <input class="field-input" type="text" placeholder="Name or email"
+            value="${d.accountManager||""}" onchange="upd('internal','accountManager',this.value)"/>
+        </div>
+      </div>
+    </div>
+    <div class="field-group full">
+      <label class="field-label">Internal Notes</label>
+      <textarea class="field-textarea" placeholder="Migration flags, special handling instructions, support escalation notes..."
+        onchange="upd('internal','notes',this.value)">${d.notes||""}</textarea>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════
+//  CELEBRATE
+// ══════════════════════════════════════════════
+function showCelebrate(tier,nextTier){
+  document.getElementById("cel-emoji").textContent=tier.emoji;
+  document.getElementById("cel-title").textContent=`${tier.name} complete`;
+  document.getElementById("cel-desc").textContent=`That section is done and saved. ${nextTier?"Here's what you're unlocking next:":"You've completed all sections."}`;
+  document.getElementById("cel-xp").style.display="none"; // no XP shown
+  if(nextTier){
+    document.getElementById("cel-next").innerHTML=`
+      <div class="celebrate-next-label">Up next</div>
+      <div class="celebrate-next-name">${nextTier.name}</div>
+      <div class="celebrate-next-desc">${nextTier.teaser}</div>`;
+    document.getElementById("cel-btn").textContent=`Start ${nextTier.name} →`;
+  } else {
+    document.getElementById("cel-next").innerHTML=`
+      <div class="celebrate-next-label">All done</div>
+      <div class="celebrate-next-name" style="color:#ffffff">Ready to generate output</div>
+      <div class="celebrate-next-desc">Your onboarding data is complete and ready to export as JSON.</div>`;
+    document.getElementById("cel-btn").textContent="View JSON Output →";
+  }
+  document.getElementById("celebrate").style.display="flex";
+}
+
+function dismissCelebrate(){
+  document.getElementById("celebrate").style.display="none";
+  render();
+}
+
+// ══════════════════════════════════════════════
+//  JSON OUTPUT
+// ══════════════════════════════════════════════
+function renderOutput(main){
+  if(S.mode==="support") renderOutputSupport(main);
+  else renderOutputClient(main);
+}
+
+// ── CLIENT VIEW — clean, no technical details ─────────────────────────
+function renderOutputClient(main){
+  const submitted = !!window._submitDone;
+  main.innerHTML=`<div class="output-screen" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:40px 24px">
+
+    ${submitted ? `
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(52,211,153,0.12);border:2px solid rgba(52,211,153,0.35);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px;animation:fadeIn 0.4s ease">✓</div>
+      <h1 style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;color:#fff">You're all done!</h1>
+      <p style="font-size:16px;color:rgba(255,255,255,0.6);max-width:420px;line-height:1.75;margin-bottom:36px">
+        Your onboarding information has been submitted.<br>The OpenPlay team will be in touch shortly.
+      </p>
+      <div style="background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.18);border-radius:14px;padding:18px 28px;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:380px">
+        📅 Expect to hear from us within <strong style="color:#fff">1–2 business days</strong>.<br>
+        Questions? Reach out to your account manager.
+      </div>
+    ` : `
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px">🏆</div>
+      <p style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:12px">All sections complete</p>
+      <h1 style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px;color:#fff">Ready to submit</h1>
+      <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:380px;line-height:1.75;margin-bottom:36px">
+        Review your answers in the sections above, then submit to send everything to the OpenPlay team.
+      </p>
+      <button id="client-submit-btn" onclick="clientSubmit()" style="padding:16px 56px;background:#fff;border:none;border-radius:12px;color:var(--bg);font-size:17px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.18s;box-shadow:0 4px 28px rgba(0,0,0,0.25)">
+        Submit →
+      </button>
+      <button onclick="restart()" style="margin-top:18px;background:none;border:none;color:rgba(255,255,255,0.28);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:underline">Start over</button>
+    `}
+
+  </div>`;
+}
+
+// ── SUPPORT VIEW — full technical detail + integration status ─────────
+function renderOutputSupport(main){
+  const json=buildJSON();
+  const hasEndpoint = SHEETS_ENDPOINT && SHEETS_ENDPOINT.trim().length > 0;
+  const pretty=syntaxHL(JSON.stringify(json,null,2));
+  const sheetsStatus = window._sheetsWritten || null;
+  const submitTime   = window._submitTime || null;
+
+  const pill=(icon,label,status,detail,fn)=>{
+    const C={ok:{dot:"#34D399",col:"#34D399",badge:"Written",bg:"rgba(52,211,153,0.08)",border:"rgba(52,211,153,0.25)"},error:{dot:"#FCA5A5",col:"#FCA5A5",badge:"Error",bg:"rgba(252,165,165,0.08)",border:"rgba(252,165,165,0.25)"},pending:{dot:"rgba(252,211,77,0.85)",col:"var(--amber)",badge:"Pending",bg:"rgba(252,211,77,0.06)",border:"rgba(252,211,77,0.2)"},idle:{dot:"rgba(255,255,255,0.18)",col:"rgba(255,255,255,0.38)",badge:"Not connected",bg:"rgba(255,255,255,0.04)",border:"rgba(255,255,255,0.1)"}};
+    const s=C[status]||C.idle;
+    return `<div style="display:flex;align-items:center;gap:12px;padding:13px 16px;background:${s.bg};border:1px solid ${s.border};border-radius:10px;margin-bottom:8px">
+      <span style="font-size:18px;flex-shrink:0">${icon}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:2px">${label}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.42);line-height:1.4">${detail}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <div style="width:7px;height:7px;border-radius:50%;background:${s.dot}"></div>
+        <span style="font-size:10px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:${s.col}">${s.badge}</span>
+      </div>
+      ${fn?`<button onclick="${fn}" style="margin-left:8px;padding:5px 11px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">${status==="ok"?"Re-send":"Send"}</button>`:""}
+    </div>`;
+  };
+
+  main.innerHTML=`<div class="output-screen">
+
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(252,211,77,0.1);border:1px solid rgba(252,211,77,0.28);border-radius:6px;padding:3px 10px;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);margin-bottom:10px">⚙ Support View</div>
+        <h1 style="font-size:24px;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px">Submission Review</h1>
+        <p style="font-size:12px;color:rgba(255,255,255,0.45)">${json.tenantInformation?.businessName||"—"} · ${submitTime?new Date(submitTime).toLocaleString():"not yet submitted"}</p>
+      </div>
+      <button onclick="restart()" style="padding:7px 14px;background:transparent;border:1px solid rgba(255,255,255,0.16);border-radius:8px;color:rgba(255,255,255,0.45);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0">↺ New form</button>
+    </div>
+
+    <!-- Integration status -->
+    <div style="margin-bottom:24px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:10px">Integration Status</div>
+      ${pill("📊","Google Sheets — Master Tracker",
+        sheetsStatus==="ok"?"ok":sheetsStatus==="error"?"error":hasEndpoint?"pending":"idle",
+        sheetsStatus==="ok"?`Written at ${submitTime?new Date(submitTime).toLocaleTimeString():"—"}`:
+        sheetsStatus==="error"?"Write failed — check endpoint URL and retry":
+        hasEndpoint?"Connected · not yet sent":"No endpoint saved — paste URL below",
+        hasEndpoint?"supportSubmitSheets()":"")}
+      ${(()=>{
+        const hsR=window._hsResult||null;
+        const sheetsOk=window._sheetsWritten==="ok";
+        const hsStatus=hsR?hsR.status:(sheetsOk?"ok":"pending");
+        const hsDetail=hsR&&hsR.status==="ok"?`Deal ${hsR.action||"synced"} — ID ${hsR.dealId}`:hsR&&hsR.status==="error"?`Error: ${hsR.detail}`:sheetsOk?"Submitted via Apps Script — HubSpot sync handled server-side":"Will sync to HubSpot when submitted via Apps Script";
+        return pill("🟠","HubSpot CRM — Deal",hsStatus,hsDetail,"");
+      })()}
+      ${!hasEndpoint?`
+      <div style="margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px">
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:8px">Paste your Apps Script Web App URL to connect</div>
+        <div style="display:flex;gap:8px">
+          <input id="endpoint-input" type="url" placeholder="https://script.google.com/macros/s/.../exec"
+            style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:7px;padding:8px 12px;color:#fff;font-size:12px;font-family:'DM Sans',sans-serif;outline:none"/>
+          <button onclick="saveEndpoint()" style="padding:8px 14px;background:#fff;border:none;border-radius:7px;color:var(--bg);font-size:12px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap">Save & Connect</button>
+        </div>
+      </div>`:""}
+      <div id="submit-status" style="font-size:11px;margin-top:6px;min-height:14px"></div>
+    </div>
+
+    <!-- Summary grid -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 20px;margin-bottom:18px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:14px">Submission Summary</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+        ${[["🏢","Business",json.tenantInformation?.businessName||"—"],["📧","Admin Email",json.tenantInformation?.adminEmail||"—"],["💱","Currency",json.tenantInformation?.currency||"—"],["🏷","Imprints",(json.tenantInformation?.imprints||[]).join(", ")||"—"],["🔑","Main DPID",json.tenantInformation?.dpid||"—"],["🌍","Country",json.businessAddress?.country||"—"],["🎧","Direct DSPs",(json.dspSelections?.directDeals||[]).length+" platforms"],["🚀","OpenPlay DSPs",(json.dspSelections?.openPlayDeals||[]).length+" platforms"],["📋","Contract",json.gettingStarted?.contractSigned?"✓ Signed":"✗ Unsigned"],["💳","Payment",json.gettingStarted?.paymentConfirmed?"✓ Confirmed":"✗ Pending"],["📦","Est. ISRCs",json.catalogVolume?.estimatedIsrcs||"—"],["🔄","Migration",json.migrations?.hasExistingCatalog?"Yes — "+(json.migrations?.priorDeliveryPartner||"?"):"No"]].map(([icon,label,val])=>`
+          <div style="background:rgba(255,255,255,0.04);border-radius:7px;padding:10px 12px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:3px">${icon} ${label}</div>
+            <div style="font-size:12px;font-weight:600;color:#fff;line-height:1.3;word-break:break-all">${val}</div>
+          </div>`).join("")}
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
+      <button onclick="dlJSON()" style="padding:8px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);border-radius:7px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">↓ Download JSON</button>
+      <button onclick="copyJSON()" id="copy-btn" style="padding:8px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);border-radius:7px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">⎘ Copy JSON</button>
+      ${hasEndpoint?`<button onclick="clearEndpoint()" style="padding:8px 14px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:rgba(255,255,255,0.32);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Change Sheets URL</button>`:""}
+    </div>
+
+    <!-- Raw JSON -->
+    <details style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);border-radius:11px;overflow:hidden">
+      <summary style="padding:12px 16px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px">
+        <span>{}</span> Raw JSON payload <span style="margin-left:auto;font-size:10px;opacity:0.5">expand</span>
+      </summary>
+      <div class="json-block" style="border-radius:0;border:none;border-top:1px solid rgba(255,255,255,0.09);margin:0">${pretty}</div>
+    </details>
+
+  </div>`;
+}
+
+async function clientSubmit(){
+  const btn=document.getElementById("client-submit-btn");
+  if(btn){btn.disabled=true;btn.innerHTML="Submitting…";btn.style.opacity="0.6";}
+  window._submitTime=new Date().toISOString();
+  if(SHEETS_ENDPOINT){
+    try{
+      await fetch(SHEETS_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(buildJSON())});
+      window._sheetsWritten="ok";
+    }catch(e){window._sheetsWritten="error";}
+  }
+  window._submitDone=true;
+  try{localStorage.removeItem("openplay_onboarding_v1");}catch(e){}
+  renderOutputClient(document.getElementById("main"));
+}
+
+async function supportSubmitSheets(){
+  const status=document.getElementById("submit-status");
+  if(status)status.innerHTML='<span style="color:rgba(255,255,255,0.45)">Sending…</span>';
+  window._submitTime=new Date().toISOString();
+  try{
+    await fetch(SHEETS_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(buildJSON())});
+    window._sheetsWritten="ok";
+  }catch(e){window._sheetsWritten="error";}
+  renderOutputSupport(document.getElementById("main"));
+}
+
+
+function buildJSON(){
+  const d=S.data;
+  const start=d.start||{}, env=d.environment||{}, acct=d.account, addr=d.address, cat=d.catalog, dsps=d.dsps, yt=d.youtube, int=d.internal;
+
+  // Build DSP selections — include dep number for internal reference
+  const dspMeta={};
+  Object.values(DSP_GROUPS).flat().forEach(d=>{ dspMeta[d.name]=d.dep; });
+
+  const directDeals=Object.entries(dsps).filter(([,v])=>v.mode==="direct").map(([dsp,v])=>({dsp,dep:dspMeta[dsp]||null,type:v.directType||"existing"}));
+  const openPlayDeals=Object.entries(dsps).filter(([,v])=>v.mode==="open").map(([dsp])=>({dsp,dep:dspMeta[dsp]||null}));
+  const notApplicable=Object.entries(dsps).filter(([,v])=>v.mode==="na").map(([dsp])=>dsp);
+
+  const json={
+    submissionDate:new Date().toISOString(),
+    gettingStarted:{
+      contractSigned:start.contractSigned||false,
+      paymentConfirmed:start.paymentConfirmed||false,
+      pointPerson:{name:start.pointPersonName||null,email:start.pointPersonEmail||null},
+    },
+    environment:{
+      firstLoginDone:env.firstLoginDone||false,
+      videoWatched:env.videoWatched||false,
+      usersAdded:env.usersAdded||false,
+      additionalUsers:env.additionalUsersNote||null,
+    },
+    tenantInformation:{
+      accountType:acct.accountType,
+      businessName:acct.businessName,
+      accountName:acct.tenantName,
+      adminEmail:acct.adminEmail,
+      additionalEmails:acct.additionalEmails.filter(Boolean),
+      currency:acct.currency,
+      dpid:acct.dpid,
+      additionalDpids:(acct.additionalDpids||[]).filter(r=>r.dpid),
+      imprints:cat.imprints,
+    },
+    businessAddress:{street:addr.street,city:addr.city,state:addr.state,zipCode:addr.zipCode,country:addr.country},
+    catalogVolume:{
+      estimatedIsrcs:cat.isrcCount||null,
+      estimatedUpcs:cat.upcCount||null,
+      estimatedVideoAssets:cat.videoCount||null,
+      estimatedHraAtmosAssets:cat.hraAtmosCount||null,
+    },
+    migrations:{
+      hasExistingCatalog:cat.hasExistingCatalog,
+      catalogCurrentlyLocatedAt:cat.catalogLocations||[],
+      catalogLocationOther:cat.catalogLocationOther||null,
+      priorDeliveryPartner:cat.priorDeliveryPartner||null,
+      distributorContact:cat.priorDeliveryPartner&&(cat.distributorContactName||cat.distributorContactEmail)?{name:cat.distributorContactName||null,email:cat.distributorContactEmail||null}:null,
+      catalogIngestionMethod:cat.catalogIngestionMethod||null,
+      apiIntegration:cat.catalogIngestionMethod==="api"?{needsDocs:cat.apiNeedsDocs,needsKey:cat.apiNeedsKey,willPostSelf:cat.apiWillPostSelf}:null,
+    },
+    dspSelections:{
+      otherDistributors:dsps.otherDistributors||[],
+      otherDistributorsNote:dsps.otherDistributorsNote||null,
+      directDeals,openPlayDeals,notApplicable
+    },
+    youtubeChannels:yt.channels,
+    additionalInfo:yt.additionalInfo||"",
+  };
+  if(S.mode==="support"&&int.opTenantId) json._internal={opTenantId:int.opTenantId,tenantDisplayName:int.tenantDisplayName,accountManager:int.accountManager,notes:int.notes};
+  return json;
+}
+
+function syntaxHL(json){
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,m=>{
+    if(/^"/.test(m)){if(/:$/.test(m))return`<span class="jk">${m}</span>`;return`<span class="js">${m}</span>`;}
+    if(/true|false|null/.test(m))return`<span class="jb">${m}</span>`;
+    return`<span class="jn">${m}</span>`;
+  });
+}
+
+// ══════════════════════════════════════════════
+//  ACTIONS
+// ══════════════════════════════════════════════
+function upd(sec,field,value){
+  S.data[sec][field]=value;
+  scheduleSave();
+  if(sec==="catalog"&&(field==="hasExistingCatalog"||field==="priorDeliveryPartner"||field==="catalogIngestionMethod"||field==="apiNeedsDocs"||field==="apiNeedsKey"||field==="apiWillPostSelf")) renderMain();
+}
+function updateEmail(i,v){if(i===0)S.data.account.adminEmail=v;else S.data.account.additionalEmails[i-1]=v;scheduleSave();}
+function addEmail(){S.data.account.additionalEmails.push("");scheduleSave();renderMain();}
+function removeEmail(i){S.data.account.additionalEmails.splice(i-1,1);scheduleSave();renderMain();}
+function addDpid(){if(!S.data.account.additionalDpids)S.data.account.additionalDpids=[];S.data.account.additionalDpids.push({dpid:"",imprint:""});scheduleSave();renderMain();}
+function removeDpid(i){S.data.account.additionalDpids.splice(i,1);scheduleSave();renderMain();}
+function updateDpid(i,field,v){S.data.account.additionalDpids[i][field]=v;scheduleSave();}
+function handleImprintKey(e){
+  if(e.key==="Enter"||e.key===","||e.key==="Tab"){
+    e.preventDefault();
+    const v=e.target.value.trim().replace(/,$/,"");
+    if(v){S.data.catalog.imprints.push(v);e.target.value="";scheduleSave();renderMain();}
+  }
+}
+function flushImprintInput(){
+  const inp=document.getElementById("imp-in");
+  if(!inp) return;
+  const v=inp.value.trim().replace(/,$/,"");
+  if(v){S.data.catalog.imprints.push(v);inp.value="";scheduleSave();}
+}
+function removeImprint(i){S.data.catalog.imprints.splice(i,1);scheduleSave();renderMain();}
+function setDSP(dsp,mode){
+  if(!S.data.dsps[dsp])S.data.dsps[dsp]={};
+  if(S.data.dsps[dsp].mode===mode){delete S.data.dsps[dsp];}
+  else{S.data.dsps[dsp].mode=mode;if(mode!=="direct")delete S.data.dsps[dsp].directType;}
+  scheduleSave();renderMain();
+}
+function setDT(dsp,type){if(!S.data.dsps[dsp])S.data.dsps[dsp]={mode:"direct"};S.data.dsps[dsp].directType=type;scheduleSave();renderMain();}
+function bulkSetAll(mode){ALL_DSPS.filter(d=>!d.note).forEach(d=>{S.data.dsps[d.name]={mode};});scheduleSave();renderMain();}
+function bulkSetGroup(group,mode){DSP_GROUPS[group].filter(d=>!d.note).forEach(d=>{S.data.dsps[d.name]={mode};});scheduleSave();renderMain();}
+function bulkClear(){const od=S.data.dsps.otherDistributors||[];const odn=S.data.dsps.otherDistributorsNote||"";S.data.dsps={otherDistributors:od,otherDistributorsNote:odn};scheduleSave();renderMain();}
+function toggleDistributor(name){const arr=S.data.dsps.otherDistributors||[];const idx=arr.indexOf(name);if(idx>=0)arr.splice(idx,1);else arr.push(name);S.data.dsps.otherDistributors=arr;scheduleSave();renderMain();}
+function addChannel(){S.data.youtube.channels.push({channelUrl:"",channelId:"",mcn:"",isMonetized:false,isOAC:false});scheduleSave();renderMain();}
+function removeChannel(i){S.data.youtube.channels.splice(i,1);scheduleSave();renderMain();}
+function updateChannel(i,field,value){S.data.youtube.channels[i][field]=value;scheduleSave();}
+
+function toggleCatalogLocation(val){
+  const locs=S.data.catalog.catalogLocations||[];
+  const idx=locs.indexOf(val);
+  if(idx>=0) locs.splice(idx,1); else locs.push(val);
+  S.data.catalog.catalogLocations=locs;
+  renderMain();
+}
+function handleCatalogFiles(e){
+  const files=Array.from(e.target.files);
+  S.data.catalog.catalogFiles=[...(S.data.catalog.catalogFiles||[]),...files.map(f=>({name:f.name,size:f.size,type:f.type}))];
+  renderMain();
+}
+function removeCatalogFile(i){S.data.catalog.catalogFiles.splice(i,1);renderMain();}
+
+function goBack(){
+  const tiers=currentTiers();
+  const idx=tiers.findIndex(t=>t.id===S.active);
+  if(idx>0){S.active=tiers[idx-1].id;render();}
+}
+
+function setMode(mode){
+  const prev=S.mode;
+  S.mode=mode;
+  document.getElementById("btn-client").classList.toggle("active",mode==="client");
+  document.getElementById("btn-client").classList.remove("demo-active");
+  document.getElementById("btn-support").classList.toggle("active",mode==="support");
+  document.getElementById("btn-support").classList.remove("demo-active");
+  document.getElementById("btn-demo").classList.remove("active");
+  document.getElementById("btn-demo").classList.toggle("demo-active",mode==="demo");
+
+  if(mode==="demo"){
+    loadDemoData();
+    S.completed=new Set(["account","start","environment","address","catalog","dsps","youtube"]);
+    S.active="account";
+  } else if(prev==="demo"){
+    // leaving demo — reset to blank
+    S.completed=new Set();
+    S.active="account";
+    S.data={start:{contractSigned:false,paymentConfirmed:false,pointPersonName:"",pointPersonEmail:""},environment:{firstLoginDone:false,videoWatched:false,usersAdded:false,additionalUsersNote:""},account:{accountType:"business",businessName:"",tenantName:"",adminEmail:"",additionalEmails:[],currency:"USD",dpid:"",additionalDpids:[]},address:{street:"",city:"",state:"",zipCode:"",country:""},catalog:{imprints:[],hasExistingCatalog:false,catalogLocations:[],catalogLocationOther:"",catalogFiles:[],priorDeliveryPartner:"",distributorContactName:"",distributorContactEmail:"",catalogIngestionMethod:"",apiNeedsDocs:null,apiNeedsKey:null,apiWillPostSelf:null,isrcCount:"",upcCount:"",videoCount:"",hraAtmosCount:""},dsps:{otherDistributors:[],otherDistributorsNote:""},youtube:{channels:[],mcn:"",additionalInfo:""},internal:{tenantDisplayName:"",opTenantId:"",accountManager:"",notes:""}};
+  }
+  render();
+}
+
+function completeSection(tierId){
+  if(!validate(tierId))return;
+  const tiers=currentTiers();
+  const tier=tiers.find(t=>t.id===tierId);
+  const idx=tiers.findIndex(t=>t.id===tierId);
+  const isLast=idx===tiers.length-1;
+
+  if(S.completed.has(tierId)){
+    // already done — just advance
+    if(isLast){const allDone=tiers.every(t=>S.completed.has(t.id));if(allDone){S.active="__done__";render();}return;}
+    S.active=tiers[idx+1].id;render();return;
+  }
+
+  S.completed.add(tierId);
+  S.xp+=tier.xp;
+  scheduleSave();
+  const nextTier=isLast?null:tiers[idx+1];
+  if(isLast){S.active="__done__";}
+  else{S.active=nextTier.id;}
+  showCelebrate(tier,nextTier);
+}
+
+function validate(id){
+  if(S.mode==="demo") return true;
+  const d=S.data;
+  if(id==="account"){
+    if(!d.account.businessName||!d.account.tenantName||!d.account.adminEmail){
+      alert("Please fill in all required fields: Business Name, Account Name, and Admin Email.");return false;
+    }
+  }
+  if(id==="address"){
+    if(!d.address.street||!d.address.city||!d.address.state||!d.address.zipCode||!d.address.country){
+      alert("Please complete all address fields.");return false;
+    }
+  }
+  if(id==="catalog"){
+    flushImprintInput();
+    if(!d.catalog.imprints.length){alert("Please add at least one label imprint.");return false;}
+    if(!d.account.dpid){alert("Please enter your Main DPID in the DPID Configuration section.");return false;}
+    if(d.catalog.hasExistingCatalog&&(!d.catalog.priorDeliveryPartner||!d.catalog.catalogIngestionMethod)){
+      alert("Please select your prior delivery partner and ingestion method.");return false;
+    }
+  }
+  return true;
+}
+
+function loadDemoData(){
+  S.data={
+    start:{contractSigned:true,paymentConfirmed:true,pointPersonName:"Alex Rivera",pointPersonEmail:"alex@audioember.com"},
+    environment:{firstLoginDone:true,videoWatched:true,usersAdded:true,additionalUsersNote:"Sarah Chen — sarah@audioember.com — Editor\nMarcus Webb — marcus@audioember.com — Viewer"},
+    account:{
+      accountType:"business",businessName:"AudioEmber, Inc.",tenantName:"AudioEmber",
+      adminEmail:"admin@audioember.com",additionalEmails:["alex@audioember.com"],
+      currency:"USD",dpid:"PA-DPIDA-2025092501-Z",
+      additionalDpids:[{dpid:"PA-DPIDA-2025010101-A",imprint:"Ember Records"},{dpid:"PA-DPIDA-2025010102-B",imprint:"Parydise"}]
+    },
+    address:{street:"15 Wyndham St N, Suite 2D",city:"Guelph",state:"Ontario",zipCode:"N1H 4E5",country:"Canada"},
+    catalog:{
+      imprints:["AudioEmber","Parydise","Blancana"],
+      hasExistingCatalog:true,
+      catalogLocations:["distributor","spreadsheet"],
+      catalogLocationOther:"",
+      catalogFiles:[],
+      priorDeliveryPartner:"DistroKid",
+      distributorContactName:"Jamie Torres",
+      distributorContactEmail:"jamie@distrokid.com",
+      catalogIngestionMethod:"ddex",
+      isrcCount:"4,200",upcCount:"650",videoCount:"85",hraAtmosCount:"30"
+    },
+    dsps:(()=>{
+      const m={otherDistributors:["DistroKid"],otherDistributorsNote:""};
+      Object.values(DSP_GROUPS).flat().forEach(d=>{
+        if(d.note) return;
+        m[d.name]={mode:"open"};
+      });
+      ["Spotify","Apple Music / iTunes","Amazon Music","TIDAL"].forEach(n=>{m[n]={mode:"direct",directType:"existing"};});
+      ["Napster","Eleven Labs","Vevo","Kuaishou","Taobao"].forEach(n=>{if(m[n])m[n]={mode:"na"};});
+      return m;
+    })(),
+    youtube:{
+      channels:[
+        {channelUrl:"https://youtube.com/@AudioEmberMusic",channelId:"UCxk7MRsOoEmberExample01",mcn:"INDMusic",isMonetized:true,isOAC:true},
+        {channelUrl:"https://youtube.com/@ParydiseLabel",channelId:"UCxk7MRsOoParydiseEx02",mcn:"",isMonetized:false,isOAC:false}
+      ],
+      mcn:"",additionalInfo:"Catalog spans indie rock, electronic, and ambient. Priority markets: US, UK, Canada, Germany. Existing DDEX feeds available from prior distributor."
+    },
+    internal:{tenantDisplayName:"AudioEmber Production",opTenantId:"451",accountManager:"Carla M.",notes:"Priority onboarding — migration from DistroKid. Existing DDEX pipeline ready. Check Atmos assets with client before delivery."}
+  };
+}
+
+function copyJSON(){
+  const json=JSON.stringify(buildJSON(),null,2);
+  navigator.clipboard.writeText(json).then(()=>{
+    const b=document.getElementById("copy-btn");
+    b.textContent="✓ Copied!";b.classList.add("copied");
+    setTimeout(()=>{b.textContent="⎘ Copy JSON";b.classList.remove("copied");},2000);
+  });
+}
+function dlJSON(){
+  const json=JSON.stringify(buildJSON(),null,2);
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([json],{type:"application/json"}));
+  a.download=`openplay-onboarding-${S.data.account.businessName.replace(/\s+/g,"-")||"export"}-${Date.now()}.json`;
+  a.click();
+}
+function restart(){
+  if(!confirm("Start over? All entered data will be cleared."))return;
+  clearSaved();
+  S.completed.clear();S.xp=0;S.active="account";S.mode="client";
+  S.data={start:{contractSigned:false,paymentConfirmed:false,pointPersonName:"",pointPersonEmail:""},environment:{firstLoginDone:false,videoWatched:false,usersAdded:false,additionalUsersNote:""},account:{accountType:"business",businessName:"",tenantName:"",adminEmail:"",additionalEmails:[],currency:"USD",dpid:"",additionalDpids:[]},address:{street:"",city:"",state:"",zipCode:"",country:""},catalog:{imprints:[],hasExistingCatalog:false,catalogLocations:[],catalogLocationOther:"",catalogFiles:[],priorDeliveryPartner:"",distributorContactName:"",distributorContactEmail:"",catalogIngestionMethod:"",apiNeedsDocs:null,apiNeedsKey:null,apiWillPostSelf:null,isrcCount:"",upcCount:"",videoCount:"",hraAtmosCount:""},dsps:{otherDistributors:[],otherDistributorsNote:""},youtube:{channels:[],mcn:"",additionalInfo:""},internal:{tenantDisplayName:"",opTenantId:"",accountManager:"",notes:""}};
+  document.getElementById("btn-client").classList.add("active");
+  document.getElementById("btn-support").classList.remove("active");
+  render();
+}
+
+// ══════════════════════════════════════════════
+//  AUTO-SAVE & RESUME
+// ══════════════════════════════════════════════
+const SAVE_KEY="openplay_onboarding_v1";
+let _saveTimer=null;
+
+function saveProgress(){
+  if(S.mode==="demo")return;
+  try{
+    const snapshot={
+      active:S.active,
+      completed:[...S.completed],
+      data:JSON.parse(JSON.stringify(S.data,(_,v)=>v instanceof File?null:v)),
+      savedAt:new Date().toISOString()
+    };
+    localStorage.setItem(SAVE_KEY,JSON.stringify(snapshot));
+    showSaveToast();
+  }catch(e){}
+}
+
+function loadSaved(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return false;
+    const snap=JSON.parse(raw);
+    if(!snap||!snap.data)return false;
+    return snap;
+  }catch(e){return false;}
+}
+
+function clearSaved(){localStorage.removeItem(SAVE_KEY);}
+
+function showSaveToast(){
+  const t=document.getElementById("save-toast");
+  if(!t)return;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+function scheduleSave(){
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(saveProgress,800);
+}
+
+function updatePageTitle(){
+  const tiers=currentTiers();
+  const done=S.completed.size;
+  const total=tiers.length;
+  document.title=done===total
+    ?"✓ OpenPlay Onboarding — Complete"
+    :done>0
+      ?`(${done}/${total}) OpenPlay Onboarding`
+      :"OpenPlay Onboarding";
+}
+
+render();
+
+// Check for saved progress on load
+(function checkResume(){
+  const snap=loadSaved();
+  if(!snap)return;
+  const saved=new Date(snap.savedAt);
+  const ago=Math.round((Date.now()-saved)/60000);
+  const agoStr=ago<2?"just now":ago<60?`${ago}m ago`:ago<1440?`${Math.round(ago/60)}h ago`:`${Math.round(ago/1440)}d ago`;
+  const name=snap.data?.account?.businessName;
+  const banner=document.getElementById("resume-banner");
+  const msg=document.getElementById("resume-msg");
+  if(banner&&msg){
+    msg.textContent=name
+      ?`You have unsaved progress for "${name}" — saved ${agoStr}.`
+      :`You have unsaved progress from ${agoStr}.`;
+    banner.style.display="flex";
+  }
+  document.getElementById("resume-btn")?.addEventListener("click",()=>{
+    S.completed=new Set(snap.completed);
+    S.active=snap.active;
+    S.data=Object.assign({},S.data,snap.data);
+    S.data.catalog.catalogFiles=[];
+    banner.style.display="none";
+    render();
+  });
+  document.getElementById("resume-dismiss")?.addEventListener("click",()=>{
+    clearSaved();
+    banner.style.display="none";
+  });
+})();
+</script>
+</body>
+</html>
