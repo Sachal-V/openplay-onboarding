@@ -358,7 +358,7 @@ let SHEETS_ENDPOINT = (()=>{
     // Try the stable key first, then fall back to the old key name for migration
     return localStorage.getItem(SHEETS_ENDPOINT_KEY)
         || localStorage.getItem('openplay_sheets_endpoint')
-        || 'https://script.google.com/a/macros/s/AKfycbyT57hm4D8-RVQK7ztSZsLRc52lEadFcBMXipQlEeOJuqAeeQIQmbRKGapBzsexUbOn/exec';
+        || 'https://script.google.com/a/macros/s/AKfycbwyBF-qTKvVLwVnPxEDmsHZaeMCnPWn5t4IhaXCd5OOgf-wrpdIhH1gBSNGk-V5CroU/exec';
   } catch(e){ return ''; }
 })();
 
