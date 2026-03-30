@@ -3,32 +3,32 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OpenPlay Ã¢ÂÂ Client Onboarding</title>
+<title>OpenPlay ÃÂ¢ÃÂÃÂ Client Onboarding</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#2152E8;
-  --surface:#1A44D4;
-  --surface2:#1538C0;
-  --border:rgba(255,255,255,0.14);
-  --border-active:rgba(255,255,255,0.32);
+  --bg:#3362EC;
+  --surface:#2B55DC;
+  --surface2:#2248C8;
+  --border:rgba(255,255,255,0.18);
+  --border-active:rgba(255,255,255,0.4);
   --text:#FFFFFF;
-  --text-2:rgba(255,255,255,0.75);
-  --text-3:rgba(255,255,255,0.42);
-  --input-bg:rgba(255,255,255,0.08);
+  --text-2:rgba(255,255,255,0.82);
+  --text-3:rgba(255,255,255,0.52);
+  --input-bg:rgba(255,255,255,0.11);
   --accent:#FFFFFF;
   --accent-2:#E8EEFF;
-  --accent-dark:#0D1E8A;
+  --accent-dark:#1A35B0;
   --accent-bg:rgba(255,255,255,0.12);
   --accent-glow:rgba(255,255,255,0.15);
   --green:#34D399;
   --green-bg:rgba(52,211,153,0.12);
   --amber:#FCD34D;
   --red:#FCA5A5;
-  --locked:#1A44D4;
+  --locked:#2B55DC;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5;overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5;overflow-x:hidden;font-size:105%}
 
 .app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
 
@@ -256,8 +256,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .divider{height:1px;background:rgba(255,255,255,0.12);margin:24px 0}
 
 
-/* Ã¢ÂÂÃ¢ÂÂ ARROWS-STYLE ENHANCEMENTS Ã¢ÂÂÃ¢ÂÂ */
-/* Phase header in main content Ã¢ÂÂ mirrors Arrows phase card */
+/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ARROWS-STYLE ENHANCEMENTS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* Phase header in main content ÃÂ¢ÃÂÃÂ mirrors Arrows phase card */
 .phase-header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
 .phase-emoji-badge{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .phase-title-block{flex:1}
@@ -288,7 +288,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <body>
 <div class="app">
 
-<!-- Ã¢ÂÂÃ¢ÂÂ SIDEBAR Ã¢ÂÂÃ¢ÂÂ -->
+<!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ SIDEBAR ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-wordmark">
@@ -316,42 +316,42 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </aside>
 
-<!-- Ã¢ÂÂÃ¢ÂÂ MAIN Ã¢ÂÂÃ¢ÂÂ -->
+<!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ MAIN ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
 <main id="main"></main>
 </div>
 
 <!-- Celebrate modal -->
 <div class="celebrate-overlay" id="celebrate" style="display:none">
   <div class="celebrate-card">
-    <span class="celebrate-emoji" id="cel-emoji">Ã°ÂÂÂ</span>
+    <span class="celebrate-emoji" id="cel-emoji">ÃÂ°ÃÂÃÂÃÂ</span>
     <div class="celebrate-title" id="cel-title">Section Complete!</div>
     <div class="celebrate-desc" id="cel-desc"></div>
     <div class="celebrate-xp" id="cel-xp">+200 XP</div>
     <div class="celebrate-next" id="cel-next"></div>
-    <button class="celebrate-btn" id="cel-btn" onclick="dismissCelebrate()">Continue Ã¢ÂÂ</button>
+    <button class="celebrate-btn" id="cel-btn" onclick="dismissCelebrate()">Continue ÃÂ¢ÃÂÃÂ</button>
   </div>
 </div>
 
 <!-- Resume banner -->
 <div id="resume-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(18,56,196,0.97);border-bottom:1px solid rgba(255,255,255,0.25);padding:14px 24px;align-items:center;gap:14px;backdrop-filter:blur(8px)">
-  <span style="font-size:16px">Ã°ÂÂÂ¾</span>
+  <span style="font-size:16px">ÃÂ°ÃÂÃÂÃÂ¾</span>
   <span id="resume-msg" style="flex:1;font-size:13px;color:var(--text-2);font-weight:500"></span>
-  <button id="resume-btn" style="padding:8px 18px;background:#ffffff;color:var(--bg);border:none;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif">Resume Ã¢ÂÂ</button>
+  <button id="resume-btn" style="padding:8px 18px;background:#ffffff;color:var(--bg);border:none;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif">Resume ÃÂ¢ÃÂÃÂ</button>
   <button id="resume-dismiss" style="padding:8px 14px;background:transparent;color:var(--text-3);border:1px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">Start fresh</button>
 </div>
 
 <!-- Save toast -->
 <div id="save-toast" style="position:fixed;bottom:24px;right:24px;z-index:300;background:rgba(18,56,196,0.92);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:10px 16px;font-size:12px;color:#ffffff;font-weight:700;display:flex;align-items:center;gap:8px;backdrop-filter:blur(6px);opacity:0;transform:translateY(8px);transition:all 0.25s;pointer-events:none">
-  <span>Ã¢ÂÂ</span> Progress saved
+  <span>ÃÂ¢ÃÂÃÂ</span> Progress saved
 </div>
 
 <script>
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  GOOGLE SHEETS INTEGRATION
 //  Endpoint is stored under a fixed key so it
 //  persists automatically across every new
-//  version of this file Ã¢ÂÂ set it once, done.
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+//  version of this file ÃÂ¢ÃÂÃÂ set it once, done.
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const SHEETS_ENDPOINT_KEY = 'openplay_sheets_endpoint_v1';
 let SHEETS_ENDPOINT = (()=>{
   try {
@@ -362,105 +362,105 @@ let SHEETS_ENDPOINT = (()=>{
   } catch(e){ return ''; }
 })();
 
-// HubSpot is handled server-side via Apps Script Ã¢ÂÂ no client token needed
+// HubSpot is handled server-side via Apps Script ÃÂ¢ÃÂÃÂ no client token needed
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-//  DSP DATA Ã¢ÂÂ full list with groupings
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-// DSP data from onboarding sheet Ã¢ÂÂ {name, dep, emoji, note?}
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+//  DSP DATA ÃÂ¢ÃÂÃÂ full list with groupings
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// DSP data from onboarding sheet ÃÂ¢ÃÂÃÂ {name, dep, emoji, note?}
 // Grouped by delivery format
 const DSP_GROUPS = {
-  "Streaming Ã¢ÂÂ Stereo Audio": [
-    {name:"Spotify",                          dep:2958, emoji:"Ã°ÂÂÂ§"},
-    {name:"Apple Music / iTunes",             dep:2892, emoji:"Ã°ÂÂÂ"},
-    {name:"Amazon Music",                     dep:2886, emoji:"Ã°ÂÂÂ¦"},
-    {name:"Deezer",                           dep:2910, emoji:"Ã°ÂÂÂµ"},
-    {name:"TIDAL",                            dep:2964, emoji:"Ã°ÂÂÂ"},
-    {name:"Pandora",                          dep:2948, emoji:"Ã°ÂÂÂ»"},
-    {name:"iHeartRadio",                      dep:2930, emoji:"Ã¢ÂÂ¤"},
-    {name:"SoundCloud",                       dep:2954, emoji:"Ã¢ÂÂ"},
-    {name:"TikTok",                           dep:2966, emoji:"Ã°ÂÂÂ¶"},
-    {name:"YouTube Art Tracks",               dep:2976, emoji:"Ã¢ÂÂ¶"},
-    {name:"YouTube Content ID",               dep:2978, emoji:"Ã°ÂÂÂ¹"},
-    {name:"Anghami",                          dep:2890, emoji:"Ã°ÂÂÂ"},
-    {name:"Boomplay",                         dep:2906, emoji:"Ã°ÂÂÂ"},
-    {name:"Audiomack",                        dep:2900, emoji:"Ã°ÂÂÂ"},
-    {name:"AWA",                              dep:2902, emoji:"Ã°ÂÂÂ¯Ã°ÂÂÂµ"},
-    {name:"Melon",                            dep:2940, emoji:"Ã°ÂÂÂ"},
-    {name:"KKBOX",                            dep:2936, emoji:"Ã°ÂÂÂ¹Ã°ÂÂÂ¼"},
-    {name:"Netease",                          dep:2944, emoji:"Ã¢ÂÂ"},
-    {name:"Tencent / QQ Music",              dep:2962, emoji:"Ã°ÂÂÂ§"},
-    {name:"Taobao",                           dep:2960, emoji:"Ã°ÂÂÂ"},
-    {name:"Kuaishou",                         dep:2938, emoji:"Ã°ÂÂÂ±"},
-    {name:"FLO",                              dep:2920, emoji:"Ã°ÂÂÂ°Ã°ÂÂÂ·"},
-    {name:"Vibe",                             dep:2974, emoji:"Ã°ÂÂÂ¸"},
-    {name:"JOOX",                             dep:2934, emoji:"Ã°ÂÂÂ¤"},
-    {name:"JioSaavn",                         dep:2932, emoji:"Ã°ÂÂÂ®Ã°ÂÂÂ³"},
-    {name:"Mixcloud",                         dep:2942, emoji:"Ã°ÂÂÂ"},
-    {name:"Qobuz",                            dep:2946, emoji:"Ã°ÂÂÂ»"},
-    {name:"Peloton",                          dep:2950, emoji:"Ã°ÂÂÂ´"},
-    {name:"TouchTunes",                       dep:2968, emoji:"Ã°ÂÂÂ®"},
-    {name:"Trebel Music",                     dep:2970, emoji:"Ã°ÂÂÂµ"},
-    {name:"Tuned Global",                     dep:2972, emoji:"Ã°ÂÂÂ"},
-    {name:"AMI Entertainment",               dep:2888, emoji:"Ã°ÂÂÂ°"},
-    {name:"PretzelAux",                       dep:2952, emoji:"Ã°ÂÂ¥Â¨"},
-    {name:"IMusica",                          dep:2924, emoji:"Ã°ÂÂÂ§Ã°ÂÂÂ·"},
-    {name:"Kuack",                            dep:2926, emoji:"Ã°ÂÂÂµ"},
-    {name:"7digital (Snap, Pinterest, ROXI)", dep:2884, emoji:"7Ã¯Â¸ÂÃ¢ÂÂ£"},
-    {name:"Napster",                          dep:null,  emoji:"Ã°ÂÂÂ±", note:"Not currently delivered Ã¢ÂÂ outstanding royalty issues"},
+  "Streaming ÃÂ¢ÃÂÃÂ Stereo Audio": [
+    {name:"Spotify",                          dep:2958, emoji:"ÃÂ°ÃÂÃÂÃÂ§"},
+    {name:"Apple Music / iTunes",             dep:2892, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Amazon Music",                     dep:2886, emoji:"ÃÂ°ÃÂÃÂÃÂ¦"},
+    {name:"Deezer",                           dep:2910, emoji:"ÃÂ°ÃÂÃÂÃÂµ"},
+    {name:"TIDAL",                            dep:2964, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Pandora",                          dep:2948, emoji:"ÃÂ°ÃÂÃÂÃÂ»"},
+    {name:"iHeartRadio",                      dep:2930, emoji:"ÃÂ¢ÃÂÃÂ¤"},
+    {name:"SoundCloud",                       dep:2954, emoji:"ÃÂ¢ÃÂÃÂ"},
+    {name:"TikTok",                           dep:2966, emoji:"ÃÂ°ÃÂÃÂÃÂ¶"},
+    {name:"YouTube Art Tracks",               dep:2976, emoji:"ÃÂ¢ÃÂÃÂ¶"},
+    {name:"YouTube Content ID",               dep:2978, emoji:"ÃÂ°ÃÂÃÂÃÂ¹"},
+    {name:"Anghami",                          dep:2890, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Boomplay",                         dep:2906, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Audiomack",                        dep:2900, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"AWA",                              dep:2902, emoji:"ÃÂ°ÃÂÃÂÃÂ¯ÃÂ°ÃÂÃÂÃÂµ"},
+    {name:"Melon",                            dep:2940, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"KKBOX",                            dep:2936, emoji:"ÃÂ°ÃÂÃÂÃÂ¹ÃÂ°ÃÂÃÂÃÂ¼"},
+    {name:"Netease",                          dep:2944, emoji:"ÃÂ¢ÃÂÃÂ"},
+    {name:"Tencent / QQ Music",              dep:2962, emoji:"ÃÂ°ÃÂÃÂÃÂ§"},
+    {name:"Taobao",                           dep:2960, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Kuaishou",                         dep:2938, emoji:"ÃÂ°ÃÂÃÂÃÂ±"},
+    {name:"FLO",                              dep:2920, emoji:"ÃÂ°ÃÂÃÂÃÂ°ÃÂ°ÃÂÃÂÃÂ·"},
+    {name:"Vibe",                             dep:2974, emoji:"ÃÂ°ÃÂÃÂÃÂ¸"},
+    {name:"JOOX",                             dep:2934, emoji:"ÃÂ°ÃÂÃÂÃÂ¤"},
+    {name:"JioSaavn",                         dep:2932, emoji:"ÃÂ°ÃÂÃÂÃÂ®ÃÂ°ÃÂÃÂÃÂ³"},
+    {name:"Mixcloud",                         dep:2942, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Qobuz",                            dep:2946, emoji:"ÃÂ°ÃÂÃÂÃÂ»"},
+    {name:"Peloton",                          dep:2950, emoji:"ÃÂ°ÃÂÃÂÃÂ´"},
+    {name:"TouchTunes",                       dep:2968, emoji:"ÃÂ°ÃÂÃÂÃÂ®"},
+    {name:"Trebel Music",                     dep:2970, emoji:"ÃÂ°ÃÂÃÂÃÂµ"},
+    {name:"Tuned Global",                     dep:2972, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"AMI Entertainment",               dep:2888, emoji:"ÃÂ°ÃÂÃÂÃÂ°"},
+    {name:"PretzelAux",                       dep:2952, emoji:"ÃÂ°ÃÂÃÂ¥ÃÂ¨"},
+    {name:"IMusica",                          dep:2924, emoji:"ÃÂ°ÃÂÃÂÃÂ§ÃÂ°ÃÂÃÂÃÂ·"},
+    {name:"Kuack",                            dep:2926, emoji:"ÃÂ°ÃÂÃÂÃÂµ"},
+    {name:"7digital (Snap, Pinterest, ROXI)", dep:2884, emoji:"7ÃÂ¯ÃÂ¸ÃÂÃÂ¢ÃÂÃÂ£"},
+    {name:"Napster",                          dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ±", note:"Not currently delivered ÃÂ¢ÃÂÃÂ outstanding royalty issues"},
   ],
-  "Streaming Ã¢ÂÂ Dolby Atmos / HiRes": [
-    {name:"Apple Music / iTunes (Atmos)",     dep:null,  emoji:"Ã°ÂÂÂ"},
-    {name:"Amazon Music (Atmos)",             dep:null,  emoji:"Ã°ÂÂÂ¦"},
-    {name:"TIDAL (Atmos)",                    dep:null,  emoji:"Ã°ÂÂÂ"},
-    {name:"Anghami (Atmos)",                  dep:null,  emoji:"Ã°ÂÂÂ"},
-    {name:"Vibe (Atmos)",                     dep:null,  emoji:"Ã°ÂÂÂ¸"},
+  "Streaming ÃÂ¢ÃÂÃÂ Dolby Atmos / HiRes": [
+    {name:"Apple Music / iTunes (Atmos)",     dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Amazon Music (Atmos)",             dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ¦"},
+    {name:"TIDAL (Atmos)",                    dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Anghami (Atmos)",                  dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Vibe (Atmos)",                     dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ¸"},
   ],
   "Video Distribution": [
-    {name:"Youtube (Music Video)",            dep:null,  emoji:"Ã°ÂÂÂ¬"},
-    {name:"Spotify (Video)",                  dep:null,  emoji:"Ã°ÂÂÂ§"},
-    {name:"Apple Music (Video)",              dep:null,  emoji:"Ã°ÂÂÂ"},
-    {name:"TIDAL (Video)",                    dep:null,  emoji:"Ã°ÂÂÂ"},
-    {name:"Boomplay (Video)",                 dep:null,  emoji:"Ã°ÂÂÂ"},
-    {name:"JOOX (Video)",                     dep:null,  emoji:"Ã°ÂÂÂ¤"},
-    {name:"AMI Entertainment (Video)",        dep:null,  emoji:"Ã°ÂÂÂ°"},
-    {name:"Vevo",                             dep:null,  emoji:"Ã°ÂÂÂº"},
-    {name:"Facebook SRP",                     dep:2916, emoji:"Ã°ÂÂÂ"},
-    {name:"Facebook AAP",                     dep:2914, emoji:"Ã°ÂÂÂ"},
+    {name:"Youtube (Music Video)",            dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ¬"},
+    {name:"Spotify (Video)",                  dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ§"},
+    {name:"Apple Music (Video)",              dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"TIDAL (Video)",                    dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Boomplay (Video)",                 dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"JOOX (Video)",                     dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ¤"},
+    {name:"AMI Entertainment (Video)",        dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂ°"},
+    {name:"Vevo",                             dep:null,  emoji:"ÃÂ°ÃÂÃÂÃÂº"},
+    {name:"Facebook SRP",                     dep:2916, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Facebook AAP",                     dep:2914, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
   ],
   "Rights & Fingerprinting": [
-    {name:"Audible Magic Rights360",          dep:2896, emoji:"Ã°ÂÂÂ¬"},
-    {name:"Audible Magic Fulfillment360",     dep:2898, emoji:"Ã°ÂÂÂ¬"},
-    {name:"ACR Cloud",                        dep:2894, emoji:"Ã°ÂÂÂ"},
-    {name:"BMAT",                             dep:2904, emoji:"Ã°ÂÂÂ"},
-    {name:"Gracenote",                        dep:2922, emoji:"Ã°ÂÂÂ¼"},
-    {name:"Click n Clear",                    dep:2908, emoji:"Ã¢ÂÂ"},
-    {name:"Eleven Labs",                      dep:null,  emoji:"Ã°ÂÂ¤Â"},
+    {name:"Audible Magic Rights360",          dep:2896, emoji:"ÃÂ°ÃÂÃÂÃÂ¬"},
+    {name:"Audible Magic Fulfillment360",     dep:2898, emoji:"ÃÂ°ÃÂÃÂÃÂ¬"},
+    {name:"ACR Cloud",                        dep:2894, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"BMAT",                             dep:2904, emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+    {name:"Gracenote",                        dep:2922, emoji:"ÃÂ°ÃÂÃÂÃÂ¼"},
+    {name:"Click n Clear",                    dep:2908, emoji:"ÃÂ¢ÃÂÃÂ"},
+    {name:"Eleven Labs",                      dep:null,  emoji:"ÃÂ°ÃÂÃÂ¤ÃÂ"},
   ],
 };
 
 const ALL_DSPS = Object.values(DSP_GROUPS).flat();
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  TIER CONFIG
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const CLIENT_TIERS = [
-  {id:"account",     icon:"Ã¢ÂÂ",  name:"Account Setup",             desc:"Business info & contacts",     teaser:"Business name, admin email & currency",                   emoji:"Ã°ÂÂÂ¯"},
-  {id:"start",       icon:"Ã°ÂÂÂ", name:"Getting Started",           desc:"Contract, setup & timeline",   teaser:"Contract signing, payment & your go-live timeline",       emoji:"Ã°ÂÂÂ"},
-  {id:"environment", icon:"Ã°ÂÂÂ¥",  name:"Your OpenPlay Environment", desc:"First login, users & setup",   teaser:"Log in, watch the getting started video & add your team",  emoji:"Ã°ÂÂÂ¥"},
-  {id:"address",     icon:"Ã°ÂÂÂ", name:"Business Address",          desc:"Registered location",          teaser:"Street, city, state, ZIP & country",                      emoji:"Ã°ÂÂÂ"},
-  {id:"catalog",     icon:"Ã°ÂÂÂµ", name:"Imprints & Catalog",        desc:"Labels, DPIDs & migration",    teaser:"Imprints, DPIDs & catalog migration method",              emoji:"Ã°ÂÂÂµ"},
-  {id:"dsps",        icon:"Ã°ÂÂÂ", name:"Delivering your content",   desc:"DSPs, partners & deals",       teaser:"Audio, video & rights platforms + YouTube channels",       emoji:"Ã°ÂÂÂ"},
-  {id:"youtube",     icon:"Ã¢ÂÂ¶",  name:"Notes & Additional Info",   desc:"Additional context & notes",   teaser:"Special requirements or notes for your account team",      emoji:"Ã°ÂÂÂ"},
+  {id:"account",     icon:"ÃÂ¢ÃÂÃÂ",  name:"Account Setup",             desc:"Business info & contacts",     teaser:"Business name, admin email & currency",                   emoji:"ÃÂ°ÃÂÃÂÃÂ¯"},
+  {id:"start",       icon:"ÃÂ°ÃÂÃÂÃÂ", name:"Getting Started",           desc:"Contract, setup & timeline",   teaser:"Contract signing, payment & your go-live timeline",       emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+  {id:"environment", icon:"ÃÂ°ÃÂÃÂÃÂ¥",  name:"Your OpenPlay Environment", desc:"First login, users & setup",   teaser:"Log in, watch the getting started video & add your team",  emoji:"ÃÂ°ÃÂÃÂÃÂ¥"},
+  {id:"address",     icon:"ÃÂ°ÃÂÃÂÃÂ", name:"Business Address",          desc:"Registered location",          teaser:"Street, city, state, ZIP & country",                      emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+  {id:"catalog",     icon:"ÃÂ°ÃÂÃÂÃÂµ", name:"Imprints & Catalog",        desc:"Labels, DPIDs & migration",    teaser:"Imprints, DPIDs & catalog migration method",              emoji:"ÃÂ°ÃÂÃÂÃÂµ"},
+  {id:"dsps",        icon:"ÃÂ°ÃÂÃÂÃÂ", name:"Delivering your content",   desc:"DSPs, partners & deals",       teaser:"Audio, video & rights platforms + YouTube channels",       emoji:"ÃÂ°ÃÂÃÂÃÂ"},
+  {id:"youtube",     icon:"ÃÂ¢ÃÂÃÂ¶",  name:"Notes & Additional Info",   desc:"Additional context & notes",   teaser:"Special requirements or notes for your account team",      emoji:"ÃÂ°ÃÂÃÂÃÂ"},
 ];
 
 const SUPPORT_TIERS = [
-  {id:"internal", icon:"Ã¢ÂÂ", name:"Internal Config",    desc:"Tenant ID, display name & ops", teaser:"System IDs, account manager & internal notes",  emoji:"Ã¢ÂÂ"},
+  {id:"internal", icon:"ÃÂ¢ÃÂÃÂ", name:"Internal Config",    desc:"Tenant ID, display name & ops", teaser:"System IDs, account manager & internal notes",  emoji:"ÃÂ¢ÃÂÃÂ"},
 ];
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  STATE
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 let S = {
   mode: "client",
   active: "account",
@@ -478,9 +478,9 @@ let S = {
   }
 };
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  RENDER
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function render(){renderNav();renderMain();renderProgress();updatePageTitle();}
 
 function currentTiers(){
@@ -533,7 +533,7 @@ function renderNav(){
     else if(isNextUp) cls+=" next-up unlocked";
     else cls+=" unlocked";
 
-    const circleContent=isDone?'Ã¢ÂÂ':`<span class="nav-step-num">${i+1}</span>`;
+    const circleContent=isDone?'ÃÂ¢ÃÂÃÂ':`<span class="nav-step-num">${i+1}</span>`;
 
     item.className=cls;
     item.innerHTML=`
@@ -549,7 +549,7 @@ function renderNav(){
 }
 
 function renderProgress(){
-  // handled inside renderNav Ã¢ÂÂ no-op kept for compatibility
+  // handled inside renderNav ÃÂ¢ÃÂÃÂ no-op kept for compatibility
 }
 
 function renderMain(){
@@ -564,10 +564,10 @@ function renderMain(){
     const idx=tiers.findIndex(t=>t.id===tier.id);
     const prev=tiers[idx-1];
     main.innerHTML=`<div class="locked-state">
-      <div class="locked-icon">Ã°ÂÂÂ</div>
+      <div class="locked-icon">ÃÂ°ÃÂÃÂÃÂ</div>
       <div class="locked-title">${tier.name} is locked</div>
       <div class="locked-desc">Complete <strong>${prev.name}</strong> to unlock this section.</div>
-      <div class="locked-cta" onclick="S.active='${prev.id}';render()">Ã¢ÂÂ Go to ${prev.name}</div>
+      <div class="locked-cta" onclick="S.active='${prev.id}';render()">ÃÂ¢ÃÂÃÂ Go to ${prev.name}</div>
     </div>`;
     return;
   }
@@ -577,11 +577,11 @@ function renderMain(){
   const isLast=idx===tiers.length-1;
   let html=`<div class="main">`;
 
-  if(S.mode==="demo") html+=`<div class="demo-banner">Ã°ÂÂÂ¬ <strong>Demo mode</strong> Ã¢ÂÂ pre-filled with sample data. Click "Save & Continue" to step through each section freely.</div>`;
-  if(S.mode==="support") html+=`<div class="support-badge">Ã¢ÂÂ Support Mode</div>`;
+  if(S.mode==="demo") html+=`<div class="demo-banner">ÃÂ°ÃÂÃÂÃÂ¬ <strong>Demo mode</strong> ÃÂ¢ÃÂÃÂ pre-filled with sample data. Click "Save & Continue" to step through each section freely.</div>`;
+  if(S.mode==="support") html+=`<div class="support-badge">ÃÂ¢ÃÂÃÂ Support Mode</div>`;
 
   if(done) html+=`<div class="complete-banner">
-    <div class="complete-check">Ã¢ÂÂ</div>
+    <div class="complete-check">ÃÂ¢ÃÂÃÂ</div>
     <div><div class="complete-text">${tier.name} complete</div>
     <div class="complete-sub">Edits save automatically.</div></div>
   </div>`;
@@ -600,7 +600,7 @@ function renderMain(){
         <div class="phase-title">${tier.name}</div>
         <div class="phase-step-meta">
           <span>Step ${idx+1} of ${tiers.length}</span>
-          <span style="opacity:0.4">ÃÂ·</span>
+          <span style="opacity:0.4">ÃÂÃÂ·</span>
           <div class="phase-step-dots">${dotProgress}</div>
         </div>
       </div>
@@ -619,9 +619,9 @@ function renderMain(){
 
   const allDone=tiers.every(t=>S.completed.has(t.id));
   html+=`<div class="action-bar">
-    <button class="btn-back" onclick="goBack()" ${idx===0?"style='visibility:hidden'":""}>Ã¢ÂÂ Back</button>
+    <button class="btn-back" onclick="goBack()" ${idx===0?"style='visibility:hidden'":""}>ÃÂ¢ÃÂÃÂ Back</button>
     <button class="btn-primary ${isLast&&done?"btn-green":""}" onclick="completeSection('${tier.id}')">
-      ${allDone&&isLast?"Ã¢ÂÂ View Output" : done?"Next Section Ã¢ÂÂ" : isLast?"Complete & Generate Output Ã¢ÂÂ":"Save & Continue Ã¢ÂÂ"}
+      ${allDone&&isLast?"ÃÂ¢ÃÂÃÂ View Output" : done?"Next Section ÃÂ¢ÃÂÃÂ" : isLast?"Complete & Generate Output ÃÂ¢ÃÂÃÂ":"Save & Continue ÃÂ¢ÃÂÃÂ"}
     </button>
   </div></div>`;
   main.innerHTML=html;
@@ -637,7 +637,7 @@ function renderGettingStarted(){
   const tasks = [
     {
       key:"contractSigned",
-      icon:"Ã°ÂÂÂ",
+      icon:"ÃÂ°ÃÂÃÂÃÂ",
       locked: false,
       title:"Sign your contract",
       desc:"To make things official, we need your signed agreement before onboarding can begin. Your account manager will send this directly. <strong>Note: onboarding cannot start until both your contract is signed and payment has been received.</strong>",
@@ -645,7 +645,7 @@ function renderGettingStarted(){
     },
     {
       key:"paymentConfirmed",
-      icon:"Ã°ÂÂÂ³",
+      icon:"ÃÂ°ÃÂÃÂÃÂ³",
       locked: !d.contractSigned,
       title:"Confirm payment",
       desc:"Please ensure your initial invoice has been settled. Onboarding is scheduled only after payment is confirmed. If you have any questions about your invoice, contact your account manager.",
@@ -653,16 +653,16 @@ function renderGettingStarted(){
     },
     {
       key:"production",
-      icon:"Ã¢ÂÂÃ¯Â¸Â",
+      icon:"ÃÂ¢ÃÂÃÂÃÂ¯ÃÂ¸ÃÂ",
       locked: !bothDone,
       title:"Setting you up with your production environment",
-      desc:"Once the steps above are complete, we'll provision your OpenPlay tenant Ã¢ÂÂ you'll receive login credentials and a walkthrough of your environment.",
+      desc:"Once the steps above are complete, we'll provision your OpenPlay tenant ÃÂ¢ÃÂÃÂ you'll receive login credentials and a walkthrough of your environment.",
       timing:"3 weekdays after payment confirmed",
       internal: true
     },
     {
       key:"kickoff",
-      icon:"Ã°ÂÂÂ",
+      icon:"ÃÂ°ÃÂÃÂÃÂ",
       locked: !bothDone,
       title:"Schedule your kickoff call",
       desc:"An optional (but recommended) call with your OpenPlay account manager to walk through your setup, ask questions, and align on timelines.",
@@ -682,11 +682,11 @@ function renderGettingStarted(){
                background:${isChecked?"#fff":"transparent"};color:${isChecked?"var(--bg)":"transparent"};
                cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;
                font-weight:900;flex-shrink:0;margin-top:2px;transition:all 0.18s">
-        ${isChecked?"Ã¢ÂÂ":""}
+        ${isChecked?"ÃÂ¢ÃÂÃÂ":""}
       </button>` :
       `<div style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);
              display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px">
-        Ã°ÂÂÂ
+        ÃÂ°ÃÂÃÂÃÂ
       </div>`;
 
     return `<div style="${lockedStyle};display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.1)">
@@ -698,7 +698,7 @@ function renderGettingStarted(){
         </div>
         <div style="font-size:13px;color:rgba(255,255,255,0.58);line-height:1.6;margin-bottom:8px">${t.desc}</div>
         <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.38)">
-          <span>Ã°ÂÂÂ</span> ${t.timing}
+          <span>ÃÂ°ÃÂÃÂÃÂ</span> ${t.timing}
         </div>
       </div>
     </div>`;
@@ -709,20 +709,20 @@ function renderGettingStarted(){
     <div style="margin-top:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);border-radius:14px;overflow:hidden">
       <div style="padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.1)">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-          <span style="font-size:18px">Ã°ÂÂÂ</span>
+          <span style="font-size:18px">ÃÂ°ÃÂÃÂÃÂ</span>
           <div style="font-size:14px;font-weight:800;color:#fff">Go-Live Timeline Estimate</div>
         </div>
         <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:0">
           Once we have all the details from your completed onboarding form, we'll confirm your exact go-live schedule.
-          As a general guide, <strong style="color:#fff">expect approximately 4 weeks from when the final step of this form is submitted</strong> Ã¢ÂÂ this gives our team time to configure your environment, validate your catalog, and activate your DSP deliveries.
+          As a general guide, <strong style="color:#fff">expect approximately 4 weeks from when the final step of this form is submitted</strong> ÃÂ¢ÃÂÃÂ this gives our team time to configure your environment, validate your catalog, and activate your DSP deliveries.
         </p>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0">
         ${[
           {week:"Week 1", label:"Contract & Payment", color:"rgba(255,255,255,0.12)"},
-          {week:"Week 1Ã¢ÂÂ2", label:"Environment Setup & Onboarding Form", color:"rgba(255,255,255,0.08)"},
-          {week:"Week 2Ã¢ÂÂ3", label:"Catalog Ingestion & QA", color:"rgba(255,255,255,0.06)"},
-          {week:"Week 3Ã¢ÂÂ4", label:"DSP Activation & Go-Live", color:"rgba(255,255,255,0.04)"},
+          {week:"Week 1ÃÂ¢ÃÂÃÂ2", label:"Environment Setup & Onboarding Form", color:"rgba(255,255,255,0.08)"},
+          {week:"Week 2ÃÂ¢ÃÂÃÂ3", label:"Catalog Ingestion & QA", color:"rgba(255,255,255,0.06)"},
+          {week:"Week 3ÃÂ¢ÃÂÃÂ4", label:"DSP Activation & Go-Live", color:"rgba(255,255,255,0.04)"},
         ].map((w,i)=>`
           <div style="padding:14px 16px;background:${w.color};${i<3?"border-right:1px solid rgba(255,255,255,0.08)":""}">
             <div style="font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:4px">${w.week}</div>
@@ -751,13 +751,13 @@ function renderGettingStarted(){
     </div>`;
 
   return `
-    <p class="phase-desc">Before we dive in Ã¢ÂÂ here's what happens first. Please confirm the steps below and introduce your point person for onboarding.</p>
+    <p class="phase-desc">Before we dive in ÃÂ¢ÃÂÃÂ here's what happens first. Please confirm the steps below and introduce your point person for onboarding.</p>
 
     <div style="background:rgba(252,211,77,0.08);border:1px solid rgba(252,211,77,0.28);border-radius:12px;padding:14px 18px;margin-bottom:24px;display:flex;gap:10px;align-items:flex-start">
-      <span style="font-size:16px;flex-shrink:0">Ã¢ÂÂ Ã¯Â¸Â</span>
+      <span style="font-size:16px;flex-shrink:0">ÃÂ¢ÃÂÃÂ ÃÂ¯ÃÂ¸ÃÂ</span>
       <div style="font-size:13px;color:rgba(252,211,77,0.9);line-height:1.6">
         <strong style="color:var(--amber)">Onboarding cannot begin until both your contract is signed and payment is received.</strong>
-        Please check both off below once complete, then continue filling in the rest of this form Ã¢ÂÂ we'll be ready to go as soon as everything is in order.
+        Please check both off below once complete, then continue filling in the rest of this form ÃÂ¢ÃÂÃÂ we'll be ready to go as soon as everything is in order.
       </div>
     </div>
 
@@ -777,7 +777,7 @@ function renderEnvironment(){
   const tasks = [
     {
       key: "firstLoginDone",
-      icon: "Ã°ÂÂÂ",
+      icon: "ÃÂ°ÃÂÃÂÃÂ",
       checkable: true,
       title: "Log in to your account for the first time",
       desc: "As an administrator, you'll receive an invite to your production OpenPlay environment via email. Use that link to set up your credentials and log in for the first time. If you haven't received your invite yet, check your spam folder or contact your account manager.",
@@ -786,21 +786,21 @@ function renderEnvironment(){
     },
     {
       key: "videoWatched",
-      icon: "Ã¢ÂÂ¶Ã¯Â¸Â",
+      icon: "ÃÂ¢ÃÂÃÂ¶ÃÂ¯ÃÂ¸ÃÂ",
       checkable: true,
       locked: !d.firstLoginDone,
       title: "Watch the Getting Started video",
-      desc: "Watch the short walkthrough video inside your environment to get familiar with OpenPlay's interface Ã¢ÂÂ navigating releases, managing users, DSP delivery settings, and your dashboard.",
+      desc: "Watch the short walkthrough video inside your environment to get familiar with OpenPlay's interface ÃÂ¢ÃÂÃÂ navigating releases, managing users, DSP delivery settings, and your dashboard.",
       timing: "3 days after first login",
       badge: null,
     },
     {
       key: "usersAdded",
-      icon: "Ã°ÂÂÂ¥",
+      icon: "ÃÂ°ÃÂÃÂÃÂ¥",
       checkable: true,
       locked: !d.firstLoginDone,
       title: "Add other users",
-      desc: "Now that you're in your OpenPlay environment, you can begin adding your team members. Go to Settings Ã¢ÂÂ User Management to invite colleagues with the appropriate roles (Admin, Editor, Viewer).",
+      desc: "Now that you're in your OpenPlay environment, you can begin adding your team members. Go to Settings ÃÂ¢ÃÂÃÂ User Management to invite colleagues with the appropriate roles (Admin, Editor, Viewer).",
       timing: "3 weekdays after first login",
       badge: null,
     },
@@ -817,10 +817,10 @@ function renderEnvironment(){
                  background:${isChecked?"#fff":"transparent"};color:${isChecked?"var(--bg)":"transparent"};
                  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;
                  font-weight:900;flex-shrink:0;margin-top:2px;transition:all 0.18s">
-          ${isChecked?"Ã¢ÂÂ":""}
+          ${isChecked?"ÃÂ¢ÃÂÃÂ":""}
         </button>`
       : `<div style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);
-               display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px">Ã°ÂÂÂ</div>`;
+               display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px">ÃÂ°ÃÂÃÂÃÂ</div>`;
 
     return `<div style="${dimStyle};display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.1)">
       ${checkbox}
@@ -830,18 +830,18 @@ function renderEnvironment(){
         </div>
         <div style="font-size:13px;color:rgba(255,255,255,0.58);line-height:1.6;margin-bottom:8px">${t.desc}</div>
         <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.38)">
-          <span>Ã°ÂÂÂ</span> ${t.timing}
+          <span>ÃÂ°ÃÂÃÂÃÂ</span> ${t.timing}
         </div>
       </div>
     </div>`;
   }).join("");
 
-  // Additional users textarea Ã¢ÂÂ only shown when usersAdded is toggled
+  // Additional users textarea ÃÂ¢ÃÂÃÂ only shown when usersAdded is toggled
   const additionalUsersHtml = d.firstLoginDone ? `
     <div style="margin-top:20px">
       <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px">Team Members to Add <span style="font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(255,255,255,0.35)">(optional)</span></div>
       <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px;line-height:1.55">List the names and emails of team members you'll be adding, and their roles. We can pre-provision these if you let us know ahead of time.</p>
-      <textarea class="field-textarea" rows="4" placeholder="e.g.&#10;Sarah Chen Ã¢ÂÂ sarah@yourlabel.com Ã¢ÂÂ Editor&#10;Marcus Webb Ã¢ÂÂ marcus@yourlabel.com Ã¢ÂÂ Viewer"
+      <textarea class="field-textarea" rows="4" placeholder="e.g.&#10;Sarah Chen ÃÂ¢ÃÂÃÂ sarah@yourlabel.com ÃÂ¢ÃÂÃÂ Editor&#10;Marcus Webb ÃÂ¢ÃÂÃÂ marcus@yourlabel.com ÃÂ¢ÃÂÃÂ Viewer"
         oninput="S.data.environment.additionalUsersNote=this.value;scheduleSave()">${d.additionalUsersNote||""}</textarea>
     </div>` : "";
 
@@ -855,19 +855,19 @@ function renderEnvironment(){
     ${additionalUsersHtml}
 
     <div style="margin-top:24px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start">
-      <span style="font-size:18px;flex-shrink:0">Ã°ÂÂÂ¡</span>
+      <span style="font-size:18px;flex-shrink:0">ÃÂ°ÃÂÃÂÃÂ¡</span>
       <div>
         <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">Need help getting started?</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6">Your account manager is available to walk you through your environment on a call. Use the scheduling link they sent, or reach out directly Ã¢ÂÂ we're here to make this as smooth as possible.</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6">Your account manager is available to walk you through your environment on a call. Use the scheduling link they sent, or reach out directly ÃÂ¢ÃÂÃÂ we're here to make this as smooth as possible.</div>
       </div>
     </div>
   `;
 }
 
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  SECTION RENDERERS
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderAccount(){
   const d=S.data.account;
   const emails=[d.adminEmail,...d.additionalEmails];
@@ -910,7 +910,7 @@ function renderAccount(){
         ${emails.map((e,i)=>`<div class="email-row">
           <input class="field-input" type="email" placeholder="${i===0?"admin@yourlabel.com":"additional@yourlabel.com"}"
             value="${e}" onchange="updateEmail(${i},this.value)"/>
-          ${i>0?`<button class="btn-icon" onclick="removeEmail(${i})">ÃÂ</button>`:""}
+          ${i>0?`<button class="btn-icon" onclick="removeEmail(${i})">ÃÂÃÂ</button>`:""}
         </div>`).join("")}
       </div>
       <button class="btn-dashed" onclick="addEmail()">+ Add additional email</button>
@@ -956,7 +956,7 @@ function renderAddress(){
 function renderCatalog(){
   const d=S.data.catalog;
   const acct=S.data.account;
-  const tags=d.imprints.map((imp,i)=>`<div class="tag">${imp}<span class="tag-x" onclick="removeImprint(${i})">ÃÂ</span></div>`).join("");
+  const tags=d.imprints.map((imp,i)=>`<div class="tag">${imp}<span class="tag-x" onclick="removeImprint(${i})">ÃÂÃÂ</span></div>`).join("");
 
   // DPID rows (reads from account data, same helpers as before)
   const addDpidHtml=(acct.additionalDpids||[]).map((row,i)=>`
@@ -965,7 +965,7 @@ function renderCatalog(){
         onchange="updateDpid(${i},'dpid',this.value)" style="flex:1"/>
       <input class="field-input dpid-imprint" type="text" placeholder="Imprint name" value="${row.imprint||''}"
         onchange="updateDpid(${i},'imprint',this.value)"/>
-      <button class="btn-icon" onclick="removeDpid(${i})">ÃÂ</button>
+      <button class="btn-icon" onclick="removeDpid(${i})">ÃÂÃÂ</button>
     </div>`).join("");
 
   const volFields=[
@@ -1008,7 +1008,7 @@ function renderCatalog(){
 
     <div style="margin-bottom:24px">
       <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px">Catalog Volume Estimate</div>
-      <div style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5">Approximate figures are fine Ã¢ÂÂ this helps us plan ingestion capacity and DSP delivery timelines.</div>
+      <div style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5">Approximate figures are fine ÃÂ¢ÃÂÃÂ this helps us plan ingestion capacity and DSP delivery timelines.</div>
       <div class="field-grid">
         ${volFields.map(f=>`
           <div class="field-group">
@@ -1026,7 +1026,7 @@ function renderCatalog(){
       <div class="field-group full">
         <label class="field-label">Existing catalog to migrate?<span class="req">*</span></label>
         <div style="display:flex;gap:10px;margin-top:4px">
-          ${[["true","Yes Ã¢ÂÂ migrating an existing catalog"],["false","No Ã¢ÂÂ starting fresh"]].map(([v,l])=>`
+          ${[["true","Yes ÃÂ¢ÃÂÃÂ migrating an existing catalog"],["false","No ÃÂ¢ÃÂÃÂ starting fresh"]].map(([v,l])=>`
             <div onclick="upd('catalog','hasExistingCatalog',${v})" style="flex:1;padding:12px 16px;border-radius:10px;border:1px solid ${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.45)":"var(--border)"};background:${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.12)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
               <div style="font-size:13px;font-weight:700;color:${String(d.hasExistingCatalog)===v?"#ffffff":"var(--text-2)"}">${l}</div>
             </div>`).join("")}
@@ -1040,12 +1040,12 @@ function renderCatalog(){
           ${[
             ["distributor",  "With my current distributor",     "Fully managed by your delivery partner"],
             ["spreadsheet",  "Spreadsheets / CSVs",             "Excel, Google Sheets, or CSV files"],
-            ["other",        "Other",                           "Something else Ã¢ÂÂ describe below"],
+            ["other",        "Other",                           "Something else ÃÂ¢ÃÂÃÂ describe below"],
           ].map(([val,label,hint])=>{
             const sel=(d.catalogLocations||[]).includes(val);
             return `<div onclick="toggleCatalogLocation('${val}')" style="padding:12px 14px;border-radius:10px;border:1px solid ${sel?"rgba(255,255,255,0.45)":"var(--border)"};background:${sel?"rgba(255,255,255,0.12)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-                <div style="width:14px;height:14px;border-radius:3px;border:2px solid ${sel?"#ffffff":"rgba(255,255,255,0.25)"};background:${sel?"#ffffff":"transparent"};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--bg);font-weight:900">${sel?"Ã¢ÂÂ":""}</div>
+                <div style="width:14px;height:14px;border-radius:3px;border:2px solid ${sel?"#ffffff":"rgba(255,255,255,0.25)"};background:${sel?"#ffffff":"transparent"};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--bg);font-weight:900">${sel?"ÃÂ¢ÃÂÃÂ":""}</div>
                 <span style="font-size:13px;font-weight:700;color:${sel?"#ffffff":"var(--text-2)"}">${label}</span>
               </div>
               <div style="font-size:11px;color:var(--text-3);padding-left:22px">${hint}</div>
@@ -1056,18 +1056,18 @@ function renderCatalog(){
           <textarea class="field-textarea" style="margin-top:10px;min-height:60px" placeholder="Describe where your catalog currently lives..."
             onchange="upd('catalog','catalogLocationOther',this.value)">${d.catalogLocationOther||""}</textarea>`:""}
         <div style="margin-top:12px">
-          <label class="field-label" style="display:block;margin-bottom:6px">Attach supporting files <span style="color:var(--text-3);font-weight:400;text-transform:none;letter-spacing:0">(optional â sample catalog files, test tracks, or asset lists to help us prepare ingestion)</span></label>
+          <label class="field-label" style="display:block;margin-bottom:6px">Attach supporting files <span style="color:var(--text-3);font-weight:400;text-transform:none;letter-spacing:0">(optional Ã¢ÂÂ sample catalog files, test tracks, or asset lists to help us prepare ingestion)</span></label>
           <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--input-bg);border:1px dashed rgba(255,255,255,0.15);border-radius:10px;cursor:pointer;transition:all 0.15s;font-size:13px;color:var(--text-2)" onmouseover="this.style.borderColor='rgba(189,224,48,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'">
-            <span style="font-size:18px">Ã°ÂÂÂ</span>
+            <span style="font-size:18px">ÃÂ°ÃÂÃÂÃÂ</span>
             <span>Click to attach files, or drag and drop</span>
             <input type="file" multiple accept=".csv,.xlsx,.xls,.tsv,.txt,.pdf,.zip" style="display:none" onchange="handleCatalogFiles(event)"/>
           </label>
           ${(d.catalogFiles||[]).length?`<div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">${(d.catalogFiles||[]).map((f,i)=>`
             <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;font-size:12px">
-              <span>Ã°ÂÂÂ</span>
+              <span>ÃÂ°ÃÂÃÂÃÂ</span>
               <span style="flex:1;color:var(--text-2)">${f.name}</span>
               <span style="color:var(--text-3)">${(f.size/1024).toFixed(0)} KB</span>
-              <button class="btn-icon" style="width:22px;height:22px" onclick="removeCatalogFile(${i})">ÃÂ</button>
+              <button class="btn-icon" style="width:22px;height:22px" onclick="removeCatalogFile(${i})">ÃÂÃÂ</button>
             </div>`).join("")}</div>`:""}
         </div>
       </div>
@@ -1109,7 +1109,7 @@ function renderCatalog(){
       ${d.catalogIngestionMethod==="api"?`
       <div class="field-group full">
         <div style="background:var(--surface2);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:18px 20px">
-          <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ffffff;margin-bottom:14px;display:flex;align-items:center;gap:7px">Ã¢ÂÂ¡ API Integration Details</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ffffff;margin-bottom:14px;display:flex;align-items:center;gap:7px">ÃÂ¢ÃÂÃÂ¡ API Integration Details</div>
           <div style="display:flex;flex-direction:column;gap:14px">
 
             ${[
@@ -1154,9 +1154,9 @@ function renderDSPs(){
   let html=`
     <p class="phase-desc">Two things to cover here: who you're delivering through (distributors), and how each platform is configured (DSP deal types).</p>
 
-    <!-- Ã¢ÂÂÃ¢ÂÂ SECTION: DISTRIBUTORS Ã¢ÂÂÃ¢ÂÂ -->
+    <!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ SECTION: DISTRIBUTORS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-      <div style="font-size:16px">Ã°ÂÂ¤Â</div>
+      <div style="font-size:16px">ÃÂ°ÃÂÃÂ¤ÃÂ</div>
       <div>
         <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em">Distributors</div>
         <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:2px">Let us know which partners you intend to deliver to, if applicable.</div>
@@ -1170,15 +1170,15 @@ function renderDSPs(){
         </div>
         <div style="padding-bottom:16px">
           <label class="field-label" style="display:block;margin-bottom:6px">Other / additional notes <span style="font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(255,255,255,0.35)">(optional)</span></label>
-          <input class="field-input" type="text" placeholder="e.g. Stem, AWAL, or any other distribution partnersÃ¢ÂÂ¦"
+          <input class="field-input" type="text" placeholder="e.g. Stem, AWAL, or any other distribution partnersÃÂ¢ÃÂÃÂ¦"
             value="${odNote}" oninput="S.data.dsps.otherDistributorsNote=this.value;autoSave()"/>
         </div>
       </div>
     </div>
 
-    <!-- Ã¢ÂÂÃ¢ÂÂ SECTION: DSPs Ã¢ÂÂÃ¢ÂÂ -->
+    <!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ SECTION: DSPs ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-      <div style="font-size:16px">Ã°ÂÂÂ§</div>
+      <div style="font-size:16px">ÃÂ°ÃÂÃÂÃÂ§</div>
       <div>
         <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em">DSP Deal Types</div>
         <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:2px">Assign a deal type for each platform below.</div>
@@ -1186,12 +1186,12 @@ function renderDSPs(){
     </div>
 
     <div class="info-box">
-      <strong>Direct Deal</strong> — negotiated contract directly with the DSP &nbsp;·&nbsp;
-      <strong>OpenPlay</strong> — standard OpenPlay distribution terms &nbsp;·&nbsp;
-      <strong>N/A</strong> — not distributing to this platform &nbsp;·&nbsp;
+      <strong>Direct Deal</strong> â negotiated contract directly with the DSP &nbsp;Â·&nbsp;
+      <strong>OpenPlay</strong> â standard OpenPlay distribution terms &nbsp;Â·&nbsp;
+      <strong>N/A</strong> â not distributing to this platform &nbsp;Â·&nbsp;
       <span style="color:rgba(255,255,255,0.55)">Scroll down and assign each platform, then hit <strong style="color:#fff">Save &amp; Continue</strong> at the bottom.</span>
-    <strong>OpenPlay</strong> Ã¢ÂÂ standard OpenPlay distribution terms &nbsp;ÃÂ·&nbsp;
-      <strong>N/A</strong> Ã¢ÂÂ not distributing to this platform
+    <strong>OpenPlay</strong> ÃÂ¢ÃÂÃÂ standard OpenPlay distribution terms &nbsp;ÃÂÃÂ·&nbsp;
+      <strong>N/A</strong> ÃÂ¢ÃÂÃÂ not distributing to this platform
     </div>
 
     <div class="dsp-toolbar">
@@ -1202,8 +1202,8 @@ function renderDSPs(){
         <div class="dsp-count-pill unset">${total-direct-open-na} Unassigned</div>
       </div>
       <div class="dsp-bulk">
-        <button class="btn-bulk" onclick="bulkSetAll('open')">Ã¢ÂÂ All OpenPlay</button>
-        <button class="btn-bulk" onclick="bulkSetAll('na')">Ã¢ÂÂ All N/A</button>
+        <button class="btn-bulk" onclick="bulkSetAll('open')">ÃÂ¢ÃÂÃÂ All OpenPlay</button>
+        <button class="btn-bulk" onclick="bulkSetAll('na')">ÃÂ¢ÃÂÃÂ All N/A</button>
         <button class="btn-bulk" onclick="bulkClear()">Clear All</button>
       </div>
     </div>`;
@@ -1251,7 +1251,7 @@ function renderDSPs(){
     });
     html+=`</div>`; // close dsp-grid
 
-    // YouTube channel registration Ã¢ÂÂ BELOW the Video Distribution cards, only when YouTube selected
+    // YouTube channel registration ÃÂ¢ÃÂÃÂ BELOW the Video Distribution cards, only when YouTube selected
     if(group==="Video Distribution"){
       const ytDspNames=["Youtube (Music Video)","YouTube Art Tracks","YouTube Content ID"];
       const anyYtSelected=ytDspNames.some(n=>d[n]&&d[n].mode&&d[n].mode!=="na");
@@ -1261,8 +1261,8 @@ function renderDSPs(){
         const chCards=yt.channels.map((ch,i)=>`
           <div class="yt-card">
             <div class="yt-card-head">
-              <div class="yt-card-title">Ã¢ÂÂ¶ Channel ${i+1}</div>
-              <button class="btn-icon" onclick="removeChannel(${i});event.stopPropagation()">ÃÂ</button>
+              <div class="yt-card-title">ÃÂ¢ÃÂÃÂ¶ Channel ${i+1}</div>
+              <button class="btn-icon" onclick="removeChannel(${i});event.stopPropagation()">ÃÂÃÂ</button>
             </div>
             <div class="field-grid" style="margin-bottom:0">
               <div class="field-group full">
@@ -1274,7 +1274,7 @@ function renderDSPs(){
                 <label class="field-label">Channel ID</label>
                 <input class="field-input mono" type="text" placeholder="UC..."
                   value="${ch.channelId||""}" onchange="updateChannel(${i},'channelId',this.value)"/>
-                <span class="field-hint">YouTube Studio Ã¢ÂÂ Settings Ã¢ÂÂ Channel Ã¢ÂÂ Advanced Settings</span>
+                <span class="field-hint">YouTube Studio ÃÂ¢ÃÂÃÂ Settings ÃÂ¢ÃÂÃÂ Channel ÃÂ¢ÃÂÃÂ Advanced Settings</span>
               </div>
               <div class="field-group">
                 <label class="field-label">YouTube MCN</label>
@@ -1297,7 +1297,7 @@ function renderDSPs(){
 
         html+=`<div style="margin-top:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:12px;padding:18px 20px;animation:slideIn 0.25s ease">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            <span style="font-size:13px">Ã¢ÂÂ¶</span>
+            <span style="font-size:13px">ÃÂ¢ÃÂÃÂ¶</span>
             <div style="font-size:12px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;color:#fff">YouTube Channel Registration</div>
           </div>
           <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;line-height:1.5">Register the channels that will receive YouTube Art Tracks, Content ID, and/or Music Video deliveries.</div>
@@ -1306,7 +1306,7 @@ function renderDSPs(){
         </div>`;
       } else {
         html+=`<div style="margin-top:14px;padding:13px 16px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.15);border-radius:10px;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;display:flex;align-items:center;gap:8px">
-          <span>Ã¢ÂÂ¶</span> Select a YouTube platform above (Art Tracks, Content ID, or Music Video) to register your channels here.
+          <span>ÃÂ¢ÃÂÃÂ¶</span> Select a YouTube platform above (Art Tracks, Content ID, or Music Video) to register your channels here.
         </div>`;
       }
     }
@@ -1330,15 +1330,15 @@ function renderYouTube(){
 function renderInternal(){
   const d=S.data.internal;
   return `
-    <p class="phase-desc">OpenPlay support fields Ã¢ÂÂ not visible to the client.</p>
+    <p class="phase-desc">OpenPlay support fields ÃÂ¢ÃÂÃÂ not visible to the client.</p>
     <div class="support-section">
-      <div class="support-section-title">Ã¢ÂÂ Tenant Settings</div>
+      <div class="support-section-title">ÃÂ¢ÃÂÃÂ Tenant Settings</div>
       <div class="field-grid">
         <div class="field-group">
           <label class="field-label">Tenant ID (opTenantId)</label>
           <input class="field-input mono" type="text" placeholder="ACME001"
             value="${d.opTenantId||""}" onchange="upd('internal','opTenantId',this.value.toUpperCase())"/>
-          <span class="field-hint">Unique system identifier Ã¢ÂÂ letters & numbers only</span>
+          <span class="field-hint">Unique system identifier ÃÂ¢ÃÂÃÂ letters & numbers only</span>
         </div>
         <div class="field-group">
           <label class="field-label">System Display Name</label>
@@ -1360,9 +1360,9 @@ function renderInternal(){
     </div>`;
 }
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  CELEBRATE
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function showCelebrate(tier,nextTier){
   document.getElementById("cel-emoji").textContent=tier.emoji;
   document.getElementById("cel-title").textContent=`${tier.name} complete`;
@@ -1373,13 +1373,13 @@ function showCelebrate(tier,nextTier){
       <div class="celebrate-next-label">Up next</div>
       <div class="celebrate-next-name">${nextTier.name}</div>
       <div class="celebrate-next-desc">${nextTier.teaser}</div>`;
-    document.getElementById("cel-btn").textContent=`Start ${nextTier.name} Ã¢ÂÂ`;
+    document.getElementById("cel-btn").textContent=`Start ${nextTier.name} ÃÂ¢ÃÂÃÂ`;
   } else {
     document.getElementById("cel-next").innerHTML=`
       <div class="celebrate-next-label">All done</div>
       <div class="celebrate-next-name" style="color:#ffffff">Ready to generate output</div>
       <div class="celebrate-next-desc">Your onboarding data is complete and ready to export as JSON.</div>`;
-    document.getElementById("cel-btn").textContent="View JSON Output Ã¢ÂÂ";
+    document.getElementById("cel-btn").textContent="View JSON Output ÃÂ¢ÃÂÃÂ";
   }
   document.getElementById("celebrate").style.display="flex";
 }
@@ -1389,38 +1389,38 @@ function dismissCelebrate(){
   render();
 }
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  JSON OUTPUT
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderOutput(main){
   if(S.mode==="support") renderOutputSupport(main);
   else renderOutputClient(main);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ CLIENT VIEW Ã¢ÂÂ clean, no technical details Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ CLIENT VIEW ÃÂ¢ÃÂÃÂ clean, no technical details ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderOutputClient(main){
   const submitted = !!window._submitDone;
   main.innerHTML=`<div class="output-screen" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:40px 24px">
 
     ${submitted ? `
-      <div style="width:80px;height:80px;border-radius:50%;background:rgba(52,211,153,0.12);border:2px solid rgba(52,211,153,0.35);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px;animation:fadeIn 0.4s ease">Ã¢ÂÂ</div>
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(52,211,153,0.12);border:2px solid rgba(52,211,153,0.35);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px;animation:fadeIn 0.4s ease">ÃÂ¢ÃÂÃÂ</div>
       <h1 style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;color:#fff">You're all done!</h1>
       <p style="font-size:16px;color:rgba(255,255,255,0.6);max-width:420px;line-height:1.75;margin-bottom:36px">
         Your onboarding information has been submitted.<br>The OpenPlay team will be in touch shortly.
       </p>
       <div style="background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.18);border-radius:14px;padding:18px 28px;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:380px">
-        Ã°ÂÂÂ Expect to hear from us within <strong style="color:#fff">1Ã¢ÂÂ2 business days</strong>.<br>
+        ÃÂ°ÃÂÃÂÃÂ Expect to hear from us within <strong style="color:#fff">1ÃÂ¢ÃÂÃÂ2 business days</strong>.<br>
         Questions? Reach out to your account manager.
       </div>
     ` : `
-      <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px">Ã°ÂÂÂ</div>
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px">ÃÂ°ÃÂÃÂÃÂ</div>
       <p style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:12px">All sections complete</p>
       <h1 style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px;color:#fff">Ready to submit</h1>
       <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:380px;line-height:1.75;margin-bottom:36px">
         You're ready to go. Hit submit to send your onboarding info to the OpenPlay team.
       </p>
       <button id="client-submit-btn" onclick="clientSubmit()" style="padding:16px 56px;background:#fff;border:none;border-radius:12px;color:var(--bg);font-size:17px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.18s;box-shadow:0 4px 28px rgba(0,0,0,0.25)">
-        Submit Ã¢ÂÂ
+        Submit ÃÂ¢ÃÂÃÂ
       </button>
       <button onclick="restart()" style="margin-top:18px;background:none;border:none;color:rgba(255,255,255,0.28);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:underline">Start over</button>
     `}
@@ -1428,7 +1428,7 @@ function renderOutputClient(main){
   </div>`;
 }
 
-// Ã¢ÂÂÃ¢ÂÂ SUPPORT VIEW Ã¢ÂÂ full technical detail + integration status Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ SUPPORT VIEW ÃÂ¢ÃÂÃÂ full technical detail + integration status ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderOutputSupport(main){
   const json=buildJSON();
   const hasEndpoint = SHEETS_ENDPOINT && SHEETS_ENDPOINT.trim().length > 0;
@@ -1457,28 +1457,28 @@ function renderOutputSupport(main){
 
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px">
       <div>
-        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(252,211,77,0.1);border:1px solid rgba(252,211,77,0.28);border-radius:6px;padding:3px 10px;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);margin-bottom:10px">Ã¢ÂÂ Support View</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(252,211,77,0.1);border:1px solid rgba(252,211,77,0.28);border-radius:6px;padding:3px 10px;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);margin-bottom:10px">ÃÂ¢ÃÂÃÂ Support View</div>
         <h1 style="font-size:24px;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px">Submission Review</h1>
-        <p style="font-size:12px;color:rgba(255,255,255,0.45)">${json.tenantInformation?.businessName||"Ã¢ÂÂ"} ÃÂ· ${submitTime?new Date(submitTime).toLocaleString():"not yet submitted"}</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.45)">${json.tenantInformation?.businessName||"ÃÂ¢ÃÂÃÂ"} ÃÂÃÂ· ${submitTime?new Date(submitTime).toLocaleString():"not yet submitted"}</p>
       </div>
-      <button onclick="restart()" style="padding:7px 14px;background:transparent;border:1px solid rgba(255,255,255,0.16);border-radius:8px;color:rgba(255,255,255,0.45);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0">Ã¢ÂÂº New form</button>
+      <button onclick="restart()" style="padding:7px 14px;background:transparent;border:1px solid rgba(255,255,255,0.16);border-radius:8px;color:rgba(255,255,255,0.45);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0">ÃÂ¢ÃÂÃÂº New form</button>
     </div>
 
     <!-- Integration status -->
     <div style="margin-bottom:24px">
       <div style="font-size:10px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:10px">Integration Status</div>
-      ${pill("Ã°ÂÂÂ","Google Sheets Ã¢ÂÂ Master Tracker",
+      ${pill("ÃÂ°ÃÂÃÂÃÂ","Google Sheets ÃÂ¢ÃÂÃÂ Master Tracker",
         sheetsStatus==="ok"?"ok":sheetsStatus==="error"?"error":hasEndpoint?"pending":"idle",
-        sheetsStatus==="ok"?`Written at ${submitTime?new Date(submitTime).toLocaleTimeString():"Ã¢ÂÂ"}`:
-        sheetsStatus==="error"?"Write failed Ã¢ÂÂ check endpoint URL and retry":
-        hasEndpoint?"Connected ÃÂ· not yet sent":"No endpoint saved Ã¢ÂÂ paste URL below",
+        sheetsStatus==="ok"?`Written at ${submitTime?new Date(submitTime).toLocaleTimeString():"ÃÂ¢ÃÂÃÂ"}`:
+        sheetsStatus==="error"?"Write failed ÃÂ¢ÃÂÃÂ check endpoint URL and retry":
+        hasEndpoint?"Connected ÃÂÃÂ· not yet sent":"No endpoint saved ÃÂ¢ÃÂÃÂ paste URL below",
         hasEndpoint?"supportSubmitSheets()":"")}
       ${(()=>{
         const hsR=window._hsResult||null;
         const sheetsOk=window._sheetsWritten==="ok";
         const hsStatus=hsR?hsR.status:(sheetsOk?"ok":"pending");
-        const hsDetail=hsR&&hsR.status==="ok"?`Deal ${hsR.action||"synced"} Ã¢ÂÂ ID ${hsR.dealId}`:hsR&&hsR.status==="error"?`Error: ${hsR.detail}`:sheetsOk?"Submitted via Apps Script Ã¢ÂÂ HubSpot sync handled server-side":"Will sync to HubSpot when submitted via Apps Script";
-        return pill("Ã°ÂÂÂ ","HubSpot CRM Ã¢ÂÂ Deal",hsStatus,hsDetail,"");
+        const hsDetail=hsR&&hsR.status==="ok"?`Deal ${hsR.action||"synced"} ÃÂ¢ÃÂÃÂ ID ${hsR.dealId}`:hsR&&hsR.status==="error"?`Error: ${hsR.detail}`:sheetsOk?"Submitted via Apps Script ÃÂ¢ÃÂÃÂ HubSpot sync handled server-side":"Will sync to HubSpot when submitted via Apps Script";
+        return pill("ÃÂ°ÃÂÃÂÃÂ ","HubSpot CRM ÃÂ¢ÃÂÃÂ Deal",hsStatus,hsDetail,"");
       })()}
       ${!hasEndpoint?`
       <div style="margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px">
@@ -1496,7 +1496,7 @@ function renderOutputSupport(main){
     <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 20px;margin-bottom:18px">
       <div style="font-size:10px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:14px">Submission Summary</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
-        ${[["Ã°ÂÂÂ¢","Business",json.tenantInformation?.businessName||"Ã¢ÂÂ"],["Ã°ÂÂÂ§","Admin Email",json.tenantInformation?.adminEmail||"Ã¢ÂÂ"],["Ã°ÂÂÂ±","Currency",json.tenantInformation?.currency||"Ã¢ÂÂ"],["Ã°ÂÂÂ·","Imprints",(json.tenantInformation?.imprints||[]).join(", ")||"Ã¢ÂÂ"],["Ã°ÂÂÂ","Main DPID",json.tenantInformation?.dpid||"Ã¢ÂÂ"],["Ã°ÂÂÂ","Country",json.businessAddress?.country||"Ã¢ÂÂ"],["Ã°ÂÂÂ§","Direct DSPs",(json.dspSelections?.directDeals||[]).length+" platforms"],["Ã°ÂÂÂ","OpenPlay DSPs",(json.dspSelections?.openPlayDeals||[]).length+" platforms"],["Ã°ÂÂÂ","Contract",json.gettingStarted?.contractSigned?"Ã¢ÂÂ Signed":"Ã¢ÂÂ Unsigned"],["Ã°ÂÂÂ³","Payment",json.gettingStarted?.paymentConfirmed?"Ã¢ÂÂ Confirmed":"Ã¢ÂÂ Pending"],["Ã°ÂÂÂ¦","Est. ISRCs",json.catalogVolume?.estimatedIsrcs||"Ã¢ÂÂ"],["Ã°ÂÂÂ","Migration",json.migrations?.hasExistingCatalog?"Yes Ã¢ÂÂ "+(json.migrations?.priorDeliveryPartner||"?"):"No"]].map(([icon,label,val])=>`
+        ${[["ÃÂ°ÃÂÃÂÃÂ¢","Business",json.tenantInformation?.businessName||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ§","Admin Email",json.tenantInformation?.adminEmail||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ±","Currency",json.tenantInformation?.currency||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ·","Imprints",(json.tenantInformation?.imprints||[]).join(", ")||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ","Main DPID",json.tenantInformation?.dpid||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ","Country",json.businessAddress?.country||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ§","Direct DSPs",(json.dspSelections?.directDeals||[]).length+" platforms"],["ÃÂ°ÃÂÃÂÃÂ","OpenPlay DSPs",(json.dspSelections?.openPlayDeals||[]).length+" platforms"],["ÃÂ°ÃÂÃÂÃÂ","Contract",json.gettingStarted?.contractSigned?"ÃÂ¢ÃÂÃÂ Signed":"ÃÂ¢ÃÂÃÂ Unsigned"],["ÃÂ°ÃÂÃÂÃÂ³","Payment",json.gettingStarted?.paymentConfirmed?"ÃÂ¢ÃÂÃÂ Confirmed":"ÃÂ¢ÃÂÃÂ Pending"],["ÃÂ°ÃÂÃÂÃÂ¦","Est. ISRCs",json.catalogVolume?.estimatedIsrcs||"ÃÂ¢ÃÂÃÂ"],["ÃÂ°ÃÂÃÂÃÂ","Migration",json.migrations?.hasExistingCatalog?"Yes ÃÂ¢ÃÂÃÂ "+(json.migrations?.priorDeliveryPartner||"?"):"No"]].map(([icon,label,val])=>`
           <div style="background:rgba(255,255,255,0.04);border-radius:7px;padding:10px 12px">
             <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:3px">${icon} ${label}</div>
             <div style="font-size:12px;font-weight:600;color:#fff;line-height:1.3;word-break:break-all">${val}</div>
@@ -1506,8 +1506,8 @@ function renderOutputSupport(main){
 
     <!-- Actions -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
-      <button onclick="dlJSON()" style="padding:8px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);border-radius:7px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Ã¢ÂÂ Download JSON</button>
-      <button onclick="copyJSON()" id="copy-btn" style="padding:8px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);border-radius:7px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Ã¢ÂÂ Copy JSON</button>
+      <button onclick="dlJSON()" style="padding:8px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);border-radius:7px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">ÃÂ¢ÃÂÃÂ Download JSON</button>
+      <button onclick="copyJSON()" id="copy-btn" style="padding:8px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);border-radius:7px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">ÃÂ¢ÃÂÃÂ Copy JSON</button>
       ${hasEndpoint?`<button onclick="clearEndpoint()" style="padding:8px 14px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:rgba(255,255,255,0.32);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Change Sheets URL</button>`:""}
     </div>
 
@@ -1524,7 +1524,7 @@ function renderOutputSupport(main){
 
 async function clientSubmit(){
   const btn=document.getElementById("client-submit-btn");
-  if(btn){btn.disabled=true;btn.innerHTML="SubmittingÃ¢ÂÂ¦";btn.style.opacity="0.6";}
+  if(btn){btn.disabled=true;btn.innerHTML="SubmittingÃÂ¢ÃÂÃÂ¦";btn.style.opacity="0.6";}
   window._submitTime=new Date().toISOString();
   if(SHEETS_ENDPOINT){
     try{
@@ -1539,7 +1539,7 @@ async function clientSubmit(){
 
 async function supportSubmitSheets(){
   const status=document.getElementById("submit-status");
-  if(status)status.innerHTML='<span style="color:rgba(255,255,255,0.45)">SendingÃ¢ÂÂ¦</span>';
+  if(status)status.innerHTML='<span style="color:rgba(255,255,255,0.45)">SendingÃÂ¢ÃÂÃÂ¦</span>';
   window._submitTime=new Date().toISOString();
   try{
     await fetch(SHEETS_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(buildJSON())});
@@ -1553,7 +1553,7 @@ function buildJSON(){
   const d=S.data;
   const start=d.start||{}, env=d.environment||{}, acct=d.account, addr=d.address, cat=d.catalog, dsps=d.dsps, yt=d.youtube, int=d.internal;
 
-  // Build DSP selections Ã¢ÂÂ include dep number for internal reference
+  // Build DSP selections ÃÂ¢ÃÂÃÂ include dep number for internal reference
   const dspMeta={};
   Object.values(DSP_GROUPS).flat().forEach(d=>{ dspMeta[d.name]=d.dep; });
 
@@ -1621,9 +1621,9 @@ function syntaxHL(json){
   });
 }
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  ACTIONS
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function upd(sec,field,value){
   S.data[sec][field]=value;
   scheduleSave();
@@ -1699,7 +1699,7 @@ function setMode(mode){
     S.completed=new Set(["account","start","environment","address","catalog","dsps","youtube"]);
     S.active="account";
   } else if(prev==="demo"){
-    // leaving demo Ã¢ÂÂ reset to blank
+    // leaving demo ÃÂ¢ÃÂÃÂ reset to blank
     S.completed=new Set();
     S.active="account";
     S.data={start:{contractSigned:false,paymentConfirmed:false,pointPersonName:"",pointPersonEmail:""},environment:{firstLoginDone:false,videoWatched:false,usersAdded:false,additionalUsersNote:""},account:{accountType:"business",businessName:"",tenantName:"",adminEmail:"",additionalEmails:[],currency:"USD",dpid:"",additionalDpids:[]},address:{street:"",city:"",state:"",zipCode:"",country:""},catalog:{imprints:[],hasExistingCatalog:false,catalogLocations:[],catalogLocationOther:"",catalogFiles:[],priorDeliveryPartner:"",distributorContactName:"",distributorContactEmail:"",catalogIngestionMethod:"",apiNeedsDocs:null,apiNeedsKey:null,apiWillPostSelf:null,isrcCount:"",upcCount:"",videoCount:"",hraAtmosCount:""},dsps:{otherDistributors:[],otherDistributorsNote:""},youtube:{channels:[],mcn:"",additionalInfo:""},internal:{tenantDisplayName:"",opTenantId:"",accountManager:"",notes:""}};
@@ -1715,7 +1715,7 @@ function completeSection(tierId){
   const isLast=idx===tiers.length-1;
 
   if(S.completed.has(tierId)){
-    // already done Ã¢ÂÂ just advance
+    // already done ÃÂ¢ÃÂÃÂ just advance
     if(isLast){const allDone=tiers.every(t=>S.completed.has(t.id));if(allDone){S.active="__done__";render();}return;}
     S.active=tiers[idx+1].id;render();return;
   }
@@ -1756,7 +1756,7 @@ function validate(id){
 function loadDemoData(){
   S.data={
     start:{contractSigned:true,paymentConfirmed:true,pointPersonName:"Alex Rivera",pointPersonEmail:"alex@audioember.com"},
-    environment:{firstLoginDone:true,videoWatched:true,usersAdded:true,additionalUsersNote:"Sarah Chen Ã¢ÂÂ sarah@audioember.com Ã¢ÂÂ Editor\nMarcus Webb Ã¢ÂÂ marcus@audioember.com Ã¢ÂÂ Viewer"},
+    environment:{firstLoginDone:true,videoWatched:true,usersAdded:true,additionalUsersNote:"Sarah Chen ÃÂ¢ÃÂÃÂ sarah@audioember.com ÃÂ¢ÃÂÃÂ Editor\nMarcus Webb ÃÂ¢ÃÂÃÂ marcus@audioember.com ÃÂ¢ÃÂÃÂ Viewer"},
     account:{
       accountType:"business",businessName:"AudioEmber, Inc.",tenantName:"AudioEmber",
       adminEmail:"admin@audioember.com",additionalEmails:["alex@audioember.com"],
@@ -1793,7 +1793,7 @@ function loadDemoData(){
       ],
       mcn:"",additionalInfo:"Catalog spans indie rock, electronic, and ambient. Priority markets: US, UK, Canada, Germany. Existing DDEX feeds available from prior distributor."
     },
-    internal:{tenantDisplayName:"AudioEmber Production",opTenantId:"451",accountManager:"Carla M.",notes:"Priority onboarding Ã¢ÂÂ migration from DistroKid. Existing DDEX pipeline ready. Check Atmos assets with client before delivery."}
+    internal:{tenantDisplayName:"AudioEmber Production",opTenantId:"451",accountManager:"Carla M.",notes:"Priority onboarding ÃÂ¢ÃÂÃÂ migration from DistroKid. Existing DDEX pipeline ready. Check Atmos assets with client before delivery."}
   };
 }
 
@@ -1801,8 +1801,8 @@ function copyJSON(){
   const json=JSON.stringify(buildJSON(),null,2);
   navigator.clipboard.writeText(json).then(()=>{
     const b=document.getElementById("copy-btn");
-    b.textContent="Ã¢ÂÂ Copied!";b.classList.add("copied");
-    setTimeout(()=>{b.textContent="Ã¢ÂÂ Copy JSON";b.classList.remove("copied");},2000);
+    b.textContent="ÃÂ¢ÃÂÃÂ Copied!";b.classList.add("copied");
+    setTimeout(()=>{b.textContent="ÃÂ¢ÃÂÃÂ Copy JSON";b.classList.remove("copied");},2000);
   });
 }
 function dlJSON(){
@@ -1822,9 +1822,9 @@ function restart(){
   render();
 }
 
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 //  AUTO-SAVE & RESUME
-// Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const SAVE_KEY="openplay_onboarding_v1";
 let _saveTimer=null;
 
@@ -1872,7 +1872,7 @@ function updatePageTitle(){
   const done=S.completed.size;
   const total=tiers.length;
   document.title=done===total
-    ?"Ã¢ÂÂ OpenPlay Onboarding Ã¢ÂÂ Complete"
+    ?"ÃÂ¢ÃÂÃÂ OpenPlay Onboarding ÃÂ¢ÃÂÃÂ Complete"
     :done>0
       ?`(${done}/${total}) OpenPlay Onboarding`
       :"OpenPlay Onboarding";
@@ -1892,7 +1892,7 @@ render();
   const msg=document.getElementById("resume-msg");
   if(banner&&msg){
     msg.textContent=name
-      ?`You have unsaved progress for "${name}" Ã¢ÂÂ saved ${agoStr}.`
+      ?`You have unsaved progress for "${name}" ÃÂ¢ÃÂÃÂ saved ${agoStr}.`
       :`You have unsaved progress from ${agoStr}.`;
     banner.style.display="flex";
   }
