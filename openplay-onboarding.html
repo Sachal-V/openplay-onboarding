@@ -135,23 +135,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .btn-bulk{background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:7px;padding:6px 12px;color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;white-space:nowrap}
 .btn-bulk:hover{border-color:rgba(255,255,255,0.45);color:#fff}
 .dsp-group{margin-bottom:24px}
-.dsp-group-header{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.dsp-group-header{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .dsp-group-header::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.12)}
-.dsp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
-.dsp-card{border-radius:10px;padding:12px 13px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);transition:all 0.18s;position:relative}
+.dsp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.dsp-card{border-radius:10px;padding:14px 15px;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.08);transition:all 0.18s;position:relative}
 .dsp-card:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1)}
-.dsp-card.sel-direct{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.4)}
-.dsp-card.sel-open{background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.4)}
-.dsp-card.sel-na{background:rgba(252,165,165,0.08);border-color:rgba(252,165,165,0.3)}
-.dsp-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
+.dsp-card.sel-direct{background:rgba(255,255,255,0.22);border-color:#ffffff}
+.dsp-card.sel-open{background:rgba(52,211,153,0.18);border-color:rgba(52,211,153,0.85)}
+.dsp-card.sel-na{background:rgba(252,165,165,0.13);border-color:rgba(252,165,165,0.6)}
+.dsp-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.3}
 .dsp-emoji{margin-right:5px}
-.dsp-badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;margin-bottom:6px;letter-spacing:0.04em;text-transform:uppercase;border:1px solid}
+.dsp-badge{display:inline-block;font-size:10px;font-weight:800;padding:3px 9px;border-radius:5px;margin-bottom:8px;letter-spacing:0.04em;text-transform:uppercase;border:1px solid}
 .dsp-badge.direct{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);color:#fff}
 .dsp-badge.open{background:rgba(52,211,153,0.14);border-color:rgba(52,211,153,0.3);color:var(--green)}
 .dsp-badge.na{background:rgba(252,165,165,0.1);border-color:rgba(252,165,165,0.25);color:var(--red)}
 .dsp-badge.unset{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14);color:rgba(255,255,255,0.4)}
 .dsp-btns{display:flex;gap:3px;flex-wrap:wrap}
-.dsp-btn{font-size:9px;font-weight:800;padding:3px 7px;border-radius:5px;cursor:pointer;border:1px solid;transition:all 0.12s;font-family:'DM Sans',sans-serif;background:transparent;letter-spacing:0.04em}
+.dsp-btn{font-size:11px;font-weight:800;padding:6px 12px;border-radius:7px;cursor:pointer;border:2px solid;transition:all 0.12s;font-family:'DM Sans',sans-serif;background:transparent;letter-spacing:0.03em}
 .dsp-btn.t-d{border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)}
 .dsp-btn.t-d:hover,.dsp-btn.t-d.on{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.5);color:#fff}
 .dsp-btn.t-o{border-color:rgba(52,211,153,0.4);color:var(--green)}
@@ -921,12 +921,9 @@ function renderCatalog(){
         <label class="field-label">Where is your catalog currently? <span style="color:var(--text-3);font-weight:500;text-transform:none;letter-spacing:0;font-size:10px">(select all that apply)</span></label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
           ${[
-            ["distributor",  "With my current distributor",     "Fully managed by your delivery partner"],
-            ["spreadsheet",  "Spreadsheets / CSVs",             "Excel, Google Sheets, or CSV files"],
-            ["cms",          "Another CMS / DAM",               "Third-party catalog management system"],
-            ["physical",     "Physical media / hard drives",    "Drives, DATs, or physical storage"],
-            ["partial",      "Partially online, partially not", "Mixed — some delivered, some not"],
-            ["other",        "Other",                           "Something else — describe below"],
+            ["distributor",  "With my current distributor", "Fully managed by your delivery partner"],
+            ["spreadsheet",  "Spreadsheets / CSVs",         "Excel, Google Sheets, or CSV files"],
+            ["other",        "Other",                       "Something else — describe below"],
           ].map(([val,label,hint])=>{
             const sel=(d.catalogLocations||[]).includes(val);
             return `<div onclick="toggleCatalogLocation('${val}')" style="padding:12px 14px;border-radius:10px;border:1px solid ${sel?"rgba(255,255,255,0.45)":"var(--border)"};background:${sel?"rgba(255,255,255,0.12)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
@@ -942,7 +939,7 @@ function renderCatalog(){
           <textarea class="field-textarea" style="margin-top:10px;min-height:60px" placeholder="Describe where your catalog currently lives..."
             onchange="upd('catalog','catalogLocationOther',this.value)">${d.catalogLocationOther||""}</textarea>`:""}
         <div style="margin-top:12px">
-          <label class="field-label" style="display:block;margin-bottom:6px">Attach supporting files <span style="color:var(--text-3);font-weight:400;text-transform:none;letter-spacing:0">(optional — CSVs, spreadsheets, asset lists)</span></label>
+          <label class="field-label" style="display:block;margin-bottom:6px">Attach supporting files <span style="color:var(--text-3);font-weight:400;text-transform:none;letter-spacing:0">(optional — sample catalog files, test tracks, or asset lists to help us prepare ingestion)</span></label>
           <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--input-bg);border:1px dashed rgba(255,255,255,0.15);border-radius:10px;cursor:pointer;transition:all 0.15s;font-size:13px;color:var(--text-2)" onmouseover="this.style.borderColor='rgba(189,224,48,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'">
             <span style="font-size:18px">📎</span>
             <span>Click to attach files, or drag and drop</span>
@@ -957,6 +954,7 @@ function renderCatalog(){
             </div>`).join("")}</div>`:""}
         </div>
       </div>
+      ${(d.catalogLocations||[]).includes("distributor")?`
       <div class="field-group">
         <label class="field-label">Prior Delivery Partner<span class="req">*</span></label>
         <select class="field-select" onchange="upd('catalog','priorDeliveryPartner',this.value)">
@@ -976,6 +974,7 @@ function renderCatalog(){
         <input class="field-input" type="email" placeholder="contact@distributor.com"
           value="${d.distributorContactEmail||""}" onchange="upd('catalog','distributorContactEmail',this.value)"/>
       </div>`:""}
+      `:""}
       <div class="field-group ${d.priorDeliveryPartner?"":""}">
         <label class="field-label">Catalog Ingestion Method<span class="req">*</span></label>
         <select class="field-select" onchange="upd('catalog','catalogIngestionMethod',this.value)">
@@ -1059,7 +1058,8 @@ function renderDSPs(){
     <div class="info-box">
       <strong>Direct Deal</strong> — negotiated contract directly with the DSP &nbsp;·&nbsp;
       <strong>OpenPlay</strong> — standard OpenPlay distribution terms &nbsp;·&nbsp;
-      <strong>N/A</strong> — not distributing to this platform
+      <strong>N/A</strong> — not distributing to this platform &nbsp;·&nbsp;
+      <span style="color:rgba(255,255,255,0.55)">Scroll down to assign each platform, then click <strong style="color:#fff">Save &amp; Continue</strong> at the bottom.</span>
     </div>
     <div class="dsp-toolbar">
       <div class="dsp-counts">
@@ -1271,7 +1271,7 @@ function renderOutputClient(main){
       <p style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:12px">All sections complete</p>
       <h1 style="font-size:30px;font-weight:800;letter-spacing:-0.02em;margin-bottom:14px;color:#fff">Ready to submit</h1>
       <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:380px;line-height:1.75;margin-bottom:36px">
-        Review your answers in the sections above, then submit to send everything to the OpenPlay team.
+        You’re ready to go. Hit submit to send your onboarding info to the OpenPlay team.
       </p>
       <button id="client-submit-btn" onclick="clientSubmit()" style="padding:16px 56px;background:#fff;border:none;border-radius:12px;color:var(--bg);font-size:17px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.18s;box-shadow:0 4px 28px rgba(0,0,0,0.25)">
         Submit →
@@ -1573,8 +1573,12 @@ function validate(id){
     flushImprintInput();
     if(!d.catalog.imprints.length){alert("Please add at least one label imprint.");return false;}
     if(!d.account.dpid){alert("Please enter your Main DPID in the DPID Configuration section.");return false;}
-    if(d.catalog.hasExistingCatalog&&(!d.catalog.priorDeliveryPartner||!d.catalog.catalogIngestionMethod)){
-      alert("Please select your prior delivery partner and ingestion method.");return false;
+    const needsPrior=(d.catalog.catalogLocations||[]).includes("distributor");
+    if(d.catalog.hasExistingCatalog&&needsPrior&&!d.catalog.priorDeliveryPartner){
+      alert("Please select your prior delivery partner.");return false;
+    }
+    if(d.catalog.hasExistingCatalog&&!d.catalog.catalogIngestionMethod){
+      alert("Please select a catalog ingestion method.");return false;
     }
   }
   return true;
