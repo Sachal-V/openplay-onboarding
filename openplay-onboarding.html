@@ -1623,7 +1623,7 @@ function loadDemoData(){
         if(d.note) return;
         m[d.name]={mode:"open"};
       });
-      ["Spotify","Apple Music / iTunes","Amazon Music","TIDAL"].forEach(n=>{m[n]=;});
+      ["Spotify","Apple Music / iTunes","Amazon Music","TIDAL"].forEach(n=>{m[n]={mode:"direct",directType:"existing"};});
       return m;
     })(),
     youtube:{
