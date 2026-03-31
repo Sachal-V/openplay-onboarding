@@ -92,10 +92,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
 .field-group{display:flex;flex-direction:column;gap:6px}
 .field-group.full{grid-column:1/-1}
-.field-label{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55)}
+.field-label{font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.7)}
 .req{color:#fff;margin-left:2px;opacity:0.7}
-.field-input,.field-select,.field-textarea{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;width:100%;transition:border-color 0.2s,box-shadow 0.2s;outline:none}
-.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:rgba(255,255,255,0.6);box-shadow:0 0 0 3px rgba(255,255,255,0.12)}
+.field-input,.field-select,.field-textarea{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;width:100%;transition:border-color 0.2s,box-shadow 0.2s;outline:none}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:rgba(255,255,255,0.85);box-shadow:0 0 0 3px rgba(255,255,255,0.18)}
 .field-input::placeholder,.field-textarea::placeholder{color:rgba(255,255,255,0.3)}
 .field-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .field-select option{background:#1A44D4;color:#fff}
@@ -117,7 +117,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .btn-dashed{background:transparent;border:1px dashed rgba(255,255,255,0.22);border-radius:8px;padding:8px 14px;color:rgba(255,255,255,0.45);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.15s;text-align:left;margin-top:4px;font-weight:600}
 .btn-dashed:hover{border-color:rgba(255,255,255,0.55);color:#fff}
 .dpid-main{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);border-radius:10px;padding:14px 16px;margin-bottom:10px}
-.dpid-main-label{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:8px}
+.dpid-main-label{font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:8px}
 .dpid-label-row{display:flex;gap:10px;margin-bottom:8px}
 .dpid-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:800;color:#fff;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px}
 .dpid-list{display:flex;flex-direction:column;gap:7px;margin-top:8px}
@@ -137,7 +137,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .dsp-group{margin-bottom:24px}
 .dsp-group-header{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .dsp-group-header::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.12)}
-.dsp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.dsp-table{width:100%;border-collapse:separate;border-spacing:0;margin-bottom:8px}
+.dsp-table th{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);padding:8px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15)}
+.dsp-table th:first-child{text-align:left}
+.dsp-table td{padding:7px 12px;border-bottom:1px solid rgba(255,255,255,0.07);vertical-align:middle}
+.dsp-table tr:hover td{background:rgba(255,255,255,0.04)}
+.dsp-table tr.row-direct td{background:rgba(255,255,255,0.08)}
+.dsp-table tr.row-open td{background:rgba(52,211,153,0.07)}
+.dsp-table tr.row-na td{background:rgba(252,165,165,0.06)}
+.dsp-td-name{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px}
+.dsp-td-btn{width:80px;text-align:center}
+.dsp-col-btn{padding:5px 10px;border-radius:6px;cursor:pointer;border:2px solid;font-size:11px;font-weight:800;font-family:'DM Sans',sans-serif;background:transparent;width:100%;transition:all 0.12s}
+.dsp-col-btn.t-d{border-color:rgba(255,255,255,0.35);color:rgba(255,255,255,0.7)}
+.dsp-col-btn.t-d.on,.dsp-col-btn.t-d:hover{background:rgba(255,255,255,0.25);border-color:#fff;color:#fff}
+.dsp-col-btn.t-o{border-color:rgba(52,211,153,0.5);color:rgba(52,211,153,0.8)}
+.dsp-col-btn.t-o.on,.dsp-col-btn.t-o:hover{background:rgba(52,211,153,0.25);border-color:#34D399;color:#34D399}
+.dsp-col-btn.t-n{border-color:rgba(252,165,165,0.4);color:rgba(252,165,165,0.7)}
+.dsp-col-btn.t-n.on,.dsp-col-btn.t-n:hover{background:rgba(252,165,165,0.2);border-color:#FCA5A5;color:#FCA5A5}
+.dsp-deal-status{display:flex;gap:4px;justify-content:center}
+.dsp-ds-btn{font-size:9px;font-weight:800;padding:3px 8px;border-radius:4px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.55);background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.12s}
+.dsp-ds-btn.on{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.45);color:#fff}
 .dsp-card{border-radius:10px;padding:14px 15px;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.08);transition:all 0.18s;position:relative}
 .dsp-card:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1)}
 .dsp-card.sel-direct{background:rgba(255,255,255,0.22);border-color:#ffffff}
@@ -321,43 +340,43 @@ let SHEETS_ENDPOINT = (()=>{
 // Grouped by delivery format
 const DSP_GROUPS = {
   "Streaming — Stereo Audio": [
-    {name:"Spotify",                          dep:2958, emoji:"🎧"},
-    {name:"Apple Music / iTunes",             dep:2892, emoji:"🍎"},
+    {name:"7digital (Snap, Pinterest, ROXI)", dep:2884, emoji:"7️⃣"},
     {name:"Amazon Music",                     dep:2886, emoji:"📦"},
-    {name:"Deezer",                           dep:2910, emoji:"🎵"},
-    {name:"TIDAL",                            dep:2964, emoji:"🌊"},
-    {name:"Pandora",                          dep:2948, emoji:"📻"},
-    {name:"iHeartRadio",                      dep:2930, emoji:"❤"},
-    {name:"SoundCloud",                       dep:2954, emoji:"☁"},
-    {name:"TikTok",                           dep:2966, emoji:"🎶"},
-    {name:"YouTube Art Tracks",               dep:2976, emoji:"▶"},
-    {name:"YouTube Content ID",               dep:2978, emoji:"📹"},
+    {name:"AMI Entertainment",               dep:2888, emoji:"🎰"},
     {name:"Anghami",                          dep:2890, emoji:"🌙"},
-    {name:"Boomplay",                         dep:2906, emoji:"🌍"},
+    {name:"Apple Music / iTunes",             dep:2892, emoji:"🍎"},
     {name:"Audiomack",                        dep:2900, emoji:"🔊"},
     {name:"AWA",                              dep:2902, emoji:"🇯🇵"},
-    {name:"Melon",                            dep:2940, emoji:"🍈"},
-    {name:"KKBOX",                            dep:2936, emoji:"🇹🇼"},
-    {name:"Netease",                          dep:2944, emoji:"☁"},
-    {name:"Tencent / QQ Music",              dep:2962, emoji:"🐧"},
-    {name:"Taobao",                           dep:2960, emoji:"🛒"},
-    {name:"Kuaishou",                         dep:2938, emoji:"📱"},
+    {name:"Boomplay",                         dep:2906, emoji:"🌍"},
+    {name:"Deezer",                           dep:2910, emoji:"🎵"},
     {name:"FLO",                              dep:2920, emoji:"🇰🇷"},
-    {name:"Vibe",                             dep:2974, emoji:"🎸"},
-    {name:"JOOX",                             dep:2934, emoji:"🎤"},
+    {name:"iHeartRadio",                      dep:2930, emoji:"❤"},
+    {name:"IMusica",                          dep:2924, emoji:"🇧🇷"},
     {name:"JioSaavn",                         dep:2932, emoji:"🇮🇳"},
+    {name:"JOOX",                             dep:2934, emoji:"🎤"},
+    {name:"KKBOX",                            dep:2936, emoji:"🇹🇼"},
+    {name:"Kuack",                            dep:2926, emoji:"🎵"},
+    {name:"Kuaishou",                         dep:2938, emoji:"📱"},
+    {name:"Melon",                            dep:2940, emoji:"🍈"},
+    {name:"Meta (Audio)",                     dep:null,  emoji:"👤"},
     {name:"Mixcloud",                         dep:2942, emoji:"🌀"},
-    {name:"Qobuz",                            dep:2946, emoji:"🎻"},
+    {name:"Netease",                          dep:2944, emoji:"☁"},
+    {name:"Pandora",                          dep:2948, emoji:"📻"},
     {name:"Peloton",                          dep:2950, emoji:"🚴"},
+    {name:"PretzelAux",                       dep:2952, emoji:"🥨"},
+    {name:"Qobuz",                            dep:2946, emoji:"🎻"},
+    {name:"SoundCloud",                       dep:2954, emoji:"☁"},
+    {name:"Spotify",                          dep:2958, emoji:"🎧"},
+    {name:"Taobao",                           dep:2960, emoji:"🛒"},
+    {name:"Tencent / QQ Music",              dep:2962, emoji:"🐧"},
+    {name:"TIDAL",                            dep:2964, emoji:"🌊"},
+    {name:"TikTok",                           dep:2966, emoji:"🎶"},
     {name:"TouchTunes",                       dep:2968, emoji:"🎮"},
     {name:"Trebel Music",                     dep:2970, emoji:"🎵"},
     {name:"Tuned Global",                     dep:2972, emoji:"🌐"},
-    {name:"AMI Entertainment",               dep:2888, emoji:"🎰"},
-    {name:"PretzelAux",                       dep:2952, emoji:"🥨"},
-    {name:"IMusica",                          dep:2924, emoji:"🇧🇷"},
-    {name:"Kuack",                            dep:2926, emoji:"🎵"},
-    {name:"7digital (Snap, Pinterest, ROXI)", dep:2884, emoji:"7️⃣"},
-    {name:"Napster",                          dep:null,  emoji:"🐱", note:"Not currently delivered — outstanding royalty issues"},
+    {name:"Vibe",                             dep:2974, emoji:"🎸"},
+    {name:"YouTube Art Tracks",               dep:2976, emoji:"▶"},
+    {name:"YouTube Content ID",               dep:2978, emoji:"📹"},
   ],
   "Streaming — Dolby Atmos / HiRes": [
     {name:"Apple Music / iTunes (Atmos)",     dep:null,  emoji:"🍎"},
@@ -367,25 +386,23 @@ const DSP_GROUPS = {
     {name:"Vibe (Atmos)",                     dep:null,  emoji:"🎸"},
   ],
   "Video Distribution": [
-    {name:"Youtube (Music Video)",            dep:null,  emoji:"🎬"},
-    {name:"Spotify (Video)",                  dep:null,  emoji:"🎧"},
+    {name:"AMI Entertainment (Video)",        dep:null,  emoji:"🎰"},
     {name:"Apple Music (Video)",              dep:null,  emoji:"🍎"},
-    {name:"TIDAL (Video)",                    dep:null,  emoji:"🌊"},
     {name:"Boomplay (Video)",                 dep:null,  emoji:"🌍"},
     {name:"JOOX (Video)",                     dep:null,  emoji:"🎤"},
-    {name:"AMI Entertainment (Video)",        dep:null,  emoji:"🎰"},
+    {name:"Spotify (Video)",                  dep:null,  emoji:"🎧"},
+    {name:"TIDAL (Video)",                    dep:null,  emoji:"🌊"},
     {name:"Vevo",                             dep:null,  emoji:"📺"},
-    {name:"Facebook SRP",                     dep:2916, emoji:"📘"},
-    {name:"Facebook AAP",                     dep:2914, emoji:"📘"},
+    {name:"Youtube (Music Video)",            dep:null,  emoji:"🎬"},
   ],
   "Rights & Fingerprinting": [
-    {name:"Audible Magic Rights360",          dep:2896, emoji:"🔬"},
-    {name:"Audible Magic Fulfillment360",     dep:2898, emoji:"🔬"},
     {name:"ACR Cloud",                        dep:2894, emoji:"🔍"},
+    {name:"Audible Magic Fulfillment360",     dep:2898, emoji:"🔬"},
+    {name:"Audible Magic Rights360",          dep:2896, emoji:"🔬"},
     {name:"BMAT",                             dep:2904, emoji:"📊"},
-    {name:"Gracenote",                        dep:2922, emoji:"🎼"},
     {name:"Click n Clear",                    dep:2908, emoji:"✅"},
     {name:"Eleven Labs",                      dep:null,  emoji:"🤖"},
+    {name:"Gracenote",                        dep:2922, emoji:"🎼"},
   ],
 };
 const ALL_DSPS = Object.values(DSP_GROUPS).flat();
@@ -908,10 +925,10 @@ function renderCatalog(){
     <div class="divider"></div>
     <div class="field-grid">
       <div class="field-group full">
-        <label class="field-label">Existing catalog to migrate?<span class="req">*</span></label>
+        <label class="field-label">Do you have existing catalog to migrate?<span class="req">*</span></label>
         <div style="display:flex;gap:10px;margin-top:4px">
           ${[["true","Yes — migrating an existing catalog"],["false","No — starting fresh"]].map(([v,l])=>`
-            <div onclick="upd('catalog','hasExistingCatalog',${v})" style="flex:1;padding:12px 16px;border-radius:10px;border:1px solid ${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.45)":"var(--border)"};background:${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.12)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
+            <div onclick="upd('catalog','hasExistingCatalog',${v})" style="flex:1;padding:12px 16px;border-radius:10px;border:1px solid ${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.45)":"var(--border)"};background:${String(d.hasExistingCatalog)===v?"rgba(255,255,255,0.22)":"var(--input-bg)"};cursor:pointer;transition:all 0.15s">
               <div style="font-size:13px;font-weight:700;color:${String(d.hasExistingCatalog)===v?"#ffffff":"var(--text-2)"}">${l}</div>
             </div>`).join("")}
         </div>
@@ -963,17 +980,17 @@ function renderCatalog(){
         </select>
       </div>
       ${d.priorDeliveryPartner?`
-      <div class="field-group">
-        <label class="field-label">Distributor Contact Name</label>
-        <input class="field-input" type="text" placeholder="First Last"
-          value="${d.distributorContactName||""}" onchange="upd('catalog','distributorContactName',this.value)"/>
+      <div class="field-group full">
+        <label class="field-label">Distributor Contact</label>
+        <div style="display:flex;gap:10px">
+          <input class="field-input" type="text" placeholder="Contact name" style="flex:1"
+            value="${d.distributorContactName||""}" onchange="upd('catalog','distributorContactName',this.value)"/>
+          <input class="field-input" type="email" placeholder="contact@distributor.com" style="flex:1"
+            value="${d.distributorContactEmail||""}" onchange="upd('catalog','distributorContactEmail',this.value)"/>
+        </div>
         <span class="field-hint">Person at ${d.priorDeliveryPartner} who can assist with the migration</span>
-      </div>
-      <div class="field-group">
-        <label class="field-label">Distributor Contact Email</label>
-        <input class="field-input" type="email" placeholder="contact@distributor.com"
-          value="${d.distributorContactEmail||""}" onchange="upd('catalog','distributorContactEmail',this.value)"/>
       </div>`:""}
+      
       `:""}
       <div class="field-group ${d.priorDeliveryPartner?"":""}">
         <label class="field-label">Catalog Ingestion Method<span class="req">*</span></label>
@@ -1079,42 +1096,36 @@ function renderDSPs(){
       <button class="btn-bulk" style="margin-left:auto;font-size:9px;padding:3px 8px" onclick="bulkSetGroup('${group}','open')">All OpenPlay</button>
       <button class="btn-bulk" style="font-size:9px;padding:3px 8px" onclick="bulkSetGroup('${group}','na')">All N/A</button>
     </div>`;
-    html+=`<div class="dsp-grid">`;
+    html+=`<table class="dsp-table">
+      <thead><tr>
+        <th style="width:40%">Platform</th>
+        <th class="dsp-td-btn">OpenPlay</th>
+        <th class="dsp-td-btn">Direct</th>
+        <th class="dsp-td-btn">N/A</th>
+        <th style="width:18%">Deal Status</th>
+      </tr></thead><tbody>`;
     dsps.forEach(dsp=>{
       const sel=d[dsp.name]||{};
       const mode=sel.mode||"";
       const isUnavailable=!!dsp.note;
-      const cls=isUnavailable?"sel-na":(mode==="direct"?"sel-direct":mode==="open"?"sel-open":mode==="na"?"sel-na":"");
-      const badge=isUnavailable?`<span class="dsp-badge na">Unavailable</span>`:
-                  mode==="direct"?`<span class="dsp-badge direct">Direct</span>`:
-                  mode==="open"?`<span class="dsp-badge open">OpenPlay</span>`:
-                  mode==="na"?`<span class="dsp-badge na">N/A</span>`:
-                  `<span class="dsp-badge unset">Unassigned</span>`;
-      const noteHtml=dsp.note?`<div style="font-size:9px;color:var(--red);margin-top:5px;line-height:1.4">${dsp.note}</div>`:"";
-      const depHtml=dsp.dep&&S.mode==="support"?`<div style="font-size:9px;color:var(--text-3);margin-top:3px;font-family:'DM Mono',monospace">DEP: ${dsp.dep}</div>`:"";
-      const directSub=mode==="direct"?`<div class="dsp-direct-sub">
-        <div class="dsp-direct-lbl">Deal Status</div>
-        <div class="dsp-direct-btns">
-          <button class="dsp-direct-btn ${sel.directType==="existing"?"on":""}" onclick="setDT('${dsp.name}','existing');event.stopPropagation()">Existing</button>
-          <button class="dsp-direct-btn ${sel.directType==="new"?"on":""}" onclick="setDT('${dsp.name}','new');event.stopPropagation()">New</button>
-        </div></div>`:"";
+      const rowCls=mode==="direct"?"row-direct":mode==="open"?"row-open":mode==="na"?"row-na":"";
+      const depHtml=dsp.dep&&S.mode==="support"?` <span style="font-size:9px;color:var(--text-3);font-family:'DM Mono',monospace">DEP:${dsp.dep}</span>`:"";
+      const dealStatus=mode==="direct"?`<div class="dsp-deal-status">
+          <button class="dsp-ds-btn ${sel.directType==="existing"?"on":""}" onclick="setDT('${dsp.name}','existing');event.stopPropagation()">Existing</button>
+          <button class="dsp-ds-btn ${sel.directType==="new"?"on":""}" onclick="setDT('${dsp.name}','new');event.stopPropagation()">New</button>
+        </div>`:"<span style='font-size:10px;color:rgba(255,255,255,0.2)'>—</span>";
       const btns=isUnavailable
-        ?`<div style="font-size:9px;color:var(--text-3);margin-top:6px">Not available for selection</div>`
-        :`<div class="dsp-btns">
-          <button class="dsp-btn t-d ${mode==="direct"?"on":""}" onclick="setDSP('${dsp.name}','direct');event.stopPropagation()">Direct</button>
-          <button class="dsp-btn t-o ${mode==="open"?"on":""}" onclick="setDSP('${dsp.name}','open');event.stopPropagation()">OpenPlay</button>
-          <button class="dsp-btn t-n ${mode==="na"?"on":""}" onclick="setDSP('${dsp.name}','na');event.stopPropagation()">N/A</button>
-        </div>`;
-      html+=`<div class="dsp-card ${cls}" ${isUnavailable?"style='opacity:0.6;cursor:default'":""}>
-        <div class="dsp-name"><span class="dsp-emoji">${dsp.emoji}</span>${dsp.name}</div>
-        ${badge}
-        ${noteHtml}
+        ?`<td colspan="3" style="text-align:center;font-size:10px;color:var(--text-3)">Not available</td><td></td>`
+        :`<td class="dsp-td-btn"><button class="dsp-col-btn t-o ${mode==="open"?"on":""}" onclick="setDSP('${dsp.name}','open');event.stopPropagation()">OpenPlay</button></td>
+           <td class="dsp-td-btn"><button class="dsp-col-btn t-d ${mode==="direct"?"on":""}" onclick="setDSP('${dsp.name}','direct');event.stopPropagation()">Direct</button></td>
+           <td class="dsp-td-btn"><button class="dsp-col-btn t-n ${mode==="na"?"on":""}" onclick="setDSP('${dsp.name}','na');event.stopPropagation()">N/A</button></td>
+           <td style="text-align:center">${dealStatus}</td>`;
+      html+=`<tr class="${rowCls}" ${isUnavailable?"style='opacity:0.5'":""}>
+        <td><div class="dsp-td-name"><span>${dsp.emoji}</span>${dsp.name}${depHtml}</div></td>
         ${btns}
-        ${directSub}
-        ${depHtml}
-      </div>`;
+      </tr>`;
     });
-    html+=`</div>`; // close dsp-grid
+    html+=`</tbody></table>`;
     // YouTube channel registration — BELOW the Video Distribution cards, only when YouTube selected
     if(group==="Video Distribution"){
       const ytDspNames=["Youtube (Music Video)","YouTube Art Tracks","YouTube Content ID"];
@@ -1612,8 +1623,7 @@ function loadDemoData(){
         if(d.note) return;
         m[d.name]={mode:"open"};
       });
-      ["Spotify","Apple Music / iTunes","Amazon Music","TIDAL"].forEach(n=>{m[n]={mode:"direct",directType:"existing"};});
-      ["Napster","Eleven Labs","Vevo","Kuaishou","Taobao"].forEach(n=>{if(m[n])m[n]={mode:"na"};});
+      ["Spotify","Apple Music / iTunes","Amazon Music","TIDAL"].forEach(n=>{m[n]=;});
       return m;
     })(),
     youtube:{
