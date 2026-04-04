@@ -283,7 +283,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <div class="mode-toggle">
     <button class="mode-btn active" id="btn-client" onclick="setMode('client')">Client</button>
-    <button class="mode-btn" id="btn-support" onclick="setMode('support')">Support</button>
+    <button class="mode-btn" id="btn-support" onclick="trySupport()">Support</button>
     <button class="mode-btn" id="btn-demo" onclick="setMode('demo')" style="color:var(--amber)">Demo</button>
   </div>
   <div class="nav-section" id="nav"></div>
@@ -716,7 +716,7 @@ function renderEnvironment(){
       checkable: true,
       locked: !d.firstLoginDone,
       title: "Watch the Getting Started video",
-      desc: "Watch the short walkthrough video inside your environment to get familiar with OpenPlay's interface — navigating releases, managing users, DSP delivery settings, and your dashboard.",
+      desc: "Watch the short walkthrough video inside your environment to get familiar with OpenPlay's interface — navigating releases, managing users, DSP delivery settings, and your dashboard. <a href='https://22767882.hs-sites.com/en/knowledge/getting-started-with-openplay' target='_blank' style='color:#ffffff;font-weight:700;text-decoration:underline;'>Watch the Getting Started video →</a>",
       timing: "3 days after first login",
       badge: null,
     },
@@ -1526,6 +1526,11 @@ function goBack(){
   const tiers=currentTiers();
   const idx=tiers.findIndex(t=>t.id===S.active);
   if(idx>0){S.active=tiers[idx-1].id;render();}
+}
+function trySupport(){
+  const pw = prompt('Enter support password:');
+  if(pw === 'OPsvOnboard2026') setMode('support');
+  else if(pw !== null) alert('Incorrect password.');
 }
 function setMode(mode){
   const prev=S.mode;
